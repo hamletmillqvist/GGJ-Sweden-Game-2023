@@ -1,32 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-5426592348149205754
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Tic tac toe musik
-  m_EditorClassIdentifier: 
-  Path: event:/Tic tac toe musik
-  Guid:
-    Data1: 222206106
-    Data2: 1177680737
-    Data3: 856724113
-    Data4: 1086944507
-  Banks:
-  - {fileID: -3234819975794897514}
-  IsStream: 1
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
 --- !u!114 &-3234819975794897514
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42,7 +15,7 @@ MonoBehaviour:
   Path: Assets/FMODBanks/Desktop/Master.bank
   Name: Desktop/Master
   StudioPath: bank:/Master
-  lastModified: 638106062963497056
+  lastModified: 638106125835908179
   FileSizes: []
   Exists: 1
 --- !u!114 &11400000
@@ -61,13 +34,13 @@ MonoBehaviour:
   - {fileID: 3473518050131992394}
   - {fileID: -3234819975794897514}
   EditorEvents:
-  - {fileID: -5426592348149205754}
+  - {fileID: 8841550592757098673}
   EditorParameters: []
   MasterBanks:
   - {fileID: -3234819975794897514}
   StringsBanks:
   - {fileID: 3473518050131992394}
-  cacheTime: 638106062963521932
+  cacheTime: 638106125835958043
   cacheVersion: 131601
 --- !u!114 &3473518050131992394
 MonoBehaviour:
@@ -84,8 +57,35 @@ MonoBehaviour:
   Path: Assets/FMODBanks/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638106062963521932
+  lastModified: 638106125835958043
   FileSizes:
   - Name: 
-    Value: 754
+    Value: 746
   Exists: 1
+--- !u!114 &8841550592757098673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: "event:/H\xE4st1.0"
+  m_EditorClassIdentifier: 
+  Path: "event:/H\xE4st1.0"
+  Guid:
+    Data1: 222206106
+    Data2: 1177680737
+    Data3: 856724113
+    Data4: 1086944507
+  Banks:
+  - {fileID: -3234819975794897514}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
