@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.01.00">
 	<object class="Event" id="{0d3e989a-fb61-4631-9192-1033fb74c940}">
 		<property name="name">
-			<value>Tic tac toe musik</value>
+			<value>Häst1.0</value>
 		</property>
 		<property name="outputFormat">
 			<value>2</value>
@@ -95,7 +95,7 @@
 	</object>
 	<object class="MultiSound" id="{76f1395e-c734-4834-9f7a-49c89553b439}">
 		<relationship name="sounds">
-			<destination>{a1230427-e21e-49ae-a388-56dff950adb6}</destination>
+			<destination>{322a7119-0e8d-4626-bdbd-7eda20871619}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusEffectChain" id="{245e7f51-1958-45f2-86b8-8cdeb771c8db}">
@@ -125,9 +125,15 @@
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{194563e9-c33b-4009-943d-fe2a8f00907c}" />
-	<object class="SingleSound" id="{a1230427-e21e-49ae-a388-56dff950adb6}">
+	<object class="SingleSound" id="{322a7119-0e8d-4626-bdbd-7eda20871619}">
+		<property name="volume">
+			<value>10</value>
+		</property>
+		<property name="looping">
+			<value>true</value>
+		</property>
 		<relationship name="audioFile">
-			<destination>{cf8ef2ce-92b5-418a-8cab-b99a368b94f1}</destination>
+			<destination>{f6f3ff9b-8161-4155-96ee-ac4c35e362a2}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusFader" id="{90fa31d5-76ab-441a-96f9-fb9806df93e9}" />
