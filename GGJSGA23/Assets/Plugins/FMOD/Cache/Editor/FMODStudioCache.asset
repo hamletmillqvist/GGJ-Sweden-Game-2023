@@ -1,5 +1,23 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-6162452626299603789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Desktop/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/FMODBanks/Desktop/Desktop/Master.bank
+  Name: Desktop/Master
+  StudioPath: bank:/Master
+  lastModified: 638106051668540662
+  FileSizes: []
+  Exists: 1
 --- !u!114 &-5426592348149205754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42,8 +60,28 @@ MonoBehaviour:
   Path: Assets/FMODBanks/Desktop/Master.bank
   Name: Desktop/Master
   StudioPath: bank:/Master
-  lastModified: 638106027070264442
+  lastModified: 638106047468501681
   FileSizes: []
+  Exists: 1
+--- !u!114 &-2111389880925415152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Desktop/Master.strings.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/FMODBanks/Desktop/Desktop/Master.strings.bank
+  Name: Desktop/Master.strings
+  StudioPath: bank:/Master.strings
+  lastModified: 638106051668560655
+  FileSizes:
+  - Name: 
+    Value: 700
   Exists: 1
 --- !u!114 &11400000
 MonoBehaviour:
@@ -60,14 +98,18 @@ MonoBehaviour:
   EditorBanks:
   - {fileID: 3473518050131992394}
   - {fileID: -3234819975794897514}
+  - {fileID: -2111389880925415152}
+  - {fileID: -6162452626299603789}
   EditorEvents:
   - {fileID: -5426592348149205754}
   EditorParameters: []
   MasterBanks:
   - {fileID: -3234819975794897514}
+  - {fileID: -6162452626299603789}
   StringsBanks:
   - {fileID: 3473518050131992394}
-  cacheTime: 638106027070294391
+  - {fileID: -2111389880925415152}
+  cacheTime: 638106051668560655
   cacheVersion: 131601
 --- !u!114 &3473518050131992394
 MonoBehaviour:
@@ -79,12 +121,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/Desktop/Master.strings.bank
+  m_Name: bank:/Master.strings.bank
   m_EditorClassIdentifier: 
   Path: Assets/FMODBanks/Desktop/Master.strings.bank
-  Name: Desktop/Master.strings
+  Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638106027070294391
+  lastModified: 638106047468621256
   FileSizes:
   - Name: 
     Value: 754
