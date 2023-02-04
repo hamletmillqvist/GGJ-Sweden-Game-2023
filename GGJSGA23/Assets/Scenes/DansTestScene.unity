@@ -352,11 +352,6 @@ PrefabInstance:
       propertyPath: playerColor.r
       value: 0.61648303
       objectReference: {fileID: 0}
-    - target: {fileID: 6285699548807399556, guid: 89d9220da5323f4429b9b36c43dbf084,
-        type: 3}
-      propertyPath: horizontalMoveSpeed
-      value: 10
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89d9220da5323f4429b9b36c43dbf084, type: 3}
 --- !u!1 &717026879
@@ -695,7 +690,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   depthTM: {fileID: 558206303}
   worldMeshRenderer: {fileID: 1045258446}
-  currentSpeed: 0.1
+  currentSpeed: 0.05
   speedIncrease: 0.001
 --- !u!4 &1460642466
 Transform:
@@ -915,7 +910,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 20
+  orthographic size: 7
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

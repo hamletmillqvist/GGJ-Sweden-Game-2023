@@ -19,7 +19,15 @@ namespace RootRacer
         private Vector2 screenSize;
         private GameManager gameManager;
         public float baseEatAnimationSpeed = 3;
-
+        private float invertTimer = 0;
+        private bool invertControlls = false;
+        [Header("Powerups etc")]
+        public float invertTime = 5;
+        private Vector3 startPosition;
+        private void Awake()
+        {
+            startPosition = transform.position;            
+        }
         void Start()
         {
             camera = FindObjectOfType<Camera>();
@@ -28,6 +36,11 @@ namespace RootRacer
             downSpeed = gameManager.GetTargetSpeed();
             headAnimator = GetComponentInChildren<Animator>();
         }
+        public void ResetPlayer()
+        {
+            transform.position = startPosition;
+            downSpeed = gameManager.GetTargetSpeed();
+        }
         //public void SetDownSpeed(float speed)
         //{
         //    this.downSpeed = speed;
@@ -35,12 +48,18 @@ namespace RootRacer
         [ContextMenu("Stun Player")]
         public void StunPlayer()
         {
-            downSpeed = gameManager.GetTargetSpeed()*100;
+            downSpeed = gameManager.GetTargetSpeed() * 100;
         }
         [ContextMenu("Speed Player")]
-        public void SpeedUp()
+        public void SpeedUp(float amount)
         {
-            downSpeed -= 10;
+            downSpeed -= amount;
+        }
+        [ContextMenu("Invert Controlls")]
+        public void InvertControlls()
+        {
+            invertTimer = invertTime;
+            invertControlls = true;
         }
         private void NormalizeDownSpeed(float deltaTime)
         {
@@ -65,27 +84,36 @@ namespace RootRacer
         }
         void Update()
         {
+            if (gameManager.IsPaused) return;
             float deltaTime = Time.deltaTime;
+            if (invertControlls)
+            {
+                invertTimer -= deltaTime;
+                if (invertTimer <= 0)
+                {
+                    invertControlls = false;
+                }
+            }
             float downSpeed = gameManager.GetTargetSpeed();
-            float aMulti = (downSpeed+ baseEatAnimationSpeed) / baseEatAnimationSpeed;
-            headAnimator.SetFloat("AnimationMultiplier",aMulti);
+            float aMulti = (downSpeed + baseEatAnimationSpeed) / baseEatAnimationSpeed;
+            headAnimator.SetFloat("AnimationMultiplier", aMulti);
             ControllHorizontalPosition(deltaTime);
             float deltaY = ControlVerticalPosition(deltaTime);
-            
+
             NormalizeDownSpeed(deltaTime);
             if (IsOutsideOfScreen())
             {
-                Debug.Log($"{gameObject.name} died!");
+                gameManager.GameOver(this);
             }
         }
 
-        
+
 
         private float ControlVerticalPosition(float deltaTime)
         {
             float deltaY = downSpeed - gameManager.GetTargetSpeed();
             if (deltaY == 0) return 0;
-            transform.position += new Vector3(0, deltaY * deltaTime,0);
+            transform.position += new Vector3(0, deltaY * deltaTime, 0);
             return deltaY;
         }
 
@@ -94,11 +122,11 @@ namespace RootRacer
             float xMove = 0;
             if (Input.GetKey(moveLeft))
             {
-                xMove -= 1;
+                xMove -= invertControlls ? -1 : 1;
             }
             if (Input.GetKey(moveRight))
             {
-                xMove += 1;
+                xMove += invertControlls ? -1 : 1;
             }
 
             transform.position += new Vector3(horizontalMoveSpeed * xMove * deltaTime, 0, 0);
@@ -113,5 +141,5 @@ namespace RootRacer
             Vector3 screenPoint = camera.WorldToScreenPoint(transform.position);
             return screenPoint.y > Screen.height;
         }
-    } 
+    }
 }
