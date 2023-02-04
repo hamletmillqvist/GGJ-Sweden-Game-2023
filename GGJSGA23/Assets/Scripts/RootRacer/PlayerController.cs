@@ -24,6 +24,9 @@ namespace RootRacer
         [Header("Powerups etc")]
         public float invertTime = 5;
         private Vector3 startPosition;
+        private LineRenderer lineRenderer;
+        public float minDistanceForLineUpdate = 0.1f;
+        public int linePositions = 50;
         private void Awake()
         {
             startPosition = transform.position;            
@@ -35,11 +38,20 @@ namespace RootRacer
             gameManager = FindObjectOfType<GameManager>();
             downSpeed = gameManager.GetTargetSpeed();
             headAnimator = GetComponentInChildren<Animator>();
+            lineRenderer = GetComponentInChildren<LineRenderer>();
+            lineRenderer.positionCount = linePositions;
+            lineRenderer.material.SetColor("_PlayerColor",playerColor);
+            ResetPlayer();
         }
         public void ResetPlayer()
         {
             transform.position = startPosition;
             downSpeed = gameManager.GetTargetSpeed();
+            Vector3 pos = transform.position;
+            for (int i = 0; i < lineRenderer.positionCount; i++)
+            {
+                lineRenderer.SetPosition(i,pos);
+            }
         }
         //public void SetDownSpeed(float speed)
         //{
@@ -82,6 +94,24 @@ namespace RootRacer
                 }
             }
         }
+        private void UpdateLine(float deltaTime)
+        {
+            for (int i = 0; i < lineRenderer.positionCount; i++)
+            {
+                lineRenderer.SetPosition(i,lineRenderer.GetPosition(i)+new Vector3(0,gameManager.GetTargetSpeed()*100*deltaTime,0));
+            }
+
+
+            Vector3 lastPoint = lineRenderer.GetPosition(lineRenderer.positionCount-1);
+            if (Vector3.Distance(lastPoint, transform.position) < minDistanceForLineUpdate)
+                return;
+
+            for (int i = 0; i < lineRenderer.positionCount-1; i++)
+            {
+                lineRenderer.SetPosition(i,lineRenderer.GetPosition(i+1));
+            }
+            lineRenderer.SetPosition((lineRenderer.positionCount - 1),transform.position);
+        }
         void Update()
         {
             if (gameManager.IsPaused) return;
@@ -99,7 +129,7 @@ namespace RootRacer
             headAnimator.SetFloat("AnimationMultiplier", aMulti);
             ControllHorizontalPosition(deltaTime);
             float deltaY = ControlVerticalPosition(deltaTime);
-
+            UpdateLine(deltaTime);
             NormalizeDownSpeed(deltaTime);
             if (IsOutsideOfScreen())
             {
@@ -128,9 +158,9 @@ namespace RootRacer
             {
                 xMove += invertControlls ? -1 : 1;
             }
-
-            transform.position += new Vector3(horizontalMoveSpeed * xMove * deltaTime, 0, 0);
-            Vector3 screenPoint = camera.WorldToScreenPoint(transform.position);
+            Vector3 position = transform.position;
+            position += new Vector3(horizontalMoveSpeed * xMove * deltaTime, 0, 0);
+            Vector3 screenPoint = camera.WorldToScreenPoint(position);
 
             screenPoint.x = Mathf.Clamp(screenPoint.x, 0, Screen.width);
             transform.position = camera.ScreenToWorldPoint(screenPoint);
