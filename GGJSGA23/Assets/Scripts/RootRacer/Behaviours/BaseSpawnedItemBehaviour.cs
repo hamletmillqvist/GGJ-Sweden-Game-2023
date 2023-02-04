@@ -6,13 +6,9 @@ namespace RootRacer.Behaviours
 	[RequireComponent(typeof(CircleCollider2D), typeof(SpriteRenderer))]
 	public abstract class BaseSpawnedItemBehaviour : MonoBehaviour
 	{
-		public delegate void EffectTriggerDelegate(BaseSpawnedItemBehaviour sender);
-
-		public event EffectTriggerDelegate OnEffectTriggered;
-	
 		[SerializeField] private Sprite[] sprites;
 		[SerializeField] private SoundEvent triggerSound;
-		
+
 		private CircleCollider2D circleCollider2D;
 
 		public float Radius => circleCollider2D.radius;
@@ -27,6 +23,7 @@ namespace RootRacer.Behaviours
 			{
 				return;
 			}
+
 			var index = Random.Range(0, sprites.Length - 1);
 			spriteRenderer.sprite = sprites[index];
 		}
@@ -49,8 +46,6 @@ namespace RootRacer.Behaviours
 		}
 
 		public virtual void TriggerEffect(PlayerController playerController)
-		{
-			OnEffectTriggered?.Invoke(this);
-		 }
+		{ }
 	}
 }
