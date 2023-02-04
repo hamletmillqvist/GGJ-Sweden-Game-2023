@@ -1017,6 +1017,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1460642466}
   - component: {fileID: 1460642465}
+  - component: {fileID: 1460642467}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1056,6 +1057,52 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1460642467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1460642464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d735f3e75ea19614b84757e8e6a5c2ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  internals:
+    settings:
+      settingExpand: 1
+      disablePlayingSounds: 0
+      dontDestroyOnLoad: 1
+      debugWarnings: 1
+      debugInPlayMode: 1
+      guiWarnings: 1
+      globalSoundTag: {fileID: 0}
+      distanceScale: 1
+      speedOfSoundEnabled: 0
+      speedOfSoundScale: 1
+      voicePreload: 32
+      voiceLimit: 32
+      voiceStopTime: 5
+      voiceEffectLimit: 32
+      debugSoundEventsInSceneViewEnabled: 0
+      debugSoundEventsInGameViewEnabled: 0
+      debugSoundEventsFontSize: 16
+      debugSoundEventsVolumeToAlpha: 0.5
+      debugSoundEventsLifetimeToAlpha: 0.75
+      debugSoundEventsLifetimeColorLength: 1
+      debugSoundEventsColorStart: {r: 1, g: 0.705, b: 0, a: 1}
+      debugSoundEventsColorEnd: {r: 1, g: 0, b: 0.2550001, a: 1}
+      debugSoundEventsColorOutline: {r: 0, g: 0, b: 0, a: 1}
+    statistics:
+      statisticsGlobalExpand: 1
+      statisticsInstancesExpand: 1
+      statisticsSorting: 0
+      statisticsShowActive: 1
+      statisticsShowDisabled: 1
+      statisticsShowVoices: 0
+      statisticsShowPlays: 0
+      statisticsShowVolume: 0
 --- !u!1 &1488789204
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using Sonity;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -10,7 +11,6 @@ namespace RootRacer
 		public static GameManager instance;
 		[SerializeField] private float startSpeed = 0.05f;
 		[SerializeField] private float speedIncrease = 0.1f;
-
 		public static Camera MainCamera;
 
 		public TextMeshProUGUI depthTM;

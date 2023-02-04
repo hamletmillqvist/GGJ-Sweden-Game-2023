@@ -130,6 +130,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9790e319796c32f41a966001589c6f97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  even:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   sprites:
   - {fileID: -135891577, guid: 811eb8d63d5a9b14ba8f5cf0a9f8bb4d, type: 3}
   speedUpAmount: 5

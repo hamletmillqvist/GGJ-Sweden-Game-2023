@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Sonity;
+using UnityEngine;
 
 namespace RootRacer.Behaviours
 {
@@ -10,6 +11,7 @@ namespace RootRacer.Behaviours
 		public event EffectTriggerDelegate OnEffectTriggered;
 	
 		[SerializeField] private Sprite[] sprites;
+		[SerializeField] private SoundEvent triggerSound;
 		
 		private CircleCollider2D circleCollider2D;
 
@@ -31,6 +33,7 @@ namespace RootRacer.Behaviours
 
 		private void OnDestroy()
 		{
+			triggerSound?.Play(GameManager.instance.transform);
 			CollisionSystemUtil.UnregisterItem(this);
 		}
 
