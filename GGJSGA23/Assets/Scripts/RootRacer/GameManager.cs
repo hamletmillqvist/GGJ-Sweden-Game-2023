@@ -10,13 +10,16 @@ namespace RootRacer
         public MeshRenderer worldMeshRenderer;
         private float ypos = 0;
         public float currentSpeed = 0.5f;
-        // Start is called before the first frame update
+        public int shaderPropID;
+        public static Camera MainCamera;
+
         void Start()
         {
+            MainCamera = FindObjectOfType<Camera>();
             worldMaterial = worldMeshRenderer.material;
+            shaderPropID = worldMaterial.shader.GetPropertyNameId(worldMaterial.shader.FindPropertyIndex("_Position"));
         }
 
-        // Update is called once per frame
         void Update()
         {
             ScrollWorld(Time.deltaTime);
@@ -24,7 +27,7 @@ namespace RootRacer
         private void ScrollWorld(float deltaTime)
         {
             ypos -= deltaTime * currentSpeed;
-            worldMaterial.SetVector("_Position", new Vector2(0, ypos));
+            worldMaterial.SetVector(shaderPropID, new Vector2(0, ypos));
         }
     } 
 }
