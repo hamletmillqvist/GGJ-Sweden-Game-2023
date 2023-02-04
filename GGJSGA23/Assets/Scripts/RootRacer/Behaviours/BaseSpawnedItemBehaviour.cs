@@ -2,9 +2,11 @@
 
 namespace RootRacer.Behaviours
 {
-	[RequireComponent(typeof(CircleCollider2D))]
+	[RequireComponent(typeof(CircleCollider2D), typeof(SpriteRenderer))]
 	public abstract class BaseSpawnedItemBehaviour : MonoBehaviour
 	{
+		[SerializeField] private Sprite[] sprites;
+		
 		private CircleCollider2D circleCollider2D;
 
 		public float Radius => circleCollider2D.radius;
@@ -13,14 +15,17 @@ namespace RootRacer.Behaviours
 		{
 			circleCollider2D = GetComponent<CircleCollider2D>();
 			CollisionSystemUtil.RegisterItem(this);
+
+			var spriteRenderer = GetComponent<SpriteRenderer>();
+
+			var index = Random.Range(0, sprites.Length - 1);
+			spriteRenderer.sprite = sprites[index];
 		}
 
 		private void OnDestroy()
 		{
 			CollisionSystemUtil.UnregisterItem(this);
 		}
-
-		public bool GetIsPointInsideRadius(Vector2 point) => circleCollider2D.OverlapPoint(point);
 
 		public bool GetIsTouching(CircleCollider2D otherCollider)
 		{

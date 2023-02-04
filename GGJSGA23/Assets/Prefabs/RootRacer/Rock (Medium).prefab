@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 113368726593801055}
   - component: {fileID: -1131361254056019085}
   m_Layer: 0
-  m_Name: Rock
+  m_Name: Rock (Medium)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 2087716620876588999}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -10.178794, y: -1.3994985, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -100,9 +100,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.0070171356, y: -0.024887681}
   serializedVersion: 2
-  m_Radius: 0.23
+  m_Radius: 0.25063086
 --- !u!114 &113368726593801055
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,6 +115,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa75071386fb4f6c9bf5db1970966464, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 954793976, guid: b727fe7dfdc15c54486ac60c94daed8b, type: 3}
+  - {fileID: 792545920, guid: b727fe7dfdc15c54486ac60c94daed8b, type: 3}
+  - {fileID: 1073465379, guid: b727fe7dfdc15c54486ac60c94daed8b, type: 3}
+  - {fileID: 1228491703, guid: b727fe7dfdc15c54486ac60c94daed8b, type: 3}
 --- !u!114 &-1131361254056019085
 MonoBehaviour:
   m_ObjectHideFlags: 0

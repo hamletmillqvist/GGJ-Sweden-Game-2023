@@ -669,6 +669,8 @@ GameObject:
   - component: {fileID: 1460642466}
   - component: {fileID: 1460642465}
   - component: {fileID: 1460642467}
+  - component: {fileID: 1460642468}
+  - component: {fileID: 1460642469}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -688,11 +690,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9bfa6dbfb70d764c85bfece4e0b80f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  depthTM: {fileID: 558206303}
-  worldMeshRenderer: {fileID: 1045258446}
   startSpeed: 0.05
   speedIncrease: 0.001
-  IsPaused: 0
+  depthTM: {fileID: 558206303}
+  worldMeshRenderer: {fileID: 1045258446}
+  isPaused: 0
 --- !u!4 &1460642466
 Transform:
   m_ObjectHideFlags: 0
@@ -724,6 +726,40 @@ MonoBehaviour:
   spawnerTimerMin: 0.01
   spawnerTimerCountdown: 0
   spawnerPrefab: {fileID: 113368726593801055, guid: 9e193a095f5cef545abaa47e8332b123,
+    type: 3}
+--- !u!114 &1460642468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1460642464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68fdffb0e16c46259963b5c2c3429b24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnerTimerMax: 0.2
+  spawnerTimerMin: 0.05
+  spawnerTimerCountdown: 0.5
+  spawnerPrefab: {fileID: 113368726593801055, guid: 0e30ba4ffdf8ad14590a8bc31d9c234d,
+    type: 3}
+--- !u!114 &1460642469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1460642464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68fdffb0e16c46259963b5c2c3429b24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnerTimerMax: 0.5
+  spawnerTimerMin: 0.2
+  spawnerTimerCountdown: 1
+  spawnerPrefab: {fileID: 113368726593801055, guid: 590358deb34dde9468c20980ef710f26,
     type: 3}
 --- !u!1 &1488789204
 GameObject:
