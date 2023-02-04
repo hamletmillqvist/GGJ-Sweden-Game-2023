@@ -5,8 +5,6 @@ namespace RootRacer
 	[RequireComponent(typeof(CircleCollider2D))]
 	public class PlayerController : MonoBehaviour
 	{
-		[Header("Powerups etc")] public float invertTime = 5;
-		
 		public KeyCode moveLeft;
 		public KeyCode moveRight;
 		public Color playerColor;
@@ -14,20 +12,20 @@ namespace RootRacer
 		public float downSpeed = 0;
 		public float boostReduceAmount;
 		public float baseEatAnimationSpeed = 3;
-
+		public float minDistanceForLineUpdate = 0.1f;
+		public int linePositions = 50;
+		
+		[Header("Powerups etc")]
+		public float invertTime = 5;
+		
         private Animator headAnimator;
         private new Camera camera;
         private Vector2 screenSize;
         private GameManager gameManager;
-        public float baseEatAnimationSpeed = 3;
         private float invertTimer = 0;
         private bool invertControlls = false;
-        [Header("Powerups etc")]
-        public float invertTime = 5;
         private Vector3 startPosition;
         private LineRenderer lineRenderer;
-        public float minDistanceForLineUpdate = 0.1f;
-        public int linePositions = 50;
         private CircleCollider2D circleCollider2D;
 
         private void Awake()
