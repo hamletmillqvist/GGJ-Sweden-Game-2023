@@ -8,7 +8,7 @@ namespace RootRacer.Behaviours
 	{
 		[SerializeField] private Vector3 movementPerSecond;
 		[SerializeField] private float gameSpeedMultiplier = 1;
-		
+
 		private GameManager gameManager;
 		private CircleCollider2D circleCollider2D;
 		private CameraBorderResult cameraBorder;
@@ -19,13 +19,13 @@ namespace RootRacer.Behaviours
 		{
 			gameManager = FindObjectOfType<GameManager>();
 			circleCollider2D = GetComponent<CircleCollider2D>();
-			cameraBorder = OrthographicCameraPositionUtil.GetCameraCorners(Camera.main);
+			cameraBorder = OrthographicCameraPositionUtil.GetCameraCorners(GameManager.MainCamera);
 		}
 
 		private void Update()
 		{
 			var deltaTime = Time.deltaTime;
-			
+
 			var deltaGameSpeed = Vector3.up * (deltaTime * gameManager.GetTargetSpeed() * gameSpeedMultiplier);
 			var deltaMovement = movementPerSecond * deltaTime;
 			var totalMovement = deltaMovement + deltaGameSpeed;

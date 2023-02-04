@@ -30,6 +30,5 @@ namespace RootRacer.Utils
 		public Vector2 BottomRight => new(Right, Bottom);
 		public Vector2 TopLeft => new(Left, Top);
 		public Vector2 TopRight => new(Right, Top);
-
 	}
 }

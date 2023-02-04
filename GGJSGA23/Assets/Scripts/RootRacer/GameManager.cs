@@ -12,16 +12,16 @@ namespace RootRacer
 
 		public TextMeshProUGUI depthTM;
 		public MeshRenderer worldMeshRenderer;
-		public bool IsPaused;
+		public bool isPaused;
 
 		private Material worldMaterial;
-		private float ypos = 0;
+		private float yPosition;
 		private float currentSpeed = 0.5f;
 		private int shaderPropID;
 
 		private void Awake()
 		{
-			MainCamera = FindObjectOfType<Camera>();;
+			MainCamera = FindObjectOfType<Camera>();
 			worldMaterial = worldMeshRenderer.material;
 		}
 
@@ -33,9 +33,9 @@ namespace RootRacer
 
 		void Update()
 		{
-			CollisionSystemUtil.UpdateCollisions();
 			ScrollWorld(Time.deltaTime);
-			UpdateDepthText(-ypos);
+			UpdateDepthText(-yPosition);
+			CollisionSystemUtil.UpdateCollisions();
 		}
 
 		public float GetTargetSpeed()
@@ -50,34 +50,38 @@ namespace RootRacer
 
 		private void ScrollWorld(float deltaTime)
 		{
-			if (IsPaused) return;
+			if (isPaused)
+			{
+				return;
+			}
 
-			ypos -= deltaTime * currentSpeed;
+			yPosition -= deltaTime * currentSpeed;
 			currentSpeed += speedIncrease * deltaTime;
-			worldMaterial.SetVector(shaderPropID, new Vector2(0, ypos));
+			worldMaterial.SetVector(shaderPropID, new Vector2(0, yPosition));
 		}
 
 		public void StartGame()
 		{
 			ResetGame();
-			IsPaused = false;
+			isPaused = false;
 		}
 
 		public void ResetGame()
 		{
 			Time.timeScale = 1;
 			currentSpeed = startSpeed;
-			ypos = 0;
-			PlayerController[] players = FindObjectsOfType<PlayerController>();
-			for (int i = 0; i < players.Length; i++)
+			yPosition = 0;
+
+			var players = FindObjectsOfType<PlayerController>();
+			foreach (var player in players)
 			{
-				players[i].ResetPlayer();
+				player.ResetPlayer();
 			}
 		}
 
 		public void GameOver(PlayerController playerFail)
 		{
-			IsPaused = true;
+			isPaused = true;
 			Time.timeScale = 0;
 		}
 	}

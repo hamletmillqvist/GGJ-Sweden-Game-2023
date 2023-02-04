@@ -11,36 +11,53 @@ namespace RootRacer
 		private static readonly List<CircleCollider2D> registeredPlayers = new();
 		private static readonly Dictionary<CircleCollider2D, List<BaseSpawnedItemBehaviour>> collisions = new();
 
-		private static bool isDirty;
-		
+		public static bool IsDirty { get; private set; }
+
 		public static void RegisterItem(BaseSpawnedItemBehaviour item)
 		{
 			registeredItems.Add(item);
-			isDirty = true;
+			IsDirty = true;
+
+			Debug.Log($"Registered item {item.name}");
 		}
 
 		public static void UnregisterItem(BaseSpawnedItemBehaviour item)
 		{
 			registeredItems.Remove(item);
-			isDirty = true;
+			IsDirty = true;
+			
+			Debug.Log($"Un-registered item {item.name}");
 		}
 
-		public static void RegisterPlayer(CircleCollider2D player) 
+		public static void RegisterPlayer(CircleCollider2D player)
 		{
 			registeredPlayers.Add(player);
 			collisions.Add(player, new List<BaseSpawnedItemBehaviour>());
-			isDirty = true;
+			IsDirty = true;
+			
+			Debug.Log($"Registered player: {player.name}");
 		}
 
 		public static void UnregisterPlayer(CircleCollider2D player)
 		{
 			registeredPlayers.Remove(player);
 			collisions.Remove(player);
-			isDirty = true;
+			IsDirty = true;
+			
+			Debug.Log($"Un-registered player: {player.name}");
+		}
+
+		public static bool UpdateCollisionsIfDirty()
+		{
+			if (!IsDirty) return false;
+
+			UpdateCollisions();
+			return true;
 		}
 
 		public static void UpdateCollisions()
 		{
+			Debug.Log("Collision system update.");
 			foreach (var player in registeredPlayers)
 			{
 				var currentCollisions = registeredItems
@@ -49,30 +66,22 @@ namespace RootRacer
 						item.enabled &&
 						item.GetIsTouching(player))
 					.ToList();
-				
+
 				collisions[player] = currentCollisions;
 			}
 
-			isDirty = false;
+			IsDirty = false;
 		}
 
-		public static List<BaseSpawnedItemBehaviour> GetItemsTouched(CircleCollider2D player)
+		public static List<BaseSpawnedItemBehaviour> GetTouchedItems(CircleCollider2D player)
 		{
-			if (isDirty)
-			{
-				UpdateCollisions();
-			}
-		
+			UpdateCollisionsIfDirty();
 			return collisions[player];
 		}
 
 		public static bool IsGoodItemSpawnLocation(Vector2 spawnPosition, float radius)
 		{
-			if (isDirty)
-			{
-				UpdateCollisions();
-			}
-			
+			UpdateCollisionsIfDirty();
 			return registeredItems.All(x => !x.GetIsTouching(spawnPosition, radius));
 		}
 	}

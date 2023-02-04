@@ -2,6 +2,11 @@ using UnityEngine;
 
 namespace RootRacer
 {
+	/* Todo: This behaviour is growing to become quite complex.
+	 * Let's try refactor it if more methods are added.
+	 * This is to prevent the GOD-CLASS code smell!
+	 */
+
 	[RequireComponent(typeof(CircleCollider2D))]
 	public class PlayerController : MonoBehaviour
 	{
@@ -9,176 +14,225 @@ namespace RootRacer
 		public KeyCode moveRight;
 		public Color playerColor;
 		public float horizontalMoveSpeed;
-		public float downSpeed = 0;
+		public float downSpeed;
 		public float boostReduceAmount;
 		public float baseEatAnimationSpeed = 3;
 		public float minDistanceForLineUpdate = 0.1f;
 		public int linePositions = 50;
-		
-		[Header("Powerups etc")]
-		public float invertTime = 5;
-		
-        private Animator headAnimator;
-        private new Camera camera;
-        private Vector2 screenSize;
-        private GameManager gameManager;
-        private float invertTimer = 0;
-        private bool invertControlls = false;
-        private Vector3 startPosition;
-        private LineRenderer lineRenderer;
-        private CircleCollider2D circleCollider2D;
 
-        private void Awake()
-        {
-	        startPosition = transform.position;   
-	        
-	        camera = FindObjectOfType<Camera>();
-	        gameManager = FindObjectOfType<GameManager>();
-	        headAnimator = GetComponentInChildren<Animator>();
-	        circleCollider2D = GetComponent<CircleCollider2D>();
-            lineRenderer = GetComponentInChildren<LineRenderer>();
-			
-	        GetComponentInChildren<SpriteRenderer>().material.color = playerColor;
-			
-	        CollisionSystemUtil.RegisterPlayer(circleCollider2D);
-        }
-        
-        void Start()
-        {
-            downSpeed = gameManager.GetTargetSpeed();
-            lineRenderer.positionCount = linePositions;
-            lineRenderer.material.SetColor("_PlayerColor",playerColor);
-            ResetPlayer();
-        }
-        public void ResetPlayer()
-        {
-            transform.position = startPosition;
-            downSpeed = gameManager.GetTargetSpeed();
-            Vector3 pos = transform.position;
-            for (int i = 0; i < lineRenderer.positionCount; i++)
-            {
-                lineRenderer.SetPosition(i,pos);
-            }
-        }
-        //public void SetDownSpeed(float speed)
-        //{
-        //    this.downSpeed = speed;
-        //}
-        [ContextMenu("Stun Player")]
-        public void StunPlayer()
-        {
-            downSpeed = gameManager.GetTargetSpeed() * 100;
-        }
-        [ContextMenu("Speed Player")]
-        public void SpeedUp(float amount)
-        {
-            downSpeed -= amount;
-        }
-        [ContextMenu("Invert Controlls")]
-        public void InvertControlls()
-        {
-            invertTimer = invertTime;
-            invertControlls = true;
-        }
-        private void NormalizeDownSpeed(float deltaTime)
-        {
-            float targetSpeed = gameManager.GetTargetSpeed();
-            if (downSpeed == targetSpeed) return;
-            if (downSpeed < targetSpeed)
-            {
-                downSpeed += boostReduceAmount * deltaTime;
-                if (downSpeed > targetSpeed)
-                {
-                    downSpeed = targetSpeed;
-                }
-            }
-            else if (downSpeed > targetSpeed)
-            {
-                downSpeed -= boostReduceAmount * deltaTime;
-                if (downSpeed < targetSpeed)
-                {
-                    downSpeed = targetSpeed;
-                }
-            }
-        }
-        private void UpdateLine(float deltaTime)
-        {
-            for (int i = 0; i < lineRenderer.positionCount; i++)
-            {
-                lineRenderer.SetPosition(i,lineRenderer.GetPosition(i)+new Vector3(0,gameManager.GetTargetSpeed()*100*deltaTime,0));
-            }
+		[Header("Player Effects")] public float invertTime = 5;
 
+		private Animator headAnimator;
+		private new Camera camera;
+		private Vector2 screenSize;
+		private GameManager gameManager;
+		private float invertTimer;
+		private bool invertControls;
+		private Vector3 startPosition;
+		private LineRenderer lineRenderer;
+		private CircleCollider2D circleCollider2D;
 
-            Vector3 lastPoint = lineRenderer.GetPosition(lineRenderer.positionCount-1);
-            if (Vector3.Distance(lastPoint, transform.position) < minDistanceForLineUpdate)
-                return;
+		#region UnityEvents
 
-            for (int i = 0; i < lineRenderer.positionCount-1; i++)
-            {
-                lineRenderer.SetPosition(i,lineRenderer.GetPosition(i+1));
-            }
-            lineRenderer.SetPosition((lineRenderer.positionCount - 1),transform.position);
-        }
-        void Update()
-        {
-            if (gameManager.IsPaused) return;
-            float deltaTime = Time.deltaTime;
-            if (invertControlls)
-            {
-                invertTimer -= deltaTime;
-                if (invertTimer <= 0)
-                {
-                    invertControlls = false;
-                }
-            }
-            float downSpeed = gameManager.GetTargetSpeed();
-            float aMulti = (downSpeed + baseEatAnimationSpeed) / baseEatAnimationSpeed;
-            headAnimator.SetFloat("AnimationMultiplier", aMulti);
-            ControllHorizontalPosition(deltaTime);
-            float deltaY = ControlVerticalPosition(deltaTime);
-            UpdateLine(deltaTime);
-            NormalizeDownSpeed(deltaTime);
-            if (IsOutsideOfScreen())
-            {
-                gameManager.GameOver(this);
-            }
-        }
+		private void Awake()
+		{
+			startPosition = transform.position;
+
+			camera = FindObjectOfType<Camera>();
+			gameManager = FindObjectOfType<GameManager>();
+			headAnimator = GetComponentInChildren<Animator>();
+			lineRenderer = GetComponentInChildren<LineRenderer>();
+
+			GetComponentInChildren<SpriteRenderer>().material.color = playerColor;
+
+			circleCollider2D = GetComponent<CircleCollider2D>();
+			CollisionSystemUtil.RegisterPlayer(circleCollider2D);
+		}
+
+		void Start()
+		{
+			downSpeed = gameManager.GetTargetSpeed();
+			lineRenderer.positionCount = linePositions;
+			lineRenderer.material.SetColor("_PlayerColor", playerColor);
+			ResetPlayer();
+		}
+
+		void Update()
+		{
+			if (gameManager.isPaused)
+			{
+				return;
+			}
+
+			var deltaTime = Time.deltaTime;
+
+			if (invertControls)
+			{
+				invertTimer -= deltaTime;
+				if (invertTimer <= 0)
+				{
+					invertControls = false;
+				}
+			}
+
+			var downSpeed = gameManager.GetTargetSpeed();
+			var aMulti = (downSpeed + baseEatAnimationSpeed) / baseEatAnimationSpeed;
+			headAnimator.SetFloat("AnimationMultiplier", aMulti);
+
+			ControlHorizontalPosition(deltaTime);
+			ControlVerticalPosition(deltaTime);
+
+			UpdateLine(deltaTime);
+
+			NormalizeDownSpeed(deltaTime);
+
+			HandleTouchedItems();
+
+			if (GetIsOutsideOfScreen())
+			{
+				gameManager.GameOver(this);
+				Destroy(gameObject);
+			}
+		}
 
 		private void OnDestroy()
 		{
 			CollisionSystemUtil.UnregisterPlayer(circleCollider2D);
 		}
 
-		private float ControlVerticalPosition(float deltaTime)
+		#endregion
+
+		private void HandleTouchedItems()
 		{
-			float deltaY = downSpeed - gameManager.GetTargetSpeed();
-			if (deltaY == 0) return 0;
-			transform.position += new Vector3(0, deltaY * deltaTime, 0);
-			return deltaY;
+			var touchedItems = CollisionSystemUtil.GetTouchedItems(circleCollider2D);
+			foreach (var touchedItem in touchedItems)
+			{
+				touchedItem.TriggerEffect(this);
+			}
 		}
 
-        private void ControllHorizontalPosition(float deltaTime)
-        {
-            float xMove = 0;
-            if (Input.GetKey(moveLeft))
-            {
-                xMove -= invertControlls ? -1 : 1;
-            }
-            if (Input.GetKey(moveRight))
-            {
-                xMove += invertControlls ? -1 : 1;
-            }
-            Vector3 position = transform.position;
-            position += new Vector3(horizontalMoveSpeed * xMove * deltaTime, 0, 0);
-            Vector3 screenPoint = camera.WorldToScreenPoint(position);
+		public void ResetPlayer()
+		{
+			transform.position = startPosition;
+			downSpeed = gameManager.GetTargetSpeed();
+			var pos = transform.position;
+			for (var i = 0; i < lineRenderer.positionCount; i++)
+			{
+				lineRenderer.SetPosition(i, pos);
+			}
+		}
 
+		[ContextMenu("Stun Player")]
+		public void StunPlayer()
+		{
+			downSpeed = gameManager.GetTargetSpeed() * 100;
+		}
+
+		[ContextMenu("Speed Player")]
+		public void SpeedUp(float amount)
+		{
+			downSpeed -= amount;
+		}
+
+		[ContextMenu("Invert Controls")]
+		public void InvertControls()
+		{
+			invertTimer = invertTime;
+			invertControls = true;
+		}
+
+		private void NormalizeDownSpeed(float deltaTime)
+		{
+			var targetSpeed = gameManager.GetTargetSpeed();
+
+			if (downSpeed == targetSpeed)
+			{
+				return;
+			}
+
+			// I think there's a clamp like method that should move towards the target value linearly?
+			if (downSpeed < targetSpeed)
+			{
+				downSpeed += boostReduceAmount * deltaTime;
+				if (downSpeed > targetSpeed)
+				{
+					downSpeed = targetSpeed;
+				}
+			}
+			else if (downSpeed > targetSpeed)
+			{
+				downSpeed -= boostReduceAmount * deltaTime;
+				if (downSpeed < targetSpeed)
+				{
+					downSpeed = targetSpeed;
+				}
+			}
+		}
+
+		private void UpdateLine(float deltaTime)
+		{
+			for (var i = 0; i < lineRenderer.positionCount; i++)
+			{
+				lineRenderer.SetPosition(i,
+					lineRenderer.GetPosition(i) + new Vector3(0, gameManager.GetTargetSpeed() * 100 * deltaTime, 0));
+			}
+
+			var lastPoint = lineRenderer.GetPosition(lineRenderer.positionCount - 1);
+			if (Vector3.Distance(lastPoint, transform.position) < minDistanceForLineUpdate)
+			{
+				return;
+			}
+
+			for (var i = 0; i < lineRenderer.positionCount - 1; i++)
+			{
+				lineRenderer.SetPosition(i, lineRenderer.GetPosition(i + 1));
+			}
+
+			lineRenderer.SetPosition((lineRenderer.positionCount - 1), transform.position);
+		}
+
+		private void ControlVerticalPosition(float deltaTime)
+		{
+			var deltaY = downSpeed - gameManager.GetTargetSpeed();
+
+			if (deltaY == 0)
+			{
+				return;
+			}
+
+			transform.position += new Vector3(0, deltaY * deltaTime, 0);
+		}
+
+		private void ControlHorizontalPosition(float deltaTime)
+		{
+			float movementX = 0;
+			if (Input.GetKey(moveLeft))
+			{
+				movementX -= invertControls ? -1 : 1;
+			}
+
+			if (Input.GetKey(moveRight))
+			{
+				movementX += invertControls ? -1 : 1;
+			}
+
+			UpdateHorizontalPosition(deltaTime * movementX);
+		}
+
+		private void UpdateHorizontalPosition(float movementDirectionDelta)
+		{
+			var position = transform.position;
+			position += new Vector3(horizontalMoveSpeed * movementDirectionDelta, 0, 0);
+
+			var screenPoint = camera.WorldToScreenPoint(position);
 			screenPoint.x = Mathf.Clamp(screenPoint.x, 0, Screen.width);
+
 			transform.position = camera.ScreenToWorldPoint(screenPoint);
 		}
 
-		private bool IsOutsideOfScreen()
+		private bool GetIsOutsideOfScreen()
 		{
-			Vector3 screenPoint = camera.WorldToScreenPoint(transform.position);
+			var screenPoint = camera.WorldToScreenPoint(transform.position);
 			return screenPoint.y > Screen.height;
 		}
 	}
