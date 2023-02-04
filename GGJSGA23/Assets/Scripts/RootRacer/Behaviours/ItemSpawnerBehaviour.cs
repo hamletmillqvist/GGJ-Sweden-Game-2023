@@ -5,25 +5,14 @@ using RootRacer.Utils;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-namespace RootRacer
+namespace RootRacer.Behaviours
 {
 	public class ItemSpawnerBehaviour : MonoBehaviour
 	{
-		private static readonly List<SpawnedItemBehaviour> spawnedItems = new();
-
-		public static void UnsubscribeSpawnedItem(SpawnedItemBehaviour spawnedItemObject)
-		{
-			var wasRemoved = spawnedItems.Remove(spawnedItemObject);
-			if (!wasRemoved)
-			{
-				Debug.LogWarning("GameObject called unsubscribe more than once!");
-			}
-		}
-
 		[SerializeField] private float spawnerTimerMax;
 		[SerializeField] private float spawnerTimerMin;
 		[SerializeField] private float spawnerTimerCountdown;
-		[SerializeField] private SpawnedItemBehaviour spawnerPrefab;
+		[SerializeField] private BaseSpawnedItemBehaviour spawnerPrefab;
 
 		private CameraBorderResult cameraBorder;
 		private GameManager gameManager;
@@ -43,7 +32,7 @@ namespace RootRacer
 		{
 			var deltaTime = Time.deltaTime;
 			var targetSpeed = gameManager.GetTargetSpeed();
-			
+
 			UpdateTimer(deltaTime, targetSpeed);
 
 			if (spawnerTimerCountdown <= 0)
@@ -60,10 +49,12 @@ namespace RootRacer
 		private void SpawnItem()
 		{
 			var spawnPosition = GetValidSpawnPosition();
-			
-			var instantiatedObject = Instantiate(spawnerPrefab, spawnPosition, Quaternion.identity);
-			spawnedItems.Add(instantiatedObject);
+			Instantiate(spawnerPrefab, spawnPosition, Quaternion.identity);
+			ResetSpawnTimer();
+		}
 
+		private void ResetSpawnTimer()
+		{
 			var nextSpawnTime = Random.Range(spawnerTimerMin, spawnerTimerMax);
 			spawnerTimerCountdown += nextSpawnTime;
 		}
@@ -86,17 +77,18 @@ namespace RootRacer
 
 		private Vector2? RandomizeSpawningPosition()
 		{
+			var radius = spawnerPrefab.GetComponent<CircleCollider2D>().radius;
 			var spawnPosition = new Vector2(
-				x: Random.Range(cameraBorder.Left, cameraBorder.Right), 
-				y: cameraBorder.Bottom - spawnerPrefab.GetComponent<CircleCollider2D>().radius);
+				x: Random.Range(cameraBorder.Left, cameraBorder.Right),
+				y: cameraBorder.Bottom - radius);
 
-			var hasGoodSpawnPosition = spawnedItems.All(x => !x.GetIsInsideRadius(spawnPosition));
 
+			var hasGoodSpawnPosition = CollisionSystemUtil.IsGoodItemSpawnLocation(spawnPosition, radius);
 			if (!hasGoodSpawnPosition)
 			{
 				return null;
 			}
-			
+
 			return spawnPosition;
 		}
 	}

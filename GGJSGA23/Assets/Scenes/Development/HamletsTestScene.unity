@@ -352,11 +352,6 @@ PrefabInstance:
       propertyPath: playerColor.r
       value: 0.61648303
       objectReference: {fileID: 0}
-    - target: {fileID: 6285699548807399556, guid: 89d9220da5323f4429b9b36c43dbf084,
-        type: 3}
-      propertyPath: horizontalMoveSpeed
-      value: 10
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89d9220da5323f4429b9b36c43dbf084, type: 3}
 --- !u!1 &717026879
@@ -695,8 +690,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   depthTM: {fileID: 558206303}
   worldMeshRenderer: {fileID: 1045258446}
-  currentSpeed: 0.1
+  startSpeed: 0.05
   speedIncrease: 0.001
+  IsPaused: 0
 --- !u!4 &1460642466
 Transform:
   m_ObjectHideFlags: 0
@@ -724,8 +720,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68fdffb0e16c46259963b5c2c3429b24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnerTimerMax: 2
-  spawnerTimerMin: 1
+  spawnerTimerMax: 0.1
+  spawnerTimerMin: 0.01
   spawnerTimerCountdown: 0
   spawnerPrefab: {fileID: 113368726593801055, guid: 9e193a095f5cef545abaa47e8332b123,
     type: 3}
@@ -915,7 +911,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 10
+  orthographic size: 7
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -939,7 +935,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1899323963}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -30}
+  m_LocalPosition: {x: 0, y: 0, z: -30}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1228,10 +1224,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6285699548807399556, guid: 89d9220da5323f4429b9b36c43dbf084,
+    - target: {fileID: 8700279318264762016, guid: 89d9220da5323f4429b9b36c43dbf084,
         type: 3}
-      propertyPath: boostReduceAmount
-      value: 1
+      propertyPath: m_Positions.Array.data[0].y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89d9220da5323f4429b9b36c43dbf084, type: 3}

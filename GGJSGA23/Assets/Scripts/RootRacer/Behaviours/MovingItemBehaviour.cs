@@ -1,7 +1,7 @@
 ﻿using RootRacer.Utils;
 using UnityEngine;
 
-namespace RootRacer
+namespace RootRacer.Behaviours
 {
 	[RequireComponent(typeof(CircleCollider2D))]
 	public class MovingItemBehaviour : MonoBehaviour
