@@ -30,7 +30,6 @@ namespace RootRacer.Behaviours
 
 		private void OnDestroy()
 		{
-			triggerSound?.Play(GameManager.instance.transform);
 			CollisionSystemUtil.UnregisterItem(this);
 		}
 
@@ -46,6 +45,8 @@ namespace RootRacer.Behaviours
 		}
 
 		public virtual void TriggerEffect(PlayerController playerController)
-		{ }
+		{ 
+			triggerSound?.Play(GameManager.instance.transform);
+		}
 	}
 }
