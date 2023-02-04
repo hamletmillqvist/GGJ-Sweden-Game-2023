@@ -36,6 +36,7 @@ namespace RootRacer
 	        gameManager = FindObjectOfType<GameManager>();
 	        headAnimator = GetComponentInChildren<Animator>();
 	        circleCollider2D = GetComponent<CircleCollider2D>();
+            lineRenderer = GetComponentInChildren<LineRenderer>();
 			
 	        GetComponentInChildren<SpriteRenderer>().material.color = playerColor;
 			
@@ -45,7 +46,6 @@ namespace RootRacer
         void Start()
         {
             downSpeed = gameManager.GetTargetSpeed();
-            lineRenderer = GetComponentInChildren<LineRenderer>();
             lineRenderer.positionCount = linePositions;
             lineRenderer.material.SetColor("_PlayerColor",playerColor);
             ResetPlayer();
