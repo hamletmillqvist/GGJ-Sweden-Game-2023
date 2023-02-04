@@ -118,6 +118,7 @@ MonoBehaviour:
   sprites:
   - {fileID: 1386935413, guid: 58f8f0d720d86d84785d0b03168cc98f, type: 3}
   - {fileID: -69498752, guid: 58f8f0d720d86d84785d0b03168cc98f, type: 3}
+  triggerSound: {fileID: 11400000, guid: e66eb54a69445024b81c2b0430230bb4, type: 2}
 --- !u!114 &-1131361254056019085
 MonoBehaviour:
   m_ObjectHideFlags: 0

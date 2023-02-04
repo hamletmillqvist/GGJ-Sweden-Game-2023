@@ -309,10 +309,10 @@ MonoBehaviour:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-      stereoPanExpand: 0
+      stereoPanExpand: 1
       stereoPanOffset: 0
-      stereoPanAngleUse: 0
-      stereoPanAngleAmount: 0.75
+      stereoPanAngleUse: 1
+      stereoPanAngleAmount: 1
       stereoPanAngleRolloff: -2
       reverbZoneMixExpand: 0
       reverbZoneMixDecibel: 0
