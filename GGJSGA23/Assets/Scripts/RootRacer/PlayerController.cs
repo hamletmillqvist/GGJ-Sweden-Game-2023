@@ -27,11 +27,20 @@ namespace RootRacer
             gameManager = FindObjectOfType<GameManager>();
             downSpeed = gameManager.GetTargetSpeed();
             headAnimator = GetComponentInChildren<Animator>();
-            
         }
-        public void SetDownSpeed(float speed)
+        //public void SetDownSpeed(float speed)
+        //{
+        //    this.downSpeed = speed;
+        //}
+        [ContextMenu("Stun Player")]
+        public void StunPlayer()
         {
-            this.downSpeed = speed;
+            downSpeed = gameManager.GetTargetSpeed()*100;
+        }
+        [ContextMenu("Speed Player")]
+        public void SpeedUp()
+        {
+            downSpeed -= 10;
         }
         private void NormalizeDownSpeed(float deltaTime)
         {
@@ -45,6 +54,14 @@ namespace RootRacer
                     downSpeed = targetSpeed;
                 }
             }
+            else if (downSpeed > targetSpeed)
+            {
+                downSpeed -= boostReduceAmount * deltaTime;
+                if (downSpeed < targetSpeed)
+                {
+                    downSpeed = targetSpeed;
+                }
+            }
         }
         void Update()
         {
@@ -53,7 +70,8 @@ namespace RootRacer
             float aMulti = (downSpeed+ baseEatAnimationSpeed) / baseEatAnimationSpeed;
             headAnimator.SetFloat("AnimationMultiplier",aMulti);
             ControllHorizontalPosition(deltaTime);
-            ControlVerticalPosition(deltaTime);
+            float deltaY = ControlVerticalPosition(deltaTime);
+            
             NormalizeDownSpeed(deltaTime);
             if (IsOutsideOfScreen())
             {
@@ -61,11 +79,14 @@ namespace RootRacer
             }
         }
 
-        private void ControlVerticalPosition(float deltaTime)
+        
+
+        private float ControlVerticalPosition(float deltaTime)
         {
             float deltaY = downSpeed - gameManager.GetTargetSpeed();
-            if (deltaY == 0) return;
+            if (deltaY == 0) return 0;
             transform.position += new Vector3(0, deltaY * deltaTime,0);
+            return deltaY;
         }
 
         private void ControllHorizontalPosition(float deltaTime)

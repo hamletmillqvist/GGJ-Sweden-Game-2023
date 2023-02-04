@@ -128,4 +128,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementPerSecond: {x: 0, y: 0, z: 0}
-  SpeedMultiplier: 200
+  gameSpeedMultiplier: 100
