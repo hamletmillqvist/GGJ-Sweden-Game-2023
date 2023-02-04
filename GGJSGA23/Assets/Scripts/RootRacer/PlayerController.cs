@@ -21,13 +21,16 @@ namespace RootRacer
 		public int linePositions = 50;
 
 		[Header("Player Effects")] public float invertTime = 5;
+		public float shieldTime = 5;
 
 		private Animator headAnimator;
 		private new Camera camera;
 		private Vector2 screenSize;
 		private GameManager gameManager;
 		private float invertTimer;
+		private float shieldTimer;
 		private bool invertControls;
+		private bool hasShield;
 		private Vector3 startPosition;
 		private LineRenderer lineRenderer;
 		private CircleCollider2D circleCollider2D;
@@ -66,14 +69,7 @@ namespace RootRacer
 
 			var deltaTime = Time.deltaTime;
 
-			if (invertControls)
-			{
-				invertTimer -= deltaTime;
-				if (invertTimer <= 0)
-				{
-					invertControls = false;
-				}
-			}
+			EffectTimers(deltaTime);
 
 			var downSpeed = gameManager.GetTargetSpeed();
 			var aMulti = (downSpeed + baseEatAnimationSpeed) / baseEatAnimationSpeed;
@@ -94,6 +90,25 @@ namespace RootRacer
 				Destroy(gameObject);
 			}
 		}
+		private void EffectTimers(float deltaTime)
+		{
+            if (invertControls)
+            {
+                invertTimer -= deltaTime;
+                if (invertTimer <= 0)
+                {
+                    invertControls = false;
+                }
+            }
+			if (hasShield)
+			{
+				shieldTimer -= deltaTime;
+				if (shieldTimer <= 0)
+				{
+					hasShield = false;
+				}
+			}
+        }
 
 		private void OnDestroy()
 		{
@@ -120,11 +135,18 @@ namespace RootRacer
 			{
 				lineRenderer.SetPosition(i, pos);
 			}
+			hasShield = false;
+			invertControls = false;
 		}
 
 		[ContextMenu("Stun Player")]
 		public void StunPlayer()
 		{
+			if (hasShield)
+			{
+				hasShield = false;
+				return;
+			}
 			downSpeed = gameManager.GetTargetSpeed() * 100;
 		}
 
@@ -139,6 +161,11 @@ namespace RootRacer
 		{
 			invertTimer = invertTime;
 			invertControls = true;
+		}
+		public void Shield()
+		{
+			shieldTimer = shieldTime;
+			hasShield = true;
 		}
 
 		private void NormalizeDownSpeed(float deltaTime)

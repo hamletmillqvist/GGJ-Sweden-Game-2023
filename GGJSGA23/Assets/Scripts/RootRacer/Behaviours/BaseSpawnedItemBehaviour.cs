@@ -17,7 +17,10 @@ namespace RootRacer.Behaviours
 			CollisionSystemUtil.RegisterItem(this);
 
 			var spriteRenderer = GetComponent<SpriteRenderer>();
-
+			if (sprites == null || sprites.Length == 0)
+			{
+				return;
+			}
 			var index = Random.Range(0, sprites.Length - 1);
 			spriteRenderer.sprite = sprites[index];
 		}

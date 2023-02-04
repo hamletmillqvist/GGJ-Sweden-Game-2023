@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -5,6 +7,7 @@ namespace RootRacer
 {
 	public class GameManager : MonoBehaviour
 	{
+		public static GameManager instance;
 		[SerializeField] private float startSpeed = 0.05f;
 		[SerializeField] private float speedIncrease = 0.1f;
 
@@ -18,15 +21,19 @@ namespace RootRacer
 		private float yPosition;
 		private float currentSpeed = 0.5f;
 		private int shaderPropID;
-
+		private List<PlayerController> players;
 		private void Awake()
 		{
+			instance = this;
 			MainCamera = FindObjectOfType<Camera>();
 			worldMaterial = worldMeshRenderer.material;
+			players = FindObjectsOfType<PlayerController>().ToList();
 		}
+		public static List<PlayerController> Players => instance.players;
 
 		void Start()
 		{
+			
 			shaderPropID = worldMaterial.shader.GetPropertyNameId(worldMaterial.shader.FindPropertyIndex("_Position"));
 			StartGame();
 		}
