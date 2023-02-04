@@ -22,6 +22,8 @@ namespace RootRacer
 
 		[Header("Player Effects")] public float invertTime = 5;
 		public float shieldTime = 5;
+		public float sizeMultiplier = 2;
+		public float sizeTime = 5;
 
 		private Animator headAnimator;
 		private new Camera camera;
@@ -29,8 +31,11 @@ namespace RootRacer
 		private GameManager gameManager;
 		private float invertTimer;
 		private float shieldTimer;
+		private float sizeTimer;
+		private Vector3 baseSizeScale;
 		private bool invertControls;
 		private bool hasShield;
+		private bool hasSizeUp;
 		private Vector3 startPosition;
 		private LineRenderer lineRenderer;
 		private CircleCollider2D circleCollider2D;
@@ -40,7 +45,7 @@ namespace RootRacer
 		private void Awake()
 		{
 			startPosition = transform.position;
-
+			baseSizeScale = transform.localScale;
 			camera = FindObjectOfType<Camera>();
 			gameManager = FindObjectOfType<GameManager>();
 			headAnimator = GetComponentInChildren<Animator>();
@@ -108,6 +113,15 @@ namespace RootRacer
 					hasShield = false;
 				}
 			}
+			if (hasSizeUp)
+			{
+				sizeTimer -= deltaTime;
+				if (sizeTimer <= 0)
+				{
+					hasSizeUp = false;
+					transform.localScale = baseSizeScale;
+				}
+			}
         }
 
 		private void OnDestroy()
@@ -137,6 +151,8 @@ namespace RootRacer
 			}
 			hasShield = false;
 			invertControls = false;
+			hasSizeUp = false;
+			transform.localScale = baseSizeScale;
 		}
 
 		[ContextMenu("Stun Player")]
@@ -167,6 +183,12 @@ namespace RootRacer
 			shieldTimer = shieldTime;
 			hasShield = true;
 		}
+		public void SizeUp()
+		{
+			transform.localScale = baseSizeScale * sizeMultiplier;
+			hasSizeUp = true;
+			sizeTimer = sizeTime;
+		}
 
 		private void NormalizeDownSpeed(float deltaTime)
 		{
@@ -176,24 +198,27 @@ namespace RootRacer
 			{
 				return;
 			}
+            // I think there's a clamp like method that should move towards the target value linearly?
 
-			// I think there's a clamp like method that should move towards the target value linearly?
-			if (downSpeed < targetSpeed)
-			{
-				downSpeed += boostReduceAmount * deltaTime;
-				if (downSpeed > targetSpeed)
-				{
-					downSpeed = targetSpeed;
-				}
-			}
-			else if (downSpeed > targetSpeed)
-			{
-				downSpeed -= boostReduceAmount * deltaTime;
-				if (downSpeed < targetSpeed)
-				{
-					downSpeed = targetSpeed;
-				}
-			}
+			
+            downSpeed = Mathf.MoveTowards(downSpeed, targetSpeed, boostReduceAmount * deltaTime);
+
+			//if (downSpeed < targetSpeed)
+			//{
+			//	downSpeed += boostReduceAmount * deltaTime;
+			//	if (downSpeed > targetSpeed)
+			//	{
+			//		downSpeed = targetSpeed;
+			//	}
+			//}
+			//else if (downSpeed > targetSpeed)
+			//{
+			//	downSpeed -= boostReduceAmount * deltaTime;
+			//	if (downSpeed < targetSpeed)
+			//	{
+			//		downSpeed = targetSpeed;
+			//	}
+			//}
 		}
 
 		private void UpdateLine(float deltaTime)
@@ -250,11 +275,14 @@ namespace RootRacer
 		{
 			var position = transform.position;
 			position += new Vector3(horizontalMoveSpeed * movementDirectionDelta, 0, 0);
-
-			var screenPoint = camera.WorldToScreenPoint(position);
-			screenPoint.x = Mathf.Clamp(screenPoint.x, 0, Screen.width);
-
-			transform.position = camera.ScreenToWorldPoint(screenPoint);
+			var minScreenBounds = camera.ScreenToWorldPoint(Vector3.zero); 
+			var maxScreenBounds = camera.ScreenToWorldPoint(new Vector3(Screen.width,Screen.height,0));
+			var radius = circleCollider2D.radius * transform.localScale.x;
+			position.x = Mathf.Clamp(position.x,minScreenBounds.x+radius,maxScreenBounds.x-radius);
+			//var screenPoint = camera.WorldToScreenPoint(position);		
+			//screenPoint.x = Mathf.Clamp(screenPoint.x, 0, Screen.width);
+			//transform.position = camera.ScreenToWorldPoint(screenPoint);
+			transform.position = position;
 		}
 
 		private bool GetIsOutsideOfScreen()
