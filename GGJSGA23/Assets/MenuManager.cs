@@ -10,8 +10,10 @@ public class MenuManager : MonoBehaviour
     [SerializeField]
     private Canvas creditsCanvas;
     private int activeScene = 0;
+    [SerializeField]
+    string nextScene;
     //bool changingScene = false;
-    //Scene mainScene = SceneManager.GetSceneByName("SampleScene");
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,7 +31,7 @@ public class MenuManager : MonoBehaviour
         //activeScene++;
         
         //SceneManager.LoadScene(activeScene, LoadSceneMode.Single);
-        SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
+        SceneManager.LoadScene("nextScene", LoadSceneMode.Single);
     }
     public void Exitgame()
     {
