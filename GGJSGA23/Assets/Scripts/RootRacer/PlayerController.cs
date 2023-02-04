@@ -80,8 +80,8 @@ namespace RootRacer
 			var aMulti = (downSpeed + baseEatAnimationSpeed) / baseEatAnimationSpeed;
 			headAnimator.SetFloat("AnimationMultiplier", aMulti);
 
-			ControlHorizontalPosition(deltaTime);
-			ControlVerticalPosition(deltaTime);
+			HandleHorizontalMovement(deltaTime);
+			HandleVerticalMovement(deltaTime);
 
 			UpdateLine(deltaTime);
 
@@ -243,7 +243,7 @@ namespace RootRacer
 			lineRenderer.SetPosition((lineRenderer.positionCount - 1), transform.position);
 		}
 
-		private void ControlVerticalPosition(float deltaTime)
+		private void HandleVerticalMovement(float deltaTime)
 		{
 			var deltaY = downSpeed - gameManager.GetTargetSpeed();
 
@@ -255,7 +255,7 @@ namespace RootRacer
 			transform.position += new Vector3(0, deltaY * deltaTime, 0);
 		}
 
-		private void ControlHorizontalPosition(float deltaTime)
+		private void HandleHorizontalMovement(float deltaTime)
 		{
 			float movementX = 0;
 			if (Input.GetKey(moveLeft))

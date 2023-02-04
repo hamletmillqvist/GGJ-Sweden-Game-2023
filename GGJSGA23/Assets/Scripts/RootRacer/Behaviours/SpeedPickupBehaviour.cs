@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace RootRacer.Behaviours
@@ -9,6 +7,8 @@ namespace RootRacer.Behaviours
         [SerializeField]private float speedUpAmount;
         public override void TriggerEffect(PlayerController playerController)
         {
+            base.TriggerEffect(playerController);
+
             playerController.SpeedUp(speedUpAmount);
             Destroy(gameObject);
         }

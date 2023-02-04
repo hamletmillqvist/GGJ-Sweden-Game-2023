@@ -4,6 +4,7 @@ namespace RootRacer.Behaviours
 {
         public override void TriggerEffect(PlayerController playerController)
         {
+            base.TriggerEffect(playerController);
             foreach (var player in GameManager.Players)
             {
                 if (player == playerController)
