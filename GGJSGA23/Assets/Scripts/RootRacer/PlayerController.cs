@@ -14,9 +14,11 @@ namespace RootRacer
         public float downSpeed = 0;
         public float boostReduceAmount;
 
+        private Animator headAnimator;
         private new Camera camera;
         private Vector2 screenSize;
         private GameManager gameManager;
+        public float baseEatAnimationSpeed = 3;
 
         void Start()
         {
@@ -24,6 +26,8 @@ namespace RootRacer
             GetComponentInChildren<SpriteRenderer>().material.color = playerColor;
             gameManager = FindObjectOfType<GameManager>();
             downSpeed = gameManager.GetTargetSpeed();
+            headAnimator = GetComponentInChildren<Animator>();
+            
         }
         public void SetDownSpeed(float speed)
         {
@@ -45,6 +49,9 @@ namespace RootRacer
         void Update()
         {
             float deltaTime = Time.deltaTime;
+            float downSpeed = gameManager.GetTargetSpeed();
+            float aMulti = (downSpeed+ baseEatAnimationSpeed) / baseEatAnimationSpeed;
+            headAnimator.SetFloat("AnimationMultiplier",aMulti);
             ControllHorizontalPosition(deltaTime);
             ControlVerticalPosition(deltaTime);
             NormalizeDownSpeed(deltaTime);

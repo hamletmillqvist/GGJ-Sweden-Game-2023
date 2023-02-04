@@ -12,8 +12,8 @@ namespace RootRacer
         private Material worldMaterial;
         public MeshRenderer worldMeshRenderer;
         private float ypos = 0;
-        public float currentSpeed = 0.5f;
-        public float speedIncrease = 0.1f;
+        [SerializeField]private float currentSpeed = 0.5f;
+        [SerializeField]private float speedIncrease = 0.1f;
         private int shaderPropID;
         public static Camera MainCamera;
 
