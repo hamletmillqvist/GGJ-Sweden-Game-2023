@@ -1,13 +1,18 @@
+using Sonity;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace RootRacer
 {
 	public class GameManager : MonoBehaviour
 	{
+		public static GameManager instance;
 		[SerializeField] private float startSpeed = 0.05f;
 		[SerializeField] private float speedIncrease = 0.1f;
-
 		public static Camera MainCamera;
 
 		public TextMeshProUGUI depthTM;
@@ -18,15 +23,22 @@ namespace RootRacer
 		private float yPosition;
 		private float currentSpeed = 0.5f;
 		private int shaderPropID;
+		private List<PlayerController> players;
+		public delegate void OnGamePause();
+		public event OnGamePause onGamePause;
+		public event OnGamePause onGameUnPause;
 
 		private void Awake()
 		{
+			instance = this;
 			MainCamera = FindObjectOfType<Camera>();
 			worldMaterial = worldMeshRenderer.material;
+			players = FindObjectsOfType<PlayerController>().ToList();
 		}
+		public static List<PlayerController> Players => instance.players;
 
 		void Start()
-		{
+		{			
 			shaderPropID = worldMaterial.shader.GetPropertyNameId(worldMaterial.shader.FindPropertyIndex("_Position"));
 			StartGame();
 		}
@@ -64,7 +76,9 @@ namespace RootRacer
 		{
 			ResetGame();
 			isPaused = false;
+			onGameUnPause?.Invoke();
 		}
+
 
 		public void ResetGame()
 		{
@@ -78,9 +92,17 @@ namespace RootRacer
 				player.ResetPlayer();
 			}
 		}
-
-		public void GameOver(PlayerController playerFail)
+		public static void RemovePlayer(PlayerController playerController)
 		{
+			instance.players.Remove(playerController);
+			if (instance.players.Count == 1)
+			{
+				instance.GameOver(instance.players[0]);
+			}
+		}
+		public void GameOver(PlayerController playerWin)
+		{
+			onGamePause?.Invoke();
 			isPaused = true;
 			Time.timeScale = 0;
 		}

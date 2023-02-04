@@ -1,3 +1,4 @@
+using Sonity;
 using UnityEngine;
 
 namespace RootRacer
@@ -21,23 +22,34 @@ namespace RootRacer
 		public int linePositions = 50;
 
 		[Header("Player Effects")] public float invertTime = 5;
+		public float shieldTime = 5;
+		public float sizeMultiplier = 2;
+		public float sizeTime = 5;
+		[Header("Sounds")][SerializeField] private SoundEvent footstepsSoundEvent;
+		[SerializeField] private SoundEvent deathSoundEvent;
 
 		private Animator headAnimator;
 		private new Camera camera;
 		private Vector2 screenSize;
 		private GameManager gameManager;
 		private float invertTimer;
+		private float shieldTimer;
+		private float sizeTimer;
+		private Vector3 baseSizeScale;
 		private bool invertControls;
+		private bool hasShield;
+		private bool hasSizeUp;
 		private Vector3 startPosition;
 		private LineRenderer lineRenderer;
 		private CircleCollider2D circleCollider2D;
+
 
 		#region UnityEvents
 
 		private void Awake()
 		{
 			startPosition = transform.position;
-
+			baseSizeScale = transform.localScale;
 			camera = FindObjectOfType<Camera>();
 			gameManager = FindObjectOfType<GameManager>();
 			headAnimator = GetComponentInChildren<Animator>();
@@ -47,6 +59,8 @@ namespace RootRacer
 
 			circleCollider2D = GetComponent<CircleCollider2D>();
 			CollisionSystemUtil.RegisterPlayer(circleCollider2D);
+			gameManager.onGamePause += OnPause;
+			gameManager.onGameUnPause += OnUnPause;
 		}
 
 		void Start()
@@ -56,31 +70,32 @@ namespace RootRacer
 			lineRenderer.material.SetColor("_PlayerColor", playerColor);
 			ResetPlayer();
 		}
-
-		void Update()
+		void OnPause()
+		{
+			footstepsSoundEvent.Stop(transform);
+		}
+        void OnUnPause()
+        {
+            footstepsSoundEvent.Play(transform);
+        }
+        void Update()
 		{
 			if (gameManager.isPaused)
 			{
+				
 				return;
 			}
 
 			var deltaTime = Time.deltaTime;
 
-			if (invertControls)
-			{
-				invertTimer -= deltaTime;
-				if (invertTimer <= 0)
-				{
-					invertControls = false;
-				}
-			}
+			EffectTimers(deltaTime);
 
 			var downSpeed = gameManager.GetTargetSpeed();
 			var aMulti = (downSpeed + baseEatAnimationSpeed) / baseEatAnimationSpeed;
 			headAnimator.SetFloat("AnimationMultiplier", aMulti);
 
-			ControlHorizontalPosition(deltaTime);
-			ControlVerticalPosition(deltaTime);
+			HandleHorizontalMovement(deltaTime);
+			HandleVerticalMovement(deltaTime);
 
 			UpdateLine(deltaTime);
 
@@ -90,15 +105,47 @@ namespace RootRacer
 
 			if (GetIsOutsideOfScreen())
 			{
-				gameManager.GameOver(this);
+				deathSoundEvent?.Play(gameManager.transform);
+				footstepsSoundEvent.Stop(transform);
+				GameManager.RemovePlayer(this);
 				Destroy(gameObject);
 			}
 		}
+		private void EffectTimers(float deltaTime)
+		{
+            if (invertControls)
+            {
+                invertTimer -= deltaTime;
+                if (invertTimer <= 0)
+                {
+                    invertControls = false;
+                }
+            }
+			if (hasShield)
+			{
+				shieldTimer -= deltaTime;
+				if (shieldTimer <= 0)
+				{
+					hasShield = false;
+				}
+			}
+			if (hasSizeUp)
+			{
+				sizeTimer -= deltaTime;
+				if (sizeTimer <= 0)
+				{
+					hasSizeUp = false;
+					transform.localScale = baseSizeScale;
+				}
+			}
+        }
 
 		private void OnDestroy()
 		{
 			CollisionSystemUtil.UnregisterPlayer(circleCollider2D);
-		}
+            gameManager.onGamePause -= OnPause;
+            gameManager.onGameUnPause -= OnUnPause;
+        }
 
 		#endregion
 
@@ -120,11 +167,20 @@ namespace RootRacer
 			{
 				lineRenderer.SetPosition(i, pos);
 			}
+			hasShield = false;
+			invertControls = false;
+			hasSizeUp = false;
+			transform.localScale = baseSizeScale;
 		}
 
 		[ContextMenu("Stun Player")]
 		public void StunPlayer()
 		{
+			if (hasShield)
+			{
+				hasShield = false;
+				return;
+			}
 			downSpeed = gameManager.GetTargetSpeed() * 100;
 		}
 
@@ -140,6 +196,17 @@ namespace RootRacer
 			invertTimer = invertTime;
 			invertControls = true;
 		}
+		public void Shield()
+		{
+			shieldTimer = shieldTime;
+			hasShield = true;
+		}
+		public void SizeUp()
+		{
+			transform.localScale = baseSizeScale * sizeMultiplier;
+			hasSizeUp = true;
+			sizeTimer = sizeTime;
+		}
 
 		private void NormalizeDownSpeed(float deltaTime)
 		{
@@ -149,24 +216,27 @@ namespace RootRacer
 			{
 				return;
 			}
+            // I think there's a clamp like method that should move towards the target value linearly?
 
-			// I think there's a clamp like method that should move towards the target value linearly?
-			if (downSpeed < targetSpeed)
-			{
-				downSpeed += boostReduceAmount * deltaTime;
-				if (downSpeed > targetSpeed)
-				{
-					downSpeed = targetSpeed;
-				}
-			}
-			else if (downSpeed > targetSpeed)
-			{
-				downSpeed -= boostReduceAmount * deltaTime;
-				if (downSpeed < targetSpeed)
-				{
-					downSpeed = targetSpeed;
-				}
-			}
+			
+            downSpeed = Mathf.MoveTowards(downSpeed, targetSpeed, boostReduceAmount * deltaTime);
+
+			//if (downSpeed < targetSpeed)
+			//{
+			//	downSpeed += boostReduceAmount * deltaTime;
+			//	if (downSpeed > targetSpeed)
+			//	{
+			//		downSpeed = targetSpeed;
+			//	}
+			//}
+			//else if (downSpeed > targetSpeed)
+			//{
+			//	downSpeed -= boostReduceAmount * deltaTime;
+			//	if (downSpeed < targetSpeed)
+			//	{
+			//		downSpeed = targetSpeed;
+			//	}
+			//}
 		}
 
 		private void UpdateLine(float deltaTime)
@@ -191,7 +261,7 @@ namespace RootRacer
 			lineRenderer.SetPosition((lineRenderer.positionCount - 1), transform.position);
 		}
 
-		private void ControlVerticalPosition(float deltaTime)
+		private void HandleVerticalMovement(float deltaTime)
 		{
 			var deltaY = downSpeed - gameManager.GetTargetSpeed();
 
@@ -203,7 +273,7 @@ namespace RootRacer
 			transform.position += new Vector3(0, deltaY * deltaTime, 0);
 		}
 
-		private void ControlHorizontalPosition(float deltaTime)
+		private void HandleHorizontalMovement(float deltaTime)
 		{
 			float movementX = 0;
 			if (Input.GetKey(moveLeft))
@@ -223,11 +293,14 @@ namespace RootRacer
 		{
 			var position = transform.position;
 			position += new Vector3(horizontalMoveSpeed * movementDirectionDelta, 0, 0);
-
-			var screenPoint = camera.WorldToScreenPoint(position);
-			screenPoint.x = Mathf.Clamp(screenPoint.x, 0, Screen.width);
-
-			transform.position = camera.ScreenToWorldPoint(screenPoint);
+			var minScreenBounds = camera.ScreenToWorldPoint(Vector3.zero); 
+			var maxScreenBounds = camera.ScreenToWorldPoint(new Vector3(Screen.width,Screen.height,0));
+			var radius = circleCollider2D.radius * transform.localScale.x;
+			position.x = Mathf.Clamp(position.x,minScreenBounds.x+radius,maxScreenBounds.x-radius);
+			//var screenPoint = camera.WorldToScreenPoint(position);		
+			//screenPoint.x = Mathf.Clamp(screenPoint.x, 0, Screen.width);
+			//transform.position = camera.ScreenToWorldPoint(screenPoint);
+			transform.position = position;
 		}
 
 		private bool GetIsOutsideOfScreen()

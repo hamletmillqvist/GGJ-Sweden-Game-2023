@@ -1,12 +1,14 @@
-﻿using UnityEngine;
+﻿using Sonity;
+using UnityEngine;
 
 namespace RootRacer.Behaviours
 {
-	[RequireComponent(typeof(CircleCollider2D), typeof(SpriteRenderer))]
+	[RequireComponent(typeof(CircleCollider2D), typeof(SpriteRenderer))]	
 	public abstract class BaseSpawnedItemBehaviour : MonoBehaviour
 	{
 		[SerializeField] private Sprite[] sprites;
-		
+		[SerializeField] private SoundEvent triggerSound;
+
 		private CircleCollider2D circleCollider2D;
 
 		public float Radius => circleCollider2D.radius;
@@ -17,6 +19,10 @@ namespace RootRacer.Behaviours
 			CollisionSystemUtil.RegisterItem(this);
 
 			var spriteRenderer = GetComponent<SpriteRenderer>();
+			if (sprites == null || sprites.Length == 0)
+			{
+				return;
+			}
 
 			var index = Random.Range(0, sprites.Length - 1);
 			spriteRenderer.sprite = sprites[index];
@@ -39,6 +45,8 @@ namespace RootRacer.Behaviours
 		}
 
 		public virtual void TriggerEffect(PlayerController playerController)
-		{ }
+		{ 
+			triggerSound?.Play(GameManager.instance.transform);
+		}
 	}
 }
