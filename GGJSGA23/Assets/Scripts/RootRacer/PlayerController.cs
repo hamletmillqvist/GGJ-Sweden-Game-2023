@@ -1,3 +1,4 @@
+using Sonity;
 using UnityEngine;
 
 namespace RootRacer
@@ -24,6 +25,8 @@ namespace RootRacer
 		public float shieldTime = 5;
 		public float sizeMultiplier = 2;
 		public float sizeTime = 5;
+		[Header("Sounds")][SerializeField] private SoundEvent footstepsSoundEvent;
+		[SerializeField] private SoundEvent deathSoundEvent;
 
 		private Animator headAnimator;
 		private new Camera camera;
@@ -40,6 +43,7 @@ namespace RootRacer
 		private LineRenderer lineRenderer;
 		private CircleCollider2D circleCollider2D;
 
+
 		#region UnityEvents
 
 		private void Awake()
@@ -55,6 +59,8 @@ namespace RootRacer
 
 			circleCollider2D = GetComponent<CircleCollider2D>();
 			CollisionSystemUtil.RegisterPlayer(circleCollider2D);
+			gameManager.onGamePause += OnPause;
+			gameManager.onGameUnPause += OnUnPause;
 		}
 
 		void Start()
@@ -64,11 +70,19 @@ namespace RootRacer
 			lineRenderer.material.SetColor("_PlayerColor", playerColor);
 			ResetPlayer();
 		}
-
-		void Update()
+		void OnPause()
+		{
+			footstepsSoundEvent.Stop(transform);
+		}
+        void OnUnPause()
+        {
+            footstepsSoundEvent.Play(transform);
+        }
+        void Update()
 		{
 			if (gameManager.isPaused)
 			{
+				
 				return;
 			}
 
@@ -91,7 +105,9 @@ namespace RootRacer
 
 			if (GetIsOutsideOfScreen())
 			{
-				gameManager.GameOver(this);
+				deathSoundEvent?.Play(gameManager.transform);
+				footstepsSoundEvent.Stop(transform);
+				GameManager.RemovePlayer(this);
 				Destroy(gameObject);
 			}
 		}
@@ -127,7 +143,9 @@ namespace RootRacer
 		private void OnDestroy()
 		{
 			CollisionSystemUtil.UnregisterPlayer(circleCollider2D);
-		}
+            gameManager.onGamePause -= OnPause;
+            gameManager.onGameUnPause -= OnUnPause;
+        }
 
 		#endregion
 

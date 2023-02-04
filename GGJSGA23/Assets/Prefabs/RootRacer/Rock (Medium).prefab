@@ -120,7 +120,7 @@ MonoBehaviour:
   - {fileID: 792545920, guid: b727fe7dfdc15c54486ac60c94daed8b, type: 3}
   - {fileID: 1073465379, guid: b727fe7dfdc15c54486ac60c94daed8b, type: 3}
   - {fileID: 1228491703, guid: b727fe7dfdc15c54486ac60c94daed8b, type: 3}
-  pickUpSound: {fileID: 11400000, guid: e66eb54a69445024b81c2b0430230bb4, type: 2}
+  triggerSound: {fileID: 11400000, guid: e66eb54a69445024b81c2b0430230bb4, type: 2}
 --- !u!114 &-1131361254056019085
 MonoBehaviour:
   m_ObjectHideFlags: 0

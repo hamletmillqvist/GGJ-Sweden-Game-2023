@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace RootRacer.Behaviours
 {
-	[RequireComponent(typeof(CircleCollider2D), typeof(SpriteRenderer))]
+	[RequireComponent(typeof(CircleCollider2D), typeof(SpriteRenderer))]	
 	public abstract class BaseSpawnedItemBehaviour : MonoBehaviour
 	{
 		[SerializeField] private Sprite[] sprites;
