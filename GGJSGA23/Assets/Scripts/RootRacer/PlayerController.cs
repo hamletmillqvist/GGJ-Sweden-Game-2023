@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
         {
             xMove += 1;
         }
+        
         transform.position += new Vector3( horizontalMoveSpeed * xMove * Time.deltaTime,0,0);
         Vector3 screenPoint = camera.WorldToScreenPoint(transform.position);
         

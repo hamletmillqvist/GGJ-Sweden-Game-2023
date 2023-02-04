@@ -1,16 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using System;
 
 namespace RootRacer
 {
     public class GameManager : MonoBehaviour
     {
+        public TextMeshProUGUI depthTM;
         private Material worldMaterial;
         public MeshRenderer worldMeshRenderer;
         private float ypos = 0;
         public float currentSpeed = 0.5f;
-        public int shaderPropID;
+        private int shaderPropID;
         public static Camera MainCamera;
 
         void Start()
@@ -23,7 +26,14 @@ namespace RootRacer
         void Update()
         {
             ScrollWorld(Time.deltaTime);
+            UpdateDepthText(-ypos);
         }
+
+        private void UpdateDepthText(float ypos)
+        {
+            depthTM.text = ypos.ToString("0.#m");
+        }
+
         private void ScrollWorld(float deltaTime)
         {
             ypos -= deltaTime * currentSpeed;
