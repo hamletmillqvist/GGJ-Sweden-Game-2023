@@ -1,39 +1,89 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+namespace RootRacer
 {
-    public KeyCode moveLeft;
-    public KeyCode moveRight;
-    public Color playerColor;
-    public float horizontalMoveSpeed;
-    private new Camera camera;
-    private Vector2 screenSize;
-    void Start()
+    public class PlayerController : MonoBehaviour
     {
-        camera = FindObjectOfType<Camera>();
-        GetComponentInChildren<SpriteRenderer>().material.color = playerColor;
-        
-    }
+        public KeyCode moveLeft;
+        public KeyCode moveRight;
+        public Color playerColor;
+        public float horizontalMoveSpeed;
+        public float downSpeed = 0;
+        public float boostReduceAmount;
 
-    void Update()
-    {
-        float xMove = 0;
-        if (Input.GetKey(moveLeft))
-        {
-            xMove -= 1;
-        }
-        if (Input.GetKey(moveRight))
-        {
-            xMove += 1;
-        }
-        
-        transform.position += new Vector3( horizontalMoveSpeed * xMove * Time.deltaTime,0,0);
-        Vector3 screenPoint = camera.WorldToScreenPoint(transform.position);
-        
-        screenPoint.x = Mathf.Clamp(screenPoint.x,0, Screen.width);
-        transform.position = camera.ScreenToWorldPoint(screenPoint);
+        private new Camera camera;
+        private Vector2 screenSize;
+        private GameManager gameManager;
 
-    }
+        void Start()
+        {
+            camera = FindObjectOfType<Camera>();
+            GetComponentInChildren<SpriteRenderer>().material.color = playerColor;
+            gameManager = FindObjectOfType<GameManager>();
+            downSpeed = gameManager.GetTargetSpeed();
+        }
+        public void SetDownSpeed(float speed)
+        {
+            this.downSpeed = speed;
+        }
+        private void NormalizeDownSpeed(float deltaTime)
+        {
+            float targetSpeed = gameManager.GetTargetSpeed();
+            if (downSpeed == targetSpeed) return;
+            if (downSpeed < targetSpeed)
+            {
+                downSpeed += boostReduceAmount * deltaTime;
+                if (downSpeed > targetSpeed)
+                {
+                    downSpeed = targetSpeed;
+                }
+            }
+        }
+        void Update()
+        {
+            float deltaTime = Time.deltaTime;
+            ControllHorizontalPosition(deltaTime);
+            ControlVerticalPosition(deltaTime);
+            NormalizeDownSpeed(deltaTime);
+            if (IsOutsideOfScreen())
+            {
+                Debug.Log($"{gameObject.name} died!");
+            }
+        }
+
+        private void ControlVerticalPosition(float deltaTime)
+        {
+            float deltaY = downSpeed - gameManager.GetTargetSpeed();
+            if (deltaY == 0) return;
+            transform.position += new Vector3(0, deltaY * deltaTime,0);
+        }
+
+        private void ControllHorizontalPosition(float deltaTime)
+        {
+            float xMove = 0;
+            if (Input.GetKey(moveLeft))
+            {
+                xMove -= 1;
+            }
+            if (Input.GetKey(moveRight))
+            {
+                xMove += 1;
+            }
+
+            transform.position += new Vector3(horizontalMoveSpeed * xMove * deltaTime, 0, 0);
+            Vector3 screenPoint = camera.WorldToScreenPoint(transform.position);
+
+            screenPoint.x = Mathf.Clamp(screenPoint.x, 0, Screen.width);
+            transform.position = camera.ScreenToWorldPoint(screenPoint);
+        }
+
+        private bool IsOutsideOfScreen()
+        {
+            Vector3 screenPoint = camera.WorldToScreenPoint(transform.position);
+            return screenPoint.y > Screen.height;
+        }
+    } 
 }

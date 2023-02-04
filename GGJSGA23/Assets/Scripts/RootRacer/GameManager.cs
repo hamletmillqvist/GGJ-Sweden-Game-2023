@@ -13,6 +13,7 @@ namespace RootRacer
         public MeshRenderer worldMeshRenderer;
         private float ypos = 0;
         public float currentSpeed = 0.5f;
+        public float speedIncrease = 0.1f;
         private int shaderPropID;
         public static Camera MainCamera;
 
@@ -22,7 +23,10 @@ namespace RootRacer
             worldMaterial = worldMeshRenderer.material;
             shaderPropID = worldMaterial.shader.GetPropertyNameId(worldMaterial.shader.FindPropertyIndex("_Position"));
         }
-
+        public float GetTargetSpeed()
+        {
+            return currentSpeed;
+        }
         void Update()
         {
             ScrollWorld(Time.deltaTime);
@@ -37,6 +41,7 @@ namespace RootRacer
         private void ScrollWorld(float deltaTime)
         {
             ypos -= deltaTime * currentSpeed;
+            currentSpeed += speedIncrease * deltaTime;
             worldMaterial.SetVector(shaderPropID, new Vector2(0, ypos));
         }
     } 

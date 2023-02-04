@@ -270,3 +270,5 @@ MonoBehaviour:
   moveRight: 100
   playerColor: {r: 1, g: 0.4481132, b: 0.4481132, a: 1}
   horizontalMoveSpeed: 10
+  downSpeed: 0
+  boostReduceAmount: 1
