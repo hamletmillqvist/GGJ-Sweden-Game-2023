@@ -55,7 +55,7 @@ namespace RootRacer
 			headAnimator = GetComponentInChildren<Animator>();
 			lineRenderer = GetComponentInChildren<LineRenderer>();
 
-			GetComponentInChildren<SpriteRenderer>().material.color = playerColor;
+			//GetComponentInChildren<SpriteRenderer>().material.color = playerColor;
 
 			circleCollider2D = GetComponent<CircleCollider2D>();
 			CollisionSystemUtil.RegisterPlayer(circleCollider2D);

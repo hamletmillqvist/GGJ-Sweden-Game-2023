@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0da358225b45f2f4aa043f6fe0f1dc14
+guid: 43a0f71a939f796428e3ac5214c38720
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -128,7 +128,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: sprFaceStrip14_0
+      name: sprFaceOrange_strip14_0
       rect:
         serializedVersion: 2
         x: 0
@@ -142,14 +142,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7bf14694343cde6479aa950de6dc36f9
-      internalID: -851424099
+      spriteID: 611157afc138b3b4bba2629918e85c42
+      internalID: -860777428
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprFaceStrip14_1
+      name: sprFaceOrange_strip14_1
       rect:
         serializedVersion: 2
         x: 32
@@ -163,14 +163,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3804bae35a803e340bade7263cc1e487
-      internalID: -224854047
+      spriteID: 209a411e85c742746b346366943cb6d3
+      internalID: 1788809653
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprFaceStrip14_2
+      name: sprFaceOrange_strip14_2
       rect:
         serializedVersion: 2
         x: 64
@@ -184,14 +184,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3e4f4ea5ce225dd41b9e1cedbe263c08
-      internalID: 295456173
+      spriteID: 95d8af9d1133f9740a32bb4be8ea4c61
+      internalID: 1212130522
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprFaceStrip14_3
+      name: sprFaceOrange_strip14_3
       rect:
         serializedVersion: 2
         x: 96
@@ -205,14 +205,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4fc06c785df16f147ba904f9a96ca9d6
-      internalID: -982420264
+      spriteID: b9fbeebc0098f5840a948b399efa1dc7
+      internalID: 1023437630
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprFaceStrip14_4
+      name: sprFaceOrange_strip14_4
       rect:
         serializedVersion: 2
         x: 128
@@ -226,14 +226,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5084ed7c82b1410429949e5d48e00262
-      internalID: -1622333921
+      spriteID: ec63c0fb38c2eb34294835b3eca074ad
+      internalID: -1573712055
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprFaceStrip14_5
+      name: sprFaceOrange_strip14_5
       rect:
         serializedVersion: 2
         x: 160
@@ -247,14 +247,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 744b243df0c745445b18bf13ec123977
-      internalID: 1849563059
+      spriteID: fc9f0638f2e810243b6525ea5694c2f4
+      internalID: -875551066
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprFaceStrip14_6
+      name: sprFaceOrange_strip14_6
       rect:
         serializedVersion: 2
         x: 192
@@ -268,14 +268,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 17e9811ead4f65a4fb3c95fd8a21dd1f
-      internalID: 1360915996
+      spriteID: 9dd73c78860dabe4a88f41ff481d6345
+      internalID: -1334554333
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprFaceStrip14_7
+      name: sprFaceOrange_strip14_7
       rect:
         serializedVersion: 2
         x: 224
@@ -289,14 +289,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 963039af6fd02a14ea8a93c6bc76258a
-      internalID: -1133452130
+      spriteID: 8164c0f9554a1c4498c7c472ae53a136
+      internalID: -430572694
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprFaceStrip14_8
+      name: sprFaceOrange_strip14_8
       rect:
         serializedVersion: 2
         x: 256
@@ -310,14 +310,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0e7f73d57d303bb4cbfde917656adf5c
-      internalID: -743138851
+      spriteID: b487523c577cde34a8fe107120f5a967
+      internalID: -1344304614
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprFaceStrip14_9
+      name: sprFaceOrange_strip14_9
       rect:
         serializedVersion: 2
         x: 288
@@ -331,14 +331,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1bfc8294a7b4d344b995c42475a8cf5d
-      internalID: -1105702377
+      spriteID: 3f74c4ff5cd1ddc4890dfa530e2d47d3
+      internalID: -2089980118
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprFaceStrip14_10
+      name: sprFaceOrange_strip14_10
       rect:
         serializedVersion: 2
         x: 320
@@ -352,14 +352,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 04e2822c76f9ca946931c92e3b77b21f
-      internalID: -1699437766
+      spriteID: 8722472487802c548bef4b12b54aa7f4
+      internalID: 1239722531
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprFaceStrip14_11
+      name: sprFaceOrange_strip14_11
       rect:
         serializedVersion: 2
         x: 352
@@ -373,14 +373,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6daa15b9962d24240a3fb5450feed1a1
-      internalID: 1718669343
+      spriteID: 789209b92ca867046ae443aa4135caa3
+      internalID: 1470105619
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprFaceStrip14_12
+      name: sprFaceOrange_strip14_12
       rect:
         serializedVersion: 2
         x: 384
@@ -394,14 +394,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7f686a95c2f467148ac4b97b4246048a
-      internalID: 212925715
+      spriteID: 1998140d55ba59e4faa0fc7fe6aa567a
+      internalID: -1006382475
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprFaceStrip14_13
+      name: sprFaceOrange_strip14_13
       rect:
         serializedVersion: 2
         x: 416
@@ -415,8 +415,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e9209a6b3c4e2cf4f88a4bfd2be98f9d
-      internalID: -979574012
+      spriteID: 950c5ef010036b048a68fe7b7a5f7055
+      internalID: -1890885045
       vertices: []
       indices: 
       edges: []
@@ -424,7 +424,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: d958efe0cc9b01d4999753d4c519f774
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -432,20 +432,20 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      sprFaceStrip14_12: 212925715
-      sprFaceStrip14_4: -1622333921
-      sprFaceStrip14_8: -743138851
-      sprFaceStrip14_1: -224854047
-      sprFaceStrip14_6: 1360915996
-      sprFaceStrip14_0: -851424099
-      sprFaceStrip14_10: -1699437766
-      sprFaceStrip14_11: 1718669343
-      sprFaceStrip14_9: -1105702377
-      sprFaceStrip14_2: 295456173
-      sprFaceStrip14_3: -982420264
-      sprFaceStrip14_5: 1849563059
-      sprFaceStrip14_7: -1133452130
-      sprFaceStrip14_13: -979574012
+      sprFaceOrange_strip14_11: 1470105619
+      sprFaceOrange_strip14_2: 1212130522
+      sprFaceOrange_strip14_7: -430572694
+      sprFaceOrange_strip14_3: 1023437630
+      sprFaceOrange_strip14_6: -1334554333
+      sprFaceOrange_strip14_8: -1344304614
+      sprFaceOrange_strip14_5: -875551066
+      sprFaceOrange_strip14_12: -1006382475
+      sprFaceOrange_strip14_0: -860777428
+      sprFaceOrange_strip14_13: -1890885045
+      sprFaceOrange_strip14_9: -2089980118
+      sprFaceOrange_strip14_4: -1573712055
+      sprFaceOrange_strip14_10: 1239722531
+      sprFaceOrange_strip14_1: 1788809653
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

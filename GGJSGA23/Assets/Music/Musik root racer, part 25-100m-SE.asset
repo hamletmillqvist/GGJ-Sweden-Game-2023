@@ -20,10 +20,13 @@ MonoBehaviour:
       expandPreview: 0
       expandSettings: 0
       expandTriggerOnPlay: 0
-      expandTriggerOnStop: 0
-      expandTriggerOnTail: 0
+      expandTriggerOnStop: 1
+      expandTriggerOnTail: 1
       expandAllSoundTag: 0
       timelineSoundContainerData:
+      - delay: 0
+        volumeRatio: 1
+        volumeDecibel: 0
       - delay: 0
         volumeRatio: 1
         volumeDecibel: 0
@@ -116,7 +119,7 @@ MonoBehaviour:
       intensityRecord: 0
       intensityDebugResolution: 100
       intensityDebugValueList: []
-      triggerOnPlayEnable: 0
+      triggerOnPlayEnable: 1
       triggerOnPlaySoundEvents:
       - {fileID: 0}
       triggerOnPlayWhichToPlay: 0
@@ -226,4 +229,5 @@ MonoBehaviour:
         soundEvent:
         - {fileID: 0}
     soundContainers:
+    - {fileID: 11400000, guid: 86af46c2f135b4646a4e5ac1aa3ddf17, type: 2}
     - {fileID: 11400000, guid: 86af46c2f135b4646a4e5ac1aa3ddf17, type: 2}

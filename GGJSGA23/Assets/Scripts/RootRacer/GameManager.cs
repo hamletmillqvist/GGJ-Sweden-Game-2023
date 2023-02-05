@@ -28,6 +28,7 @@ namespace RootRacer
 		public delegate void OnGamePause();
 		public event OnGamePause onGamePause;
 		public event OnGamePause onGameUnPause;
+		private MenuManager menuManager;
 
 		private void Awake()
 		{
@@ -37,6 +38,11 @@ namespace RootRacer
 			players = FindObjectsOfType<PlayerController>().ToList();
 			isPaused = true;
 			Time.timeScale = 0;
+			menuManager = FindObjectOfType<MenuManager>();
+            if (menuManager == null)
+            {
+				Debug.LogError("No menuManager in scene");
+            }
 		}
 		public static List<PlayerController> Players => instance.players;
 		public static float Depth => instance.yPosition;
@@ -92,6 +98,7 @@ namespace RootRacer
             gameMusicEvent.Stop2D(true);
             isPaused = true;
             Time.timeScale = 0;
+			menuManager.ShowGameOver();
         }
 
 		public void ResetGame()

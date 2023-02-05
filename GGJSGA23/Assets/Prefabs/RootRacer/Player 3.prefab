@@ -11,11 +11,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 79ade85f03177a645902e481a1109601, type: 2}
+      objectReference: {fileID: 9100000, guid: f6c13343afd0bdc458cb67b8ea5ee387, type: 2}
     - target: {fileID: 6285699548807399554, guid: 89d9220da5323f4429b9b36c43dbf084,
         type: 3}
       propertyPath: m_Name
-      value: Player 1
+      value: Player 3
       objectReference: {fileID: 0}
     - target: {fileID: 6285699548807399555, guid: 89d9220da5323f4429b9b36c43dbf084,
         type: 3}
@@ -74,18 +74,34 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6285699548807399556, guid: 89d9220da5323f4429b9b36c43dbf084,
         type: 3}
+      propertyPath: moveLeft
+      value: 260
+      objectReference: {fileID: 0}
+    - target: {fileID: 6285699548807399556, guid: 89d9220da5323f4429b9b36c43dbf084,
+        type: 3}
+      propertyPath: moveRight
+      value: 262
+      objectReference: {fileID: 0}
+    - target: {fileID: 6285699548807399556, guid: 89d9220da5323f4429b9b36c43dbf084,
+        type: 3}
       propertyPath: playerColor.b
-      value: 0.6117647
+      value: 0.18039216
       objectReference: {fileID: 0}
     - target: {fileID: 6285699548807399556, guid: 89d9220da5323f4429b9b36c43dbf084,
         type: 3}
       propertyPath: playerColor.g
-      value: 0.50980395
+      value: 0.47058827
       objectReference: {fileID: 0}
     - target: {fileID: 6285699548807399556, guid: 89d9220da5323f4429b9b36c43dbf084,
         type: 3}
       propertyPath: playerColor.r
-      value: 0.19215688
+      value: 0.9568628
       objectReference: {fileID: 0}
+    - target: {fileID: 8386097555429213789, guid: 89d9220da5323f4429b9b36c43dbf084,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -860777428, guid: 43a0f71a939f796428e3ac5214c38720,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89d9220da5323f4429b9b36c43dbf084, type: 3}
