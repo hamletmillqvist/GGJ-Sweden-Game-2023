@@ -31,7 +31,7 @@ public class MenuManager : MonoBehaviour
         //activeScene++;
         
         //SceneManager.LoadScene(activeScene, LoadSceneMode.Single);
-        SceneManager.LoadScene("nextScene", LoadSceneMode.Single);
+        SceneManager.LoadScene(nextScene, LoadSceneMode.Single);
     }
     public void Exitgame()
     {
