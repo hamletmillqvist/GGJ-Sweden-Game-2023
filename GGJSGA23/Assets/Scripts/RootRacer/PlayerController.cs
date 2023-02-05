@@ -11,25 +11,27 @@ namespace RootRacer
 	[RequireComponent(typeof(CircleCollider2D))]
 	public class PlayerController : MonoBehaviour
 	{
-		public KeyCode MoveLeft { get; set; }
-		public KeyCode MoveRight { get; set; }
-		public Color PlayerColor { get; set; }
-		public float HorizontalMoveSpeed { get; set; }
-		public float DownSpeed { get; set; }
-		public float BoostReduceAmount { get; set; }
-		public float BaseEatAnimationSpeed { get; set; } = 3;
-		public float MinDistanceForLineUpdate { get; set; } = 0.1f;
-		public int LinePositions { get; set; } = 50;
-		public CircleCollider2D CircleCollider2D { get; private set; }
+		public KeyCode moveLeft;
+		public KeyCode moveRight;
+		public Color playerColor;
+		public float horizontalMoveSpeed;
+		public float downSpeed;
+		public float boostReduceAmount;
+		public float baseEatAnimationSpeed = 3;
+		public float minDistanceForLineUpdate = 0.1f;
+		public int linePositions = 50;
 
 		[Header("Player Effects")] public float invertTime = 5;
-		public float ShieldTime { get; set; } = 5;
-		public float SizeMultiplier { get; set; } = 2;
-		public float SizeTime { get; set; } = 5;
-		public bool HasGodMode { get; set; } = false;
-
-		[Header("Sounds")] [SerializeField] private SoundEvent footstepsSoundEvent;
-		[SerializeField] private SoundEvent deathSoundEvent;
+		public float shieldTime = 5;
+		public float sizeMultiplier = 2;
+		public float sizeTime = 5;
+		public bool hasGodMode = false;
+		
+		[Header("Sounds")]
+		[SerializeField]
+		private SoundEvent footstepsSoundEvent;
+		[SerializeField]
+		private SoundEvent deathSoundEvent;
 
 		private Animator headAnimator;
 		private new Camera camera;
@@ -45,6 +47,8 @@ namespace RootRacer
 		private Vector3 startPosition;
 		private LineRenderer lineRenderer;
 		
+		public CircleCollider2D CircleCollider2D { get; set; }
+
 		private void Awake()
 		{
 			startPosition = transform.position;
@@ -64,26 +68,24 @@ namespace RootRacer
 
 		void Start()
 		{
-			DownSpeed = gameManager.GetTargetSpeed();
-			lineRenderer.positionCount = LinePositions;
-			lineRenderer.material.SetColor("_PlayerColor", PlayerColor);
+			downSpeed = gameManager.GetTargetSpeed();
+			lineRenderer.positionCount = linePositions;
+			lineRenderer.material.SetColor("_PlayerColor", playerColor);
 			ResetPlayer();
 		}
-
 		void OnPause()
 		{
 			footstepsSoundEvent.Stop(transform);
 		}
-
-		void OnUnPause()
+        void OnUnPause()
+        {
+            footstepsSoundEvent.Play(transform);
+        }
+        void Update()
 		{
-			footstepsSoundEvent.Play(transform);
-		}
-
-		void Update()
-		{
-			if (gameManager.IsPaused)
+			if (gameManager.isPaused)
 			{
+				
 				return;
 			}
 
@@ -92,7 +94,7 @@ namespace RootRacer
 			EffectTimers(deltaTime);
 
 			var downSpeed = gameManager.GetTargetSpeed();
-			var aMulti = (downSpeed + BaseEatAnimationSpeed) / BaseEatAnimationSpeed;
+			var aMulti = (downSpeed + baseEatAnimationSpeed) / baseEatAnimationSpeed;
 			headAnimator.SetFloat("AnimationMultiplier", aMulti);
 
 			HandleHorizontalMovement(deltaTime);
@@ -109,27 +111,19 @@ namespace RootRacer
 				deathSoundEvent?.Play(gameManager.transform);
 				footstepsSoundEvent.Stop(transform);
 				GameManager.RemovePlayer(this);
+				Destroy(gameObject);
 			}
 		}
-
-		private void OnDestroy()
-		{
-			
-			gameManager.OnGamePause -= OnPause;
-			gameManager.OnGameUnPause -= OnUnPause;
-		}
-
 		private void EffectTimers(float deltaTime)
 		{
-			if (invertControls)
-			{
-				invertTimer -= deltaTime;
-				if (invertTimer <= 0)
-				{
-					invertControls = false;
-				}
-			}
-
+            if (invertControls)
+            {
+                invertTimer -= deltaTime;
+                if (invertTimer <= 0)
+                {
+                    invertControls = false;
+                }
+            }
 			if (hasShield)
 			{
 				shieldTimer -= deltaTime;
@@ -138,7 +132,6 @@ namespace RootRacer
 					hasShield = false;
 				}
 			}
-
 			if (hasSizeUp)
 			{
 				sizeTimer -= deltaTime;
@@ -148,7 +141,14 @@ namespace RootRacer
 					transform.localScale = baseSizeScale;
 				}
 			}
-		}
+        }
+
+		private void OnDestroy()
+		{
+			CollisionSystemUtil.UnregisterPlayer(this);
+            gameManager.OnGamePause -= OnPause;
+            gameManager.OnGameUnPause -= OnUnPause;
+        }
 
 		private void HandleTouchedItems()
 		{
@@ -162,13 +162,12 @@ namespace RootRacer
 		public void ResetPlayer()
 		{
 			transform.position = startPosition;
-			DownSpeed = gameManager.GetTargetSpeed();
+			downSpeed = gameManager.GetTargetSpeed();
 			var pos = transform.position;
 			for (var i = 0; i < lineRenderer.positionCount; i++)
 			{
 				lineRenderer.SetPosition(i, pos);
 			}
-
 			hasShield = false;
 			invertControls = false;
 			hasSizeUp = false;
@@ -178,61 +177,58 @@ namespace RootRacer
 		[ContextMenu("Stun Player")]
 		public void StunPlayer()
 		{
-			if (hasShield || HasGodMode)
+			if (hasShield || hasGodMode)
 			{
 				hasShield = false;
 				return;
 			}
-
-			DownSpeed = gameManager.GetTargetSpeed() * 100;
+			downSpeed = gameManager.GetTargetSpeed() * 100;
 		}
 
 		[ContextMenu("Speed Player")]
 		public void SpeedUp(float amount)
 		{
-			DownSpeed -= amount;
+			downSpeed -= amount;
 		}
 
 		[ContextMenu("Invert Controls")]
 		public void InvertControls()
 		{
-			if (HasGodMode)
+			if (hasGodMode)
 			{
 				return;
 			}
-
+			
 			invertTimer = invertTime;
 			invertControls = true;
 		}
-
 		public void Shield()
 		{
-			shieldTimer = ShieldTime;
+			shieldTimer = shieldTime;
 			hasShield = true;
 		}
-
 		public void SizeUp()
 		{
-			if (HasGodMode)
+			if (hasGodMode)
 			{
 				return;
 			}
-
-			transform.localScale = baseSizeScale * SizeMultiplier;
+			
+			transform.localScale = baseSizeScale * sizeMultiplier;
 			hasSizeUp = true;
-			sizeTimer = SizeTime;
+			sizeTimer = sizeTime;
 		}
 
 		private void NormalizeDownSpeed(float deltaTime)
 		{
 			var targetSpeed = gameManager.GetTargetSpeed();
 
-			if (DownSpeed == targetSpeed)
+			if (downSpeed == targetSpeed)
 			{
 				return;
 			}
-
-			DownSpeed = Mathf.MoveTowards(DownSpeed, targetSpeed, BoostReduceAmount * deltaTime);
+			
+			downSpeed = Mathf.MoveTowards(downSpeed, targetSpeed, boostReduceAmount * deltaTime);
 		}
 
 		private void UpdateLine(float deltaTime)
@@ -244,7 +240,7 @@ namespace RootRacer
 			}
 
 			var lastPoint = lineRenderer.GetPosition(lineRenderer.positionCount - 1);
-			if (Vector3.Distance(lastPoint, transform.position) < MinDistanceForLineUpdate)
+			if (Vector3.Distance(lastPoint, transform.position) < minDistanceForLineUpdate)
 			{
 				return;
 			}
@@ -259,7 +255,7 @@ namespace RootRacer
 
 		private void HandleVerticalMovement(float deltaTime)
 		{
-			var deltaY = DownSpeed - gameManager.GetTargetSpeed();
+			var deltaY = downSpeed - gameManager.GetTargetSpeed();
 
 			if (deltaY == 0)
 			{
@@ -272,12 +268,12 @@ namespace RootRacer
 		private void HandleHorizontalMovement(float deltaTime)
 		{
 			float movementX = 0;
-			if (Input.GetKey(MoveLeft))
+			if (Input.GetKey(moveLeft))
 			{
 				movementX -= invertControls ? -1 : 1;
 			}
 
-			if (Input.GetKey(MoveRight))
+			if (Input.GetKey(moveRight))
 			{
 				movementX += invertControls ? -1 : 1;
 			}
@@ -288,13 +284,14 @@ namespace RootRacer
 		private void UpdateHorizontalPosition(float movementDirectionDelta)
 		{
 			var position = transform.position;
-			position += new Vector3(HorizontalMoveSpeed * movementDirectionDelta, 0, 0);
-			
-			var minScreenBounds = camera.ScreenToWorldPoint(Vector3.zero);
-			var maxScreenBounds = camera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
+			position += new Vector3(horizontalMoveSpeed * movementDirectionDelta, 0, 0);
+			var minScreenBounds = camera.ScreenToWorldPoint(Vector3.zero); 
+			var maxScreenBounds = camera.ScreenToWorldPoint(new Vector3(Screen.width,Screen.height,0));
 			var radius = CircleCollider2D.radius * transform.localScale.x;
-			position.x = Mathf.Clamp(position.x, minScreenBounds.x + radius, maxScreenBounds.x - radius);
-			
+			position.x = Mathf.Clamp(position.x,minScreenBounds.x+radius,maxScreenBounds.x-radius);
+			//var screenPoint = camera.WorldToScreenPoint(position);		
+			//screenPoint.x = Mathf.Clamp(screenPoint.x, 0, Screen.width);
+			//transform.position = camera.ScreenToWorldPoint(screenPoint);
 			transform.position = position;
 		}
 

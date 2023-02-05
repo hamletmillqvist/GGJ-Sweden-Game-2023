@@ -6,48 +6,56 @@ namespace RootRacer
 {
 	public class GameManager : MonoBehaviour
 	{
-		public delegate void OnGamePausingDelegate();
+		public delegate void GamePauseDelegate();
 
-		public event OnGamePausingDelegate OnGamePause;
-		public event OnGamePausingDelegate OnGameUnPause;
-		
-		public static GameManager Instance { get; set; }
-		public static Camera MainCamera { get; private set; }
-		public MeshRenderer WorldMeshRenderer { get; }
-		public DepthMusicSO GameDepthMusic { get; }
-		public bool IsPaused { get; set; }
+		// Events
+		public event GamePauseDelegate OnGamePause;
+		public event GamePauseDelegate OnGameUnPause;
 
-		[SerializeField]
-		private float startSpeed = 0.05f;
-		[SerializeField]
-		private float speedIncrease = 0.1f;
+		// Static fields
+		public static GameManager Instance;
+		public static Camera MainCamera;
 
+		// Public fields
+		public DepthMusicSO gameDepthMusic;
+		public MeshRenderer worldMeshRenderer;
+		public bool isPaused;
+
+		// Private fields (Shown in editor)
+		[SerializeField] private float startSpeed = 0.05f;
+		[SerializeField] private float speedIncrease = 0.1f;
+
+		// Private fields (hidden in editor)
 		private Material worldMaterial;
-		private float yPosition;
+		private float depth;
 		private float currentSpeed = 0.5f;
 		private int shaderPropID;
 		private List<PlayerController> players;
 		private MenuManager menuManager;
 		private int currentlyPlayingDepthMusic = 0;
+		
+		// Getters
+		public static IReadOnlyList<PlayerController> Players => Instance.players;
+		public static float Depth => Instance.depth;
 
 		private void Awake()
 		{
-			Instance = this;
 			MainCamera = FindObjectOfType<Camera>();
-			worldMaterial = WorldMeshRenderer.material;
 			players = FindObjectsOfType<PlayerController>().ToList();
-			IsPaused = true;
-			Time.timeScale = 0;
 			menuManager = FindObjectOfType<MenuManager>();
+			
 			if (menuManager == null)
 			{
 				Debug.LogError("No menuManager in scene");
 			}
+			
+			Instance = this;
+			isPaused = true;
+			Time.timeScale = 0;
+			
+			worldMaterial = worldMeshRenderer.material;
 		}
-
-		public static List<PlayerController> Players => Instance.players;
-		public static float Depth => Instance.yPosition;
-
+		
 		void Start()
 		{
 			shaderPropID = worldMaterial.shader.GetPropertyNameId(worldMaterial.shader.FindPropertyIndex("_Position"));
@@ -57,28 +65,49 @@ namespace RootRacer
 
 		void Update()
 		{
-            if (IsPaused)
-            {
-                return;
-            }
-            ScrollWorld(Time.deltaTime);
-			currentlyPlayingDepthMusic = GameDepthMusic.SetDepthMusic(currentlyPlayingDepthMusic,-yPosition);
+			if (isPaused)
+			{
+				return;
+			}
+
+			ScrollWorld(Time.deltaTime);
+			CheckDepthMusic(depth);
 			CollisionSystemUtil.UpdateCollisions();
 		}
 
-        
+		private void CheckDepthMusic(float depth)
+		{
+			//DepthMusic deepestSelectedMusic = gameDepthMusic[currentlyPlayingDepthMusic];
+			int selectedIndex = currentlyPlayingDepthMusic;
+
+			for (int i = currentlyPlayingDepthMusic; i < gameDepthMusic.gameDepthMusic.Length; i++)
+			{
+				DepthMusic depthMusic = gameDepthMusic.gameDepthMusic[i];
+				if (depth > depthMusic.depth)
+				{
+					//deepestSelectedMusic = depthMusic;
+					selectedIndex = i;
+				}
+			}
+
+			if (selectedIndex != currentlyPlayingDepthMusic)
+			{
+				gameDepthMusic.gameDepthMusic[currentlyPlayingDepthMusic].music.Stop2D();
+				gameDepthMusic.gameDepthMusic[selectedIndex].music.Play2D();
+				currentlyPlayingDepthMusic = selectedIndex;
+			}
+		}
 
 		public float GetTargetSpeed()
 		{
 			return currentSpeed;
 		}
 
-
 		private void ScrollWorld(float deltaTime)
 		{
-			yPosition -= deltaTime * currentSpeed;
+			depth -= deltaTime * currentSpeed;
 			currentSpeed += speedIncrease * deltaTime;
-			worldMaterial.SetVector(shaderPropID, new Vector2(0, yPosition));
+			worldMaterial.SetVector(shaderPropID, new Vector2(0, depth));
 		}
 
 		[ContextMenu("Start")]
@@ -90,23 +119,27 @@ namespace RootRacer
 
 		void UnPauseGame()
 		{
-            Time.timeScale = 1;
-            IsPaused = false;
-            OnGameUnPause?.Invoke();
-			GameDepthMusic.gameDepthMusic[currentlyPlayingDepthMusic].music.Play2D();
-        }
+			Time.timeScale = 1;
+			isPaused = false;
+			OnGameUnPause?.Invoke();
+			gameDepthMusic.gameDepthMusic[currentlyPlayingDepthMusic].music.Play2D();
+
+			menuManager.ShowGameOver("",false);
+
+		}
+
 		void PauseGame()
 		{
-            OnGamePause?.Invoke();
-			GameDepthMusic.gameDepthMusic[currentlyPlayingDepthMusic].music.Stop2D();
-			IsPaused = true;
-            Time.timeScale = 0;
-        }
+			OnGamePause?.Invoke();
+			gameDepthMusic.gameDepthMusic[currentlyPlayingDepthMusic].music.Stop2D();
+			isPaused = true;
+			Time.timeScale = 0;
+		}
 
 		public void ResetGame()
 		{
 			currentSpeed = startSpeed;
-			yPosition = 0;
+			depth = 0;
 			var players = FindObjectsOfType<PlayerController>();
 			foreach (var player in players)
 			{
@@ -127,8 +160,7 @@ namespace RootRacer
 		public void GameOver(PlayerController playerWin)
 		{
 			PauseGame();
-			menuManager.ShowGameOver(playerWin.gameObject.name);
+			menuManager.ShowGameOver(playerWin.gameObject.name,true);
 		}
 	}
-	
 }
