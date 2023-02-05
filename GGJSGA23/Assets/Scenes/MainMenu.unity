@@ -725,7 +725,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainMenuCanvas: {fileID: 962390230}
   creditsCanvas: {fileID: 93870370}
-  nextScene: SampleScene
+  nextScene: GameScene
 --- !u!4 &344266365
 Transform:
   m_ObjectHideFlags: 0
