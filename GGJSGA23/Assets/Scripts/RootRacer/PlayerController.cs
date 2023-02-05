@@ -58,8 +58,8 @@ namespace RootRacer
 
 			CircleCollider2D = GetComponent<CircleCollider2D>();
 			CollisionSystemUtil.RegisterPlayer(CircleCollider2D);
-			gameManager.onGamePause += OnPause;
-			gameManager.onGameUnPause += OnUnPause;
+			gameManager.OnGamePause += OnPause;
+			gameManager.OnGameUnPause += OnUnPause;
 		}
 
 		void Start()
@@ -82,7 +82,7 @@ namespace RootRacer
 
 		void Update()
 		{
-			if (gameManager.isPaused)
+			if (gameManager.IsPaused)
 			{
 				return;
 			}
@@ -109,15 +109,14 @@ namespace RootRacer
 				deathSoundEvent?.Play(gameManager.transform);
 				footstepsSoundEvent.Stop(transform);
 				GameManager.RemovePlayer(this);
-				Destroy(gameObject);
 			}
 		}
 
 		private void OnDestroy()
 		{
 			
-			gameManager.onGamePause -= OnPause;
-			gameManager.onGameUnPause -= OnUnPause;
+			gameManager.OnGamePause -= OnPause;
+			gameManager.OnGameUnPause -= OnUnPause;
 		}
 
 		private void EffectTimers(float deltaTime)

@@ -4,10 +4,10 @@ using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
-	[SerializeField] private Canvas MenuCanvas;
+	[SerializeField] private Canvas menuCanvas;
 	[SerializeField] private Canvas creditsCanvas;
-	private int activeScene = 0;
 	[SerializeField] string nextScene;
+	private int activeScene = 0;
 
 	public void LoadNextScene()
 	{
@@ -21,23 +21,23 @@ public class MenuManager : MonoBehaviour
 
 	public void RestartGame()
 	{
-		GameManager.instance.ResetGame();
+		GameManager.Instance.ResetGame();
 	}
 
 	public void ShowCredits()
 	{
 		creditsCanvas.gameObject.SetActive(true);
-		MenuCanvas.gameObject.SetActive(false);
+		menuCanvas.gameObject.SetActive(false);
 	}
 
 	public void GoBack()
 	{
 		creditsCanvas.gameObject.SetActive(false);
-		MenuCanvas.gameObject.SetActive(true);
+		menuCanvas.gameObject.SetActive(true);
 	}
 
 	public void ShowGameOver(string winnerName)
 	{
-		MenuCanvas.gameObject.SetActive(true);
+		menuCanvas.gameObject.SetActive(true);
 	}
 }

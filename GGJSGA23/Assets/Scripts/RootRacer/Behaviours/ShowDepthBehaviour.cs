@@ -27,7 +27,7 @@ public class ShowDepthBehaviour : MonoBehaviour
     }
     private void LateUpdate()
     {
-        if (GameManager.instance.isPaused)
+        if (GameManager.Instance.IsPaused)
         {
             return;
         }
