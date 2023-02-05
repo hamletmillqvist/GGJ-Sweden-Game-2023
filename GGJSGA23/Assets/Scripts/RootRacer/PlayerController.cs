@@ -57,7 +57,7 @@ namespace RootRacer
 			gameManager = FindObjectOfType<GameManager>();
 			headAnimator = GetComponentInChildren<Animator>();
 			lineRenderer = GetComponentInChildren<LineRenderer>();
-
+			GameManager.Instance.AddPlayer(this);
 			//GetComponentInChildren<SpriteRenderer>().material.color = playerColor;
 
 			CircleCollider2D = GetComponent<CircleCollider2D>();
@@ -263,6 +263,19 @@ namespace RootRacer
 			}
 
 			transform.position += new Vector3(0, deltaY * deltaTime, 0);
+			ClampVerticalPosition();
+		}
+		private void ClampVerticalPosition()
+        {
+			var position = transform.position;
+			var minScreenBounds = camera.ScreenToWorldPoint(Vector3.zero);
+			var maxScreenBounds = camera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
+			var radius = CircleCollider2D.radius * transform.localScale.y;
+			position.y = Mathf.Clamp(position.y, minScreenBounds.y + radius, maxScreenBounds.y + radius*2);
+			//var screenPoint = camera.WorldToScreenPoint(position);		
+			//screenPoint.x = Mathf.Clamp(screenPoint.x, 0, Screen.width);
+			//transform.position = camera.ScreenToWorldPoint(screenPoint);
+			transform.position = position;
 		}
 
 		private void HandleHorizontalMovement(float deltaTime)

@@ -41,7 +41,8 @@ namespace RootRacer
 		private void Awake()
 		{
 			MainCamera = FindObjectOfType<Camera>();
-			players = FindObjectsOfType<PlayerController>().ToList();
+			//players = FindObjectsOfType<PlayerController>().ToList();
+			players = new();
 			menuManager = FindObjectOfType<MenuManager>();
 			
 			if (menuManager == null)
@@ -55,6 +56,13 @@ namespace RootRacer
 			
 			worldMaterial = worldMeshRenderer.material;
 		}
+		public void AddPlayer(PlayerController playerController)
+        {
+            if (!players.Contains(playerController))
+            {
+				players.Add(playerController);
+            }            
+        }
 		
 		void Start()
 		{
