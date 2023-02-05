@@ -1,15 +1,13 @@
-using Sonity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using TMPro;
-using Unity.VisualScripting;
+using Sonity;
 using UnityEngine;
 
 namespace RootRacer
 {
 	public class GameManager : MonoBehaviour
-	{		
+	{
 		public static GameManager instance;
 		public DepthMusic[] gameDepthMusic;
 		[SerializeField] private float startSpeed = 0.05f;
@@ -25,7 +23,9 @@ namespace RootRacer
 		private float currentSpeed = 0.5f;
 		private int shaderPropID;
 		private List<PlayerController> players;
+
 		public delegate void OnGamePause();
+
 		public event OnGamePause onGamePause;
 		public event OnGamePause onGameUnPause;
 		private MenuManager menuManager;
@@ -40,94 +40,95 @@ namespace RootRacer
 			isPaused = true;
 			Time.timeScale = 0;
 			menuManager = FindObjectOfType<MenuManager>();
-            if (menuManager == null)
-            {
+			if (menuManager == null)
+			{
 				Debug.LogError("No menuManager in scene");
-            }
+			}
 		}
+
 		public static List<PlayerController> Players => instance.players;
 		public static float Depth => instance.yPosition;
 
 		void Start()
-		{			
+		{
 			shaderPropID = worldMaterial.shader.GetPropertyNameId(worldMaterial.shader.FindPropertyIndex("_Position"));
-			
+
 			StartGame();
 		}
 
 		void Update()
 		{
-            if (isPaused)
-            {
-                return;
-            }
-            ScrollWorld(Time.deltaTime);
+			if (isPaused)
+			{
+				return;
+			}
+
+			ScrollWorld(Time.deltaTime);
 			CheckDepthMusic(yPosition);
 			CollisionSystemUtil.UpdateCollisions();
 		}
 
-        private void CheckDepthMusic(float depth)
-        {
+		private void CheckDepthMusic(float depth)
+		{
 			//DepthMusic deepestSelectedMusic = gameDepthMusic[currentlyPlayingDepthMusic];
 			int selectedIndex = currentlyPlayingDepthMusic;
 
 			for (int i = currentlyPlayingDepthMusic; i < gameDepthMusic.Length; i++)
-            {
+			{
 				DepthMusic depthMusic = gameDepthMusic[i];
-                if (depth > depthMusic.depth)
-                {
+				if (depth > depthMusic.depth)
+				{
 					//deepestSelectedMusic = depthMusic;
 					selectedIndex = i;
 				}
-            }
-            if (selectedIndex != currentlyPlayingDepthMusic)
-            {
+			}
+
+			if (selectedIndex != currentlyPlayingDepthMusic)
+			{
 				gameDepthMusic[currentlyPlayingDepthMusic].music.Stop2D();
 				gameDepthMusic[selectedIndex].music.Play2D();
 				currentlyPlayingDepthMusic = selectedIndex;
 			}
-        }
+		}
 
-        public float GetTargetSpeed()
+		public float GetTargetSpeed()
 		{
 			return currentSpeed;
 		}
 
-		
 
 		private void ScrollWorld(float deltaTime)
 		{
-			
-
 			yPosition -= deltaTime * currentSpeed;
 			currentSpeed += speedIncrease * deltaTime;
 			worldMaterial.SetVector(shaderPropID, new Vector2(0, yPosition));
 		}
+
 		[ContextMenu("Start")]
 		public void StartGame()
 		{
 			ResetGame();
 			UnPauseGame();
 		}
+
 		void UnPauseGame()
 		{
-            Time.timeScale = 1;
-            isPaused = false;
-            onGameUnPause?.Invoke();
+			Time.timeScale = 1;
+			isPaused = false;
+			onGameUnPause?.Invoke();
 			gameDepthMusic[currentlyPlayingDepthMusic].music.Play2D();
-        }
+		}
+
 		void PauseGame()
 		{
-            onGamePause?.Invoke();
+			onGamePause?.Invoke();
 			gameDepthMusic[currentlyPlayingDepthMusic].music.Stop2D();
 			isPaused = true;
-            Time.timeScale = 0;
-			
-        }
+			Time.timeScale = 0;
+		}
 
 		public void ResetGame()
 		{
-			
 			currentSpeed = startSpeed;
 			yPosition = 0;
 			var players = FindObjectsOfType<PlayerController>();
@@ -136,24 +137,28 @@ namespace RootRacer
 				player.ResetPlayer();
 			}
 		}
+
 		public static void RemovePlayer(PlayerController playerController)
 		{
 			instance.players.Remove(playerController);
+			CollisionSystemUtil.UnregisterPlayer(playerController);
 			if (instance.players.Count == 1)
 			{
 				instance.GameOver(instance.players[0]);
 			}
 		}
+
 		public void GameOver(PlayerController playerWin)
 		{
 			PauseGame();
 			menuManager.ShowGameOver(playerWin.gameObject.name);
 		}
 	}
-	[System.Serializable]
+
+	[Serializable]
 	public class DepthMusic
-    {
+	{
 		public SoundEvent music;
 		public float depth;
-    }
+	}
 }
