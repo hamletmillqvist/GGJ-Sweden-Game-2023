@@ -44,6 +44,7 @@ namespace RootRacer
 		private Vector3 startPosition;
 		private LineRenderer lineRenderer;
 		private GameObject shieldObject;
+		public GameObject shieldPop;
 
 		public CircleCollider2D CircleCollider2D { get; set; }
 
@@ -135,8 +136,7 @@ namespace RootRacer
 				shieldTimer -= deltaTime;
 				if (shieldTimer <= 0)
 				{
-					hasShield = false;
-					Destroy(shieldObject);
+					DestroyShield();
 				}
 			}
 
@@ -198,8 +198,8 @@ namespace RootRacer
 
 			if (hasShield)
 			{
-				hasShield = false;
-				Destroy(shieldObject);
+				
+				DestroyShield();
 				return;
 			}
 
@@ -227,8 +227,17 @@ namespace RootRacer
 		public void Shield()
 		{
 			shieldTimer = shieldTime;
+            if (!hasShield)
+            {
+				shieldObject = Instantiate(GameManager.ShieldPrefab, transform);
+            }
 			hasShield = true;
-			shieldObject = Instantiate(GameManager.ShieldPrefab, transform);
+		}
+		void DestroyShield()
+        {
+			Destroy(shieldObject);
+			Destroy(Instantiate(shieldPop,transform),1f);
+			hasShield = false;
 		}
 
 		public void SizeUp()

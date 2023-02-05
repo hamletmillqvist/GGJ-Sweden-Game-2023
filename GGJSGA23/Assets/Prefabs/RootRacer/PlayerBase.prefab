@@ -421,9 +421,13 @@ MonoBehaviour:
   shieldTime: 5
   sizeMultiplier: 2
   sizeTime: 5
+  hasGodMode: 0
+  winFaces: []
   footstepsSoundEvent: {fileID: 11400000, guid: dfb5e10947097ac488cd40933af88e27,
     type: 2}
   deathSoundEvent: {fileID: 11400000, guid: 429118cb748dd6543a751eb68cf9a40a, type: 2}
+  shieldPop: {fileID: 1978868474824748782, guid: fa81657c06e2c51469d6ceddd40a9c90,
+    type: 3}
 --- !u!58 &2237443831224695123
 CircleCollider2D:
   m_ObjectHideFlags: 0
