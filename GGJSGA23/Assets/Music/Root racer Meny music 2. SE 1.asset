@@ -82,7 +82,7 @@ MonoBehaviour:
       soundPolyGroupPriority: 1
       cooldownTime: 0
       probability: 100
-      expandIntensity: 0
+      expandIntensity: 1
       intensityAdd: 0
       intensityMultiplier: 1
       intensityRolloff: 0
