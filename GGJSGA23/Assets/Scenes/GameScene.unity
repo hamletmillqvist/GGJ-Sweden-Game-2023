@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731703, g: 0.13414727, b: 0.121078506, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -352,6 +352,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player 2 (Green)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3587216402648215880, guid: e7b95eb063b8d1642a006f3640cbba0c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3587216402648215881, guid: e7b95eb063b8d1642a006f3640cbba0c,
         type: 3}
@@ -764,6 +769,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player 1 (Pink)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3587216402648215880, guid: 6a1ac1b4d474c1d4ebad2e3870b77cd4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3587216402648215881, guid: 6a1ac1b4d474c1d4ebad2e3870b77cd4,
         type: 3}

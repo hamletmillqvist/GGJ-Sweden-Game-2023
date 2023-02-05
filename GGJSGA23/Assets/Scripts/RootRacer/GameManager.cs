@@ -95,8 +95,9 @@ namespace RootRacer
             isPaused = false;
             onGameUnPause?.Invoke();
 			gameDepthMusic.gameDepthMusic[currentlyPlayingDepthMusic].music.Play2D();
-			
-        }
+			menuManager.ShowGameOver("",false);
+
+		}
 		void PauseGame()
 		{
             onGamePause?.Invoke();
@@ -128,7 +129,7 @@ namespace RootRacer
 		public void GameOver(PlayerController playerWin)
 		{
 			PauseGame();
-			menuManager.ShowGameOver(playerWin.gameObject.name);
+			menuManager.ShowGameOver(playerWin.gameObject.name,true);
 		}
 	}
 	
