@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using RootRacer;
 
 public class MenuManager : MonoBehaviour
 {
     [SerializeField]
-    private Canvas mainMenuCanvas;
+    private Canvas MenuCanvas;
     [SerializeField]
     private Canvas creditsCanvas;
     private int activeScene = 0;
@@ -25,26 +26,34 @@ public class MenuManager : MonoBehaviour
     {
         
     }
-    public void StartGame()
+    public void LoadNextScene()
     {
         //changingScene = true;
         //activeScene++;
-        
         //SceneManager.LoadScene(activeScene, LoadSceneMode.Single);
+
         SceneManager.LoadScene(nextScene, LoadSceneMode.Single);
     }
-    public void Exitgame()
+    public void QuitGame()
     {
         Application.Quit();
+    }
+    public void RestartGame()
+    {
+        GameManager.instance.StartGame();
     }
     public void ShowCredits()
     {
         creditsCanvas.gameObject.SetActive(true);
-        mainMenuCanvas.gameObject.SetActive(false);
+        MenuCanvas.gameObject.SetActive(false);
     }
     public void GoBack()
     {
         creditsCanvas.gameObject.SetActive(false);
-        mainMenuCanvas.gameObject.SetActive(true);
+        MenuCanvas.gameObject.SetActive(true);
+    }
+    public void ShowGameOver()
+    {
+        MenuCanvas.gameObject.SetActive(true);
     }
 }

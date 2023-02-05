@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 806bd5c414686a94db941f782c9d9f8f
+guid: 7a27ab6ee8a4fc140ab6eb711441ac80
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -69,7 +69,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 3
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -101,18 +101,6 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
     buildTarget: Windows Store Apps
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -128,11 +116,11 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: sprButtons_strip6_0
+      name: sprButtons_strip8_0
       rect:
         serializedVersion: 2
         x: 2
-        y: 108
+        y: 12
         width: 39
         height: 18
       alignment: 0
@@ -142,18 +130,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4c0c080855079414c9792ce4a09ab0cb
-      internalID: 20808695
+      spriteID: b4a7788726aae574b871563baaaa0b46
+      internalID: -464630032
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprButtons_strip6_1
+      name: sprButtons_strip8_1
       rect:
         serializedVersion: 2
-        x: 130
-        y: 108
+        x: 66
+        y: 12
         width: 34
         height: 18
       alignment: 0
@@ -163,18 +151,60 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a7d5ace05e905b548bd95237a4d4dd2c
-      internalID: -900280963
+      spriteID: fced2e676b55ef045b0bf9fc22eed2e4
+      internalID: -315802090
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprButtons_strip6_2
+      name: sprButtons_strip8_2
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 12
+        width: 45
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb86e56ab35284d46bfecb4559c66202
+      internalID: 635358028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprButtons_strip8_3
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 12
+        width: 50
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce65c11fc6de4e644893404583bcb3c4
+      internalID: 26175484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprButtons_strip8_4
       rect:
         serializedVersion: 2
         x: 258
-        y: 108
+        y: 12
         width: 51
         height: 18
       alignment: 0
@@ -184,60 +214,39 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a29a8381175aecf43909b013e6bbb068
-      internalID: 1350920634
+      spriteID: 3850d0bb2c7c0b54caa044ebda3ae005
+      internalID: -1138585340
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprButtons_strip6_3
+      name: sprButtons_strip8_5
+      rect:
+        serializedVersion: 2
+        x: 322
+        y: 12
+        width: 31
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0009fd01c3cb8da4fa9406027da909dc
+      internalID: 1067013648
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprButtons_strip8_6
       rect:
         serializedVersion: 2
         x: 386
-        y: 108
-        width: 37
-        height: 18
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e4618d698b317804ea011b89e3434cd9
-      internalID: -1035949754
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sprButtons_strip6_4
-      rect:
-        serializedVersion: 2
-        x: 514
-        y: 108
-        width: 49
-        height: 18
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ae70be4e338e7d841b2c53086f09e2e3
-      internalID: -1603723958
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sprButtons_strip6_5
-      rect:
-        serializedVersion: 2
-        x: 642
-        y: 108
+        y: 12
         width: 34
         height: 18
       alignment: 0
@@ -247,8 +256,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2fd1c1f24e1610948af47f27b4fc11a8
-      internalID: -168629459
+      spriteID: 3afcbf1ee3b5fb74fa94d77729c8dcd6
+      internalID: 322430352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprButtons_strip8_7
+      rect:
+        serializedVersion: 2
+        x: 447
+        y: 18
+        width: 49
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 23e6cddfa7d82c34f8656d05f12efd46
+      internalID: 1382168108
       vertices: []
       indices: 
       edges: []
@@ -256,7 +286,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: feb3abafc4cd51548accbf66323dc921
+    spriteID: 5e99d5af2094b924c8c20cceb731ae9d
     internalID: 0
     vertices: []
     indices: 
@@ -264,12 +294,19 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      sprButtons_strip6_1: -900280963
-      sprButtons_strip6_3: -1035949754
-      sprButtons_strip6_4: -1603723958
-      sprButtons_strip6_5: -168629459
-      sprButtons_strip6_0: 20808695
-      sprButtons_strip6_2: 1350920634
+      sprButtons_strip8_11: -1885260385
+      sprButtons_strip8_4: -1138585340
+      sprButtons_strip8_10: -584703047
+      sprButtons_strip8_9: -1609431123
+      sprButtons_strip8_2: 635358028
+      sprButtons_strip8_7: 1382168108
+      sprButtons_strip8_1: -315802090
+      sprButtons_strip8_6: 322430352
+      sprButtons_strip8_0: -464630032
+      sprButtons_strip8_8: 42642559
+      sprButtons_strip8_12: 127019025
+      sprButtons_strip8_3: 26175484
+      sprButtons_strip8_5: 1067013648
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
