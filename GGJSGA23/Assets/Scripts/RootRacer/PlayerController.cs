@@ -62,8 +62,8 @@ namespace RootRacer
 
 			CircleCollider2D = GetComponent<CircleCollider2D>();
 			CollisionSystemUtil.RegisterPlayer(CircleCollider2D);
-			gameManager.onGamePause += OnPause;
-			gameManager.onGameUnPause += OnUnPause;
+			gameManager.OnGamePause += OnPause;
+			gameManager.OnGameUnPause += OnUnPause;
 		}
 
 		void Start()
@@ -146,8 +146,8 @@ namespace RootRacer
 		private void OnDestroy()
 		{
 			CollisionSystemUtil.UnregisterPlayer(this);
-            gameManager.onGamePause -= OnPause;
-            gameManager.onGameUnPause -= OnUnPause;
+            gameManager.OnGamePause -= OnPause;
+            gameManager.OnGameUnPause -= OnUnPause;
         }
 
 		private void HandleTouchedItems()
