@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731703, g: 0.13414727, b: 0.121078506, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -296,9 +296,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68fdffb0e16c46259963b5c2c3429b24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnerTimerMax: 0.1
-  spawnerTimerMin: 0.01
-  spawnerTimerCountdown: 0
+  spawnerTimerMax: 0.8
+  spawnerTimerMin: 0.3
+  spawnerTimerCountdown: 2
   spawnerPrefab: {fileID: -5355682470161483012, guid: eb07d470dc886df40b9c71728a1ed04a,
     type: 3}
 --- !u!1 &717026879
@@ -454,9 +454,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68fdffb0e16c46259963b5c2c3429b24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnerTimerMax: 0.1
-  spawnerTimerMin: 0.01
-  spawnerTimerCountdown: 0
+  spawnerTimerMax: 0.5
+  spawnerTimerMin: 0.3
+  spawnerTimerCountdown: 4
   spawnerPrefab: {fileID: 8750256044624834709, guid: 932035d44410c8a42b6f81a55fc31be9,
     type: 3}
 --- !u!1 &1019711590
@@ -634,9 +634,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68fdffb0e16c46259963b5c2c3429b24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnerTimerMax: 0.1
-  spawnerTimerMin: 0.01
-  spawnerTimerCountdown: 0
+  spawnerTimerMax: 0.2
+  spawnerTimerMin: 0.1
+  spawnerTimerCountdown: 1
   spawnerPrefab: {fileID: 113368726593801055, guid: 590358deb34dde9468c20980ef710f26,
     type: 3}
 --- !u!114 &1157049703
@@ -652,8 +652,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnerTimerMax: 0.1
-  spawnerTimerMin: 0.01
-  spawnerTimerCountdown: 0
+  spawnerTimerMin: 0.05
+  spawnerTimerCountdown: 0.5
   spawnerPrefab: {fileID: 113368726593801055, guid: 0e30ba4ffdf8ad14590a8bc31d9c234d,
     type: 3}
 --- !u!114 &1157049704
@@ -668,7 +668,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68fdffb0e16c46259963b5c2c3429b24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnerTimerMax: 0.1
+  spawnerTimerMax: 0.05
   spawnerTimerMin: 0.01
   spawnerTimerCountdown: 0
   spawnerPrefab: {fileID: 113368726593801055, guid: 9e193a095f5cef545abaa47e8332b123,
@@ -1094,9 +1094,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68fdffb0e16c46259963b5c2c3429b24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnerTimerMax: 0.1
-  spawnerTimerMin: 0.01
-  spawnerTimerCountdown: 0
+  spawnerTimerMax: 0.5
+  spawnerTimerMin: 0.2
+  spawnerTimerCountdown: 0.5
   spawnerPrefab: {fileID: 7069616098910469074, guid: 6bed944f337b4b541a9bee1cb288fcb8,
     type: 3}
 --- !u!1 &1751127729
@@ -1311,9 +1311,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68fdffb0e16c46259963b5c2c3429b24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnerTimerMax: 0.1
-  spawnerTimerMin: 0.01
-  spawnerTimerCountdown: 0
+  spawnerTimerMax: 0.5
+  spawnerTimerMin: 0.05
+  spawnerTimerCountdown: 0.1
   spawnerPrefab: {fileID: -5222685319718513924, guid: b070096aa26ff6c4593fbd6df4f46e6d,
     type: 3}
 --- !u!1 &1899323963
