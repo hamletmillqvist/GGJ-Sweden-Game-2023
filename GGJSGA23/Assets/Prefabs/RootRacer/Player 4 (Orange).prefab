@@ -15,7 +15,7 @@ PrefabInstance:
     - target: {fileID: 6285699548807399554, guid: 89d9220da5323f4429b9b36c43dbf084,
         type: 3}
       propertyPath: m_Name
-      value: Player 3
+      value: Player 4 (Orange)
       objectReference: {fileID: 0}
     - target: {fileID: 6285699548807399555, guid: 89d9220da5323f4429b9b36c43dbf084,
         type: 3}
@@ -97,6 +97,35 @@ PrefabInstance:
       propertyPath: playerColor.r
       value: 0.9568628
       objectReference: {fileID: 0}
+    - target: {fileID: 6285699548807399556, guid: 89d9220da5323f4429b9b36c43dbf084,
+        type: 3}
+      propertyPath: winFaces.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6285699548807399556, guid: 89d9220da5323f4429b9b36c43dbf084,
+        type: 3}
+      propertyPath: winFaces.Array.data[0]
+      value: 
+      objectReference: {fileID: 2097940572, guid: 7c8f79c2d6c1ae846b1e5e9385064026,
+        type: 3}
+    - target: {fileID: 6285699548807399556, guid: 89d9220da5323f4429b9b36c43dbf084,
+        type: 3}
+      propertyPath: winFaces.Array.data[1]
+      value: 
+      objectReference: {fileID: 2063537463, guid: 7c8f79c2d6c1ae846b1e5e9385064026,
+        type: 3}
+    - target: {fileID: 6285699548807399556, guid: 89d9220da5323f4429b9b36c43dbf084,
+        type: 3}
+      propertyPath: winFaces.Array.data[2]
+      value: 
+      objectReference: {fileID: -1186787959, guid: 7c8f79c2d6c1ae846b1e5e9385064026,
+        type: 3}
+    - target: {fileID: 6285699548807399556, guid: 89d9220da5323f4429b9b36c43dbf084,
+        type: 3}
+      propertyPath: winFaces.Array.data[3]
+      value: 
+      objectReference: {fileID: 1884762123, guid: 7c8f79c2d6c1ae846b1e5e9385064026,
+        type: 3}
     - target: {fileID: 8386097555429213789, guid: 89d9220da5323f4429b9b36c43dbf084,
         type: 3}
       propertyPath: m_Sprite

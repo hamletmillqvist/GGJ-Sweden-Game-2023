@@ -26,7 +26,7 @@ namespace RootRacer
 		public float sizeMultiplier = 2;
 		public float sizeTime = 5;
 		public bool hasGodMode = false;
-
+		public Sprite[] winFaces;
 		[Header("Sounds")] [SerializeField] private SoundEvent footstepsSoundEvent;
 		[SerializeField] private SoundEvent deathSoundEvent;
 

@@ -975,6 +975,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MenuManager
       objectReference: {fileID: 0}
+    - target: {fileID: 3968121604829144657, guid: 4e9132a4d67980b4aac7b104a1b5f222,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3968121604829144662, guid: 4e9132a4d67980b4aac7b104a1b5f222,
         type: 3}
       propertyPath: creditsCanvas
@@ -982,19 +987,9 @@ PrefabInstance:
       objectReference: {fileID: 93870370}
     - target: {fileID: 3968121604829144662, guid: 4e9132a4d67980b4aac7b104a1b5f222,
         type: 3}
-      propertyPath: twoPlayerScene
-      value: TwoPlayerScene
-      objectReference: {fileID: 0}
-    - target: {fileID: 3968121604829144662, guid: 4e9132a4d67980b4aac7b104a1b5f222,
-        type: 3}
-      propertyPath: fourPlayerScene
-      value: FourPlayerScene
-      objectReference: {fileID: 0}
-    - target: {fileID: 3968121604829144662, guid: 4e9132a4d67980b4aac7b104a1b5f222,
-        type: 3}
-      propertyPath: threePlayerScene
-      value: ThreePlayerScene
-      objectReference: {fileID: 0}
+      propertyPath: placingsCanvas
+      value: 
+      objectReference: {fileID: 3968121604636012587}
     - target: {fileID: 3968121604829144663, guid: 4e9132a4d67980b4aac7b104a1b5f222,
         type: 3}
       propertyPath: m_RootOrder
@@ -1050,10 +1045,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3968121605287909625, guid: 4e9132a4d67980b4aac7b104a1b5f222,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6359176999463132254, guid: 4e9132a4d67980b4aac7b104a1b5f222,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7890084479536877985, guid: 4e9132a4d67980b4aac7b104a1b5f222,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e9132a4d67980b4aac7b104a1b5f222, type: 3}
+--- !u!223 &3968121604636012587 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 3604587864517332264, guid: 4e9132a4d67980b4aac7b104a1b5f222,
+    type: 3}
+  m_PrefabInstance: {fileID: 3968121604636012586}
+  m_PrefabAsset: {fileID: 0}

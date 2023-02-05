@@ -36,7 +36,7 @@ namespace RootRacer
 		private float currentSpeed = 0.5f;
 		private int shaderPropID;
 		private List<PlayerController> players;
-		private Stack<PlayerDeathInfo> playerDeaths;
+		public Stack<PlayerDeathInfo> playerDeaths;
 		private MenuManager menuManager;
 		private int currentlyPlayingDepthMusic;
 
@@ -132,7 +132,7 @@ namespace RootRacer
 			OnGameUnPause?.Invoke();
 			gameDepthMusic.gameDepthMusic[currentlyPlayingDepthMusic].music.Play2D();
 
-			menuManager.ShowGameOver();
+			//menuManager.ShowGameOver();
 		}
 
 		void PauseGame()
@@ -174,7 +174,7 @@ namespace RootRacer
 		public void GameOver(PlayerController playerWin)
 		{
 			PauseGame();
-			menuManager.ShowGameOver();
+			menuManager.ShowGameOver(playerWin);
 		}
 	}
 }

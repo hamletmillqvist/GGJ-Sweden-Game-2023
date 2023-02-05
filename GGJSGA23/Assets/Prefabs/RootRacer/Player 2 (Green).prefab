@@ -15,7 +15,7 @@ PrefabInstance:
     - target: {fileID: 6285699548807399554, guid: 89d9220da5323f4429b9b36c43dbf084,
         type: 3}
       propertyPath: m_Name
-      value: Player 2
+      value: Player 2 (Green)
       objectReference: {fileID: 0}
     - target: {fileID: 6285699548807399555, guid: 89d9220da5323f4429b9b36c43dbf084,
         type: 3}
@@ -97,6 +97,35 @@ PrefabInstance:
       propertyPath: playerColor.r
       value: 0.21568629
       objectReference: {fileID: 0}
+    - target: {fileID: 6285699548807399556, guid: 89d9220da5323f4429b9b36c43dbf084,
+        type: 3}
+      propertyPath: winFaces.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6285699548807399556, guid: 89d9220da5323f4429b9b36c43dbf084,
+        type: 3}
+      propertyPath: winFaces.Array.data[0]
+      value: 
+      objectReference: {fileID: 334573777, guid: cc31683213e083a408730c68553a548b,
+        type: 3}
+    - target: {fileID: 6285699548807399556, guid: 89d9220da5323f4429b9b36c43dbf084,
+        type: 3}
+      propertyPath: winFaces.Array.data[1]
+      value: 
+      objectReference: {fileID: 1916780661, guid: cc31683213e083a408730c68553a548b,
+        type: 3}
+    - target: {fileID: 6285699548807399556, guid: 89d9220da5323f4429b9b36c43dbf084,
+        type: 3}
+      propertyPath: winFaces.Array.data[2]
+      value: 
+      objectReference: {fileID: -1984090090, guid: cc31683213e083a408730c68553a548b,
+        type: 3}
+    - target: {fileID: 6285699548807399556, guid: 89d9220da5323f4429b9b36c43dbf084,
+        type: 3}
+      propertyPath: winFaces.Array.data[3]
+      value: 
+      objectReference: {fileID: -1837483361, guid: cc31683213e083a408730c68553a548b,
+        type: 3}
     - target: {fileID: 8386097555429213789, guid: 89d9220da5323f4429b9b36c43dbf084,
         type: 3}
       propertyPath: m_Sprite

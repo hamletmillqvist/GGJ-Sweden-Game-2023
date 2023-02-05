@@ -97,5 +97,34 @@ PrefabInstance:
       propertyPath: playerColor.r
       value: 0.19215688
       objectReference: {fileID: 0}
+    - target: {fileID: 6285699548807399556, guid: 89d9220da5323f4429b9b36c43dbf084,
+        type: 3}
+      propertyPath: winFaces.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6285699548807399556, guid: 89d9220da5323f4429b9b36c43dbf084,
+        type: 3}
+      propertyPath: winFaces.Array.data[0]
+      value: 
+      objectReference: {fileID: -1694348711, guid: d3af592efdd7081478f12778a050cfde,
+        type: 3}
+    - target: {fileID: 6285699548807399556, guid: 89d9220da5323f4429b9b36c43dbf084,
+        type: 3}
+      propertyPath: winFaces.Array.data[1]
+      value: 
+      objectReference: {fileID: 59684436, guid: d3af592efdd7081478f12778a050cfde,
+        type: 3}
+    - target: {fileID: 6285699548807399556, guid: 89d9220da5323f4429b9b36c43dbf084,
+        type: 3}
+      propertyPath: winFaces.Array.data[2]
+      value: 
+      objectReference: {fileID: 1816634958, guid: d3af592efdd7081478f12778a050cfde,
+        type: 3}
+    - target: {fileID: 6285699548807399556, guid: 89d9220da5323f4429b9b36c43dbf084,
+        type: 3}
+      propertyPath: winFaces.Array.data[3]
+      value: 
+      objectReference: {fileID: 237702720, guid: d3af592efdd7081478f12778a050cfde,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89d9220da5323f4429b9b36c43dbf084, type: 3}
