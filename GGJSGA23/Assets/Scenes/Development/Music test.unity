@@ -938,7 +938,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9bfa6dbfb70d764c85bfece4e0b80f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameMusicEvent: {fileID: 11400000, guid: a33cc6ded520ff04ba553990bf2dddc7, type: 2}
+  gameDepthMusic: {fileID: 11400000, guid: 5ae84e9eafe15674db4f35f190bc66c5, type: 2}
   startSpeed: 0.05
   speedIncrease: 0.001
   worldMeshRenderer: {fileID: 1045258446}
