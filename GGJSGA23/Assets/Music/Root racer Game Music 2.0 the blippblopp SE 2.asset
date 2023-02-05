@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b80e83c0feb1444db6d74f0748b6ec9, type: 3}
-  m_Name: Musik root racer, part 0-25m-SE
+  m_Name: Root racer Game Music 2.0 the blippblopp SE 2
   m_EditorClassIdentifier: 
   internals:
     data:
@@ -32,8 +32,8 @@ MonoBehaviour:
       muteEnable: 0
       soloEnable: 0
       soundEventModifier:
-        volumeDecibel: -10.3
-        volumeRatio: 0.3054921
+        volumeDecibel: 0
+        volumeRatio: 1
         pitchSemitone: 0
         pitchRatio: 1
         delay: 0
@@ -47,9 +47,9 @@ MonoBehaviour:
         polyphony: 1
         distanceScale: 1
         distortionIncrease: 0
-        fadeInLength: 0.5
+        fadeInLength: 0
         fadeInShape: 2
-        fadeOutLength: 0.5
+        fadeOutLength: 0
         fadeOutShape: -2
         followPosition: 1
         bypassReverbZones: 0
@@ -67,9 +67,9 @@ MonoBehaviour:
         polyphonyUse: 1
         distanceScaleUse: 0
         distortionIncreaseUse: 0
-        fadeInLengthUse: 1
+        fadeInLengthUse: 0
         fadeInShapeUse: 0
-        fadeOutLengthUse: 1
+        fadeOutLengthUse: 0
         fadeOutShapeUse: 0
         followPositionUse: 0
         bypassReverbZonesUse: 0
@@ -226,4 +226,4 @@ MonoBehaviour:
         soundEvent:
         - {fileID: 0}
     soundContainers:
-    - {fileID: 11400000, guid: c6f85c4659555104ba66947a33898856, type: 2}
+    - {fileID: 11400000, guid: 9157986aae9f93c41a7a6cd7123a32ba, type: 2}

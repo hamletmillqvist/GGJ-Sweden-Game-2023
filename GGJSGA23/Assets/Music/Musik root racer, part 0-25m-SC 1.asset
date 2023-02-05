@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e444e5f947e2a7409a1eaa10f9fa16e, type: 3}
-  m_Name: Musik root racer, part 0-25m-SC
+  m_Name: Musik root racer, part 0-25m-SC 1
   m_EditorClassIdentifier: 
   internals:
     data:
@@ -43,7 +43,7 @@ MonoBehaviour:
       bypassReverbZones: 0
       bypassVoiceEffects: 0
       bypassListenerEffects: 0
-      volumeExpand: 0
+      volumeExpand: 1
       volumeDecibel: 0
       volumeRatio: 1
       volumeRandomEnable: 0

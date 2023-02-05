@@ -131,6 +131,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprites:
-  - {fileID: -135891577, guid: 811eb8d63d5a9b14ba8f5cf0a9f8bb4d, type: 3}
+  - {fileID: 2113961511, guid: 193820a496e8a214da84e37c2a09ea20, type: 3}
   triggerSound: {fileID: 11400000, guid: fc707449120312940b8438aabef392cf, type: 2}
   speedUpAmount: 5
