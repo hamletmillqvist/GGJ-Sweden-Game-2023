@@ -52,7 +52,7 @@ public class MenuManager : MonoBehaviour
         creditsCanvas.gameObject.SetActive(false);
         MenuCanvas.gameObject.SetActive(true);
     }
-    public void ShowGameOver()
+    public void ShowGameOver(string winnerName)
     {
         MenuCanvas.gameObject.SetActive(true);
     }
