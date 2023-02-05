@@ -27,8 +27,11 @@ namespace RootRacer
 		public float sizeTime = 5;
 		public bool hasGodMode = false;
 		
-		[Header("Sounds")][SerializeField] private SoundEvent footstepsSoundEvent;
-		[SerializeField] private SoundEvent deathSoundEvent;
+		[Header("Sounds")]
+		[SerializeField]
+		private SoundEvent footstepsSoundEvent;
+		[SerializeField]
+		private SoundEvent deathSoundEvent;
 
 		private Animator headAnimator;
 		private new Camera camera;
@@ -43,10 +46,8 @@ namespace RootRacer
 		private bool hasSizeUp;
 		private Vector3 startPosition;
 		private LineRenderer lineRenderer;
-		private CircleCollider2D circleCollider2D;
-
-
-		#region UnityEvents
+		
+		public CircleCollider2D CircleCollider2D { get; set; }
 
 		private void Awake()
 		{
@@ -59,8 +60,8 @@ namespace RootRacer
 
 			//GetComponentInChildren<SpriteRenderer>().material.color = playerColor;
 
-			circleCollider2D = GetComponent<CircleCollider2D>();
-			CollisionSystemUtil.RegisterPlayer(circleCollider2D);
+			CircleCollider2D = GetComponent<CircleCollider2D>();
+			CollisionSystemUtil.RegisterPlayer(CircleCollider2D);
 			gameManager.onGamePause += OnPause;
 			gameManager.onGameUnPause += OnUnPause;
 		}
@@ -144,16 +145,14 @@ namespace RootRacer
 
 		private void OnDestroy()
 		{
-			CollisionSystemUtil.UnregisterPlayer(circleCollider2D);
+			CollisionSystemUtil.UnregisterPlayer(this);
             gameManager.onGamePause -= OnPause;
             gameManager.onGameUnPause -= OnUnPause;
         }
 
-		#endregion
-
 		private void HandleTouchedItems()
 		{
-			var touchedItems = CollisionSystemUtil.GetTouchedItems(circleCollider2D);
+			var touchedItems = CollisionSystemUtil.GetTouchedItems(CircleCollider2D);
 			foreach (var touchedItem in touchedItems)
 			{
 				touchedItem.TriggerEffect(this);
@@ -288,7 +287,7 @@ namespace RootRacer
 			position += new Vector3(horizontalMoveSpeed * movementDirectionDelta, 0, 0);
 			var minScreenBounds = camera.ScreenToWorldPoint(Vector3.zero); 
 			var maxScreenBounds = camera.ScreenToWorldPoint(new Vector3(Screen.width,Screen.height,0));
-			var radius = circleCollider2D.radius * transform.localScale.x;
+			var radius = CircleCollider2D.radius * transform.localScale.x;
 			position.x = Mathf.Clamp(position.x,minScreenBounds.x+radius,maxScreenBounds.x-radius);
 			//var screenPoint = camera.WorldToScreenPoint(position);		
 			//screenPoint.x = Mathf.Clamp(screenPoint.x, 0, Screen.width);

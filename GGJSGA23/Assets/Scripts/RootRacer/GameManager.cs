@@ -1,8 +1,5 @@
-using Sonity;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using Sonity;
 using UnityEngine;
 
 namespace RootRacer
@@ -74,9 +71,9 @@ namespace RootRacer
 			//DepthMusic deepestSelectedMusic = gameDepthMusic[currentlyPlayingDepthMusic];
 			int selectedIndex = currentlyPlayingDepthMusic;
 
-			for (int i = currentlyPlayingDepthMusic; i < gameDepthMusic.Length; i++)
+			for (int i = currentlyPlayingDepthMusic; i < gameDepthMusic.gameDepthMusic.Length; i++)
 			{
-				DepthMusic depthMusic = gameDepthMusic[i];
+				DepthMusic depthMusic = gameDepthMusic.gameDepthMusic[i];
 				if (depth > depthMusic.depth)
 				{
 					//deepestSelectedMusic = depthMusic;
@@ -86,8 +83,8 @@ namespace RootRacer
 
 			if (selectedIndex != currentlyPlayingDepthMusic)
 			{
-				gameDepthMusic[currentlyPlayingDepthMusic].music.Stop2D();
-				gameDepthMusic[selectedIndex].music.Play2D();
+				gameDepthMusic.gameDepthMusic[currentlyPlayingDepthMusic].music.Stop2D();
+				gameDepthMusic.gameDepthMusic[selectedIndex].music.Play2D();
 				currentlyPlayingDepthMusic = selectedIndex;
 			}
 		}
@@ -117,13 +114,13 @@ namespace RootRacer
 			Time.timeScale = 1;
 			isPaused = false;
 			onGameUnPause?.Invoke();
-			gameDepthMusic[currentlyPlayingDepthMusic].music.Play2D();
+			gameDepthMusic.gameDepthMusic[currentlyPlayingDepthMusic].music.Play2D();
 		}
 
 		void PauseGame()
 		{
 			onGamePause?.Invoke();
-			gameDepthMusic[currentlyPlayingDepthMusic].music.Stop2D();
+			gameDepthMusic.gameDepthMusic[currentlyPlayingDepthMusic].music.Stop2D();
 			isPaused = true;
 			Time.timeScale = 0;
 		}
@@ -154,12 +151,5 @@ namespace RootRacer
 			PauseGame();
 			menuManager.ShowGameOver(playerWin.gameObject.name);
 		}
-	}
-
-	[Serializable]
-	public class DepthMusic
-	{
-		public SoundEvent music;
-		public float depth;
 	}
 }
