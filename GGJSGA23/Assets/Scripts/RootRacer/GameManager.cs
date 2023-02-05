@@ -11,7 +11,7 @@ namespace RootRacer
 	public class GameManager : MonoBehaviour
 	{		
 		public static GameManager instance;
-		public SoundEvent gameMusicEvent;
+		public DepthMusic[] gameDepthMusic;
 		[SerializeField] private float startSpeed = 0.05f;
 		[SerializeField] private float speedIncrease = 0.1f;
 		public static Camera MainCamera;
@@ -29,6 +29,7 @@ namespace RootRacer
 		public event OnGamePause onGamePause;
 		public event OnGamePause onGameUnPause;
 		private MenuManager menuManager;
+		private int currentlyPlayingDepthMusic = 0;
 
 		private void Awake()
 		{
@@ -61,10 +62,33 @@ namespace RootRacer
                 return;
             }
             ScrollWorld(Time.deltaTime);
+			CheckDepthMusic(yPosition);
 			CollisionSystemUtil.UpdateCollisions();
 		}
 
-		public float GetTargetSpeed()
+        private void CheckDepthMusic(float depth)
+        {
+			//DepthMusic deepestSelectedMusic = gameDepthMusic[currentlyPlayingDepthMusic];
+			int selectedIndex = currentlyPlayingDepthMusic;
+
+			for (int i = currentlyPlayingDepthMusic; i < gameDepthMusic.Length; i++)
+            {
+				DepthMusic depthMusic = gameDepthMusic[i];
+                if (depth > depthMusic.depth)
+                {
+					//deepestSelectedMusic = depthMusic;
+					selectedIndex = i;
+				}
+            }
+            if (selectedIndex != currentlyPlayingDepthMusic)
+            {
+				gameDepthMusic[currentlyPlayingDepthMusic].music.Stop2D();
+				gameDepthMusic[selectedIndex].music.Play2D();
+				currentlyPlayingDepthMusic = selectedIndex;
+			}
+        }
+
+        public float GetTargetSpeed()
 		{
 			return currentSpeed;
 		}
@@ -90,15 +114,15 @@ namespace RootRacer
             Time.timeScale = 1;
             isPaused = false;
             onGameUnPause?.Invoke();
-            gameMusicEvent.Play2D();
+			gameDepthMusic[currentlyPlayingDepthMusic].music.Play2D();
         }
 		void PauseGame()
 		{
             onGamePause?.Invoke();
-            gameMusicEvent.Stop2D(true);
-            isPaused = true;
+			gameDepthMusic[currentlyPlayingDepthMusic].music.Stop2D();
+			isPaused = true;
             Time.timeScale = 0;
-			menuManager.ShowGameOver();
+			
         }
 
 		public void ResetGame()
@@ -123,6 +147,13 @@ namespace RootRacer
 		public void GameOver(PlayerController playerWin)
 		{
 			PauseGame();
+			menuManager.ShowGameOver(playerWin.gameObject.name);
 		}
 	}
+	[System.Serializable]
+	public class DepthMusic
+    {
+		public SoundEvent music;
+		public float depth;
+    }
 }

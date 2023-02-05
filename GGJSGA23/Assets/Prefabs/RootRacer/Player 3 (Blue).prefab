@@ -15,7 +15,7 @@ PrefabInstance:
     - target: {fileID: 6285699548807399554, guid: 89d9220da5323f4429b9b36c43dbf084,
         type: 3}
       propertyPath: m_Name
-      value: Player 1
+      value: Player 3 (Blue)
       objectReference: {fileID: 0}
     - target: {fileID: 6285699548807399555, guid: 89d9220da5323f4429b9b36c43dbf084,
         type: 3}
@@ -71,6 +71,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6285699548807399556, guid: 89d9220da5323f4429b9b36c43dbf084,
+        type: 3}
+      propertyPath: moveLeft
+      value: 106
+      objectReference: {fileID: 0}
+    - target: {fileID: 6285699548807399556, guid: 89d9220da5323f4429b9b36c43dbf084,
+        type: 3}
+      propertyPath: moveRight
+      value: 108
       objectReference: {fileID: 0}
     - target: {fileID: 6285699548807399556, guid: 89d9220da5323f4429b9b36c43dbf084,
         type: 3}
