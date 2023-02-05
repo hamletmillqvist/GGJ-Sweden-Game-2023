@@ -1,42 +1,44 @@
+using Sonity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using Sonity;
 using UnityEngine;
 
 namespace RootRacer
 {
 	public class GameManager : MonoBehaviour
 	{
-		public delegate void OnGamePausingDelegate();
+		public static GameManager instance;
+		public DepthMusicSO gameDepthMusic;
+		[SerializeField] private float startSpeed = 0.05f;
+		[SerializeField] private float speedIncrease = 0.1f;
+		public static Camera MainCamera;
 
-		public event OnGamePausingDelegate OnGamePause;
-		public event OnGamePausingDelegate OnGameUnPause;
-		
-		public static GameManager Instance { get; set; }
-		public static Camera MainCamera { get; private set; }
-		public MeshRenderer WorldMeshRenderer { get; }
-		public DepthMusicSO GameDepthMusic { get; }
-		public bool IsPaused { get; set; }
-
-		[SerializeField]
-		private float startSpeed = 0.05f;
-		[SerializeField]
-		private float speedIncrease = 0.1f;
+		//public TextMeshProUGUI depthTM;
+		public MeshRenderer worldMeshRenderer;
+		public bool isPaused;
 
 		private Material worldMaterial;
 		private float yPosition;
 		private float currentSpeed = 0.5f;
 		private int shaderPropID;
 		private List<PlayerController> players;
+
+		public delegate void OnGamePause();
+
+		public event OnGamePause onGamePause;
+		public event OnGamePause onGameUnPause;
 		private MenuManager menuManager;
 		private int currentlyPlayingDepthMusic = 0;
 
 		private void Awake()
 		{
-			Instance = this;
+			instance = this;
 			MainCamera = FindObjectOfType<Camera>();
-			worldMaterial = WorldMeshRenderer.material;
+			worldMaterial = worldMeshRenderer.material;
 			players = FindObjectsOfType<PlayerController>().ToList();
-			IsPaused = true;
+			isPaused = true;
 			Time.timeScale = 0;
 			menuManager = FindObjectOfType<MenuManager>();
 			if (menuManager == null)
@@ -45,8 +47,8 @@ namespace RootRacer
 			}
 		}
 
-		public static List<PlayerController> Players => Instance.players;
-		public static float Depth => Instance.yPosition;
+		public static List<PlayerController> Players => instance.players;
+		public static float Depth => instance.yPosition;
 
 		void Start()
 		{
@@ -57,12 +59,12 @@ namespace RootRacer
 
 		void Update()
 		{
-            if (IsPaused)
+            if (isPaused)
             {
                 return;
             }
             ScrollWorld(Time.deltaTime);
-			currentlyPlayingDepthMusic = GameDepthMusic.SetDepthMusic(currentlyPlayingDepthMusic,-yPosition);
+			currentlyPlayingDepthMusic = gameDepthMusic.SetDepthMusic(currentlyPlayingDepthMusic,-yPosition);
 			CollisionSystemUtil.UpdateCollisions();
 		}
 
@@ -91,15 +93,15 @@ namespace RootRacer
 		void UnPauseGame()
 		{
             Time.timeScale = 1;
-            IsPaused = false;
-            OnGameUnPause?.Invoke();
-			GameDepthMusic.gameDepthMusic[currentlyPlayingDepthMusic].music.Play2D();
+            isPaused = false;
+            onGameUnPause?.Invoke();
+			gameDepthMusic.gameDepthMusic[currentlyPlayingDepthMusic].music.Play2D();
         }
 		void PauseGame()
 		{
-            OnGamePause?.Invoke();
-			GameDepthMusic.gameDepthMusic[currentlyPlayingDepthMusic].music.Stop2D();
-			IsPaused = true;
+            onGamePause?.Invoke();
+			gameDepthMusic.gameDepthMusic[currentlyPlayingDepthMusic].music.Stop2D();
+			isPaused = true;
             Time.timeScale = 0;
         }
 
@@ -116,11 +118,11 @@ namespace RootRacer
 
 		public static void RemovePlayer(PlayerController playerController)
 		{
-			Instance.players.Remove(playerController);
+			instance.players.Remove(playerController);
 			CollisionSystemUtil.UnregisterPlayer(playerController);
-			if (Instance.players.Count == 1)
+			if (instance.players.Count == 1)
 			{
-				Instance.GameOver(Instance.players[0]);
+				instance.GameOver(instance.players[0]);
 			}
 		}
 

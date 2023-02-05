@@ -46,7 +46,7 @@ namespace RootRacer.Behaviours
 
 		public virtual void TriggerEffect(PlayerController playerController)
 		{ 
-			triggerSound?.Play(GameManager.Instance.transform);
+			triggerSound?.Play(GameManager.instance.transform);
 		}
 	}
 }
