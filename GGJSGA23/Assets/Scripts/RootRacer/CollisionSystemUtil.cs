@@ -38,10 +38,11 @@ namespace RootRacer
 			Debug.Log($"Registered player: {player.name}");
 		}
 
-		public static void UnregisterPlayer(CircleCollider2D player)
+		public static void UnregisterPlayer(PlayerController player)
 		{
-			registeredPlayers.Remove(player);
-			collisions.Remove(player);
+			var playerCollider = player.CircleCollider2D;
+			registeredPlayers.Remove(playerCollider);
+			collisions.Remove(playerCollider);
 			IsDirty = true;
 			
 			Debug.Log($"Un-registered player: {player.name}");
