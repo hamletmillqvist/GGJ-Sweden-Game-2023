@@ -91,10 +91,21 @@ public class MenuManager : MonoBehaviour
 	{
 		//SceneManager.LoadScene(gameOverScene, LoadSceneMode.Single);
 		SetPlace(0, playerController);
-        for (int i = 0; i <= GameManager.Instance.playerDeaths.Count; i++)
+		Debug.Log(GameManager.Instance.playerDeaths.Count);
+		int i = 1;
+        while (GameManager.Instance.playerDeaths.Count>0)
         {
-			SetPlace(i+1);
+            if (i > 3)
+            {
+				break;
+            }
+			SetPlace(i);
+			i++;
 		}
+  //      for (int i = 0; i <= GameManager.Instance.playerDeaths.Count; i++)
+  //      {
+		//	SetPlace(i+1);
+		//}
 		placingsCanvas.gameObject.SetActive(true);
 	}
 	private void SetPlace(int i, PlayerController player)
