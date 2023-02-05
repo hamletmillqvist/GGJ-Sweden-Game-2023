@@ -47,9 +47,9 @@ MonoBehaviour:
         polyphony: 1
         distanceScale: 1
         distortionIncrease: 0
-        fadeInLength: 0.5
+        fadeInLength: 0
         fadeInShape: 2
-        fadeOutLength: 0.5
+        fadeOutLength: 0
         fadeOutShape: -2
         followPosition: 1
         bypassReverbZones: 0

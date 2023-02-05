@@ -32,8 +32,8 @@ MonoBehaviour:
       muteEnable: 0
       soloEnable: 0
       soundEventModifier:
-        volumeDecibel: 0
-        volumeRatio: 1
+        volumeDecibel: -3.5
+        volumeRatio: 0.6683439
         pitchSemitone: 0
         pitchRatio: 1
         delay: 0
