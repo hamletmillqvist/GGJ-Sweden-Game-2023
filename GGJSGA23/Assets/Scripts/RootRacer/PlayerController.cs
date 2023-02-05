@@ -1,3 +1,4 @@
+using RootRacer.Behaviours;
 using Sonity;
 using UnityEngine;
 
@@ -26,12 +27,9 @@ namespace RootRacer
 		public float sizeMultiplier = 2;
 		public float sizeTime = 5;
 		public bool hasGodMode = false;
-		
-		[Header("Sounds")]
-		[SerializeField]
-		private SoundEvent footstepsSoundEvent;
-		[SerializeField]
-		private SoundEvent deathSoundEvent;
+
+		[Header("Sounds")] [SerializeField] private SoundEvent footstepsSoundEvent;
+		[SerializeField] private SoundEvent deathSoundEvent;
 
 		private Animator headAnimator;
 		private new Camera camera;
@@ -46,7 +44,8 @@ namespace RootRacer
 		private bool hasSizeUp;
 		private Vector3 startPosition;
 		private LineRenderer lineRenderer;
-		
+		private GameObject shieldObject;
+
 		public CircleCollider2D CircleCollider2D { get; set; }
 
 		private void Awake()
@@ -73,19 +72,21 @@ namespace RootRacer
 			lineRenderer.material.SetColor("_PlayerColor", playerColor);
 			ResetPlayer();
 		}
+
 		void OnPause()
 		{
 			footstepsSoundEvent.Stop(transform);
 		}
-        void OnUnPause()
-        {
-            footstepsSoundEvent.Play(transform);
-        }
-        void Update()
+
+		void OnUnPause()
+		{
+			footstepsSoundEvent.Play(transform);
+		}
+
+		void Update()
 		{
 			if (gameManager.isPaused)
 			{
-				
 				return;
 			}
 
@@ -114,24 +115,28 @@ namespace RootRacer
 				Destroy(gameObject);
 			}
 		}
+
 		private void EffectTimers(float deltaTime)
 		{
-            if (invertControls)
-            {
-                invertTimer -= deltaTime;
-                if (invertTimer <= 0)
-                {
-                    invertControls = false;
-                }
-            }
+			if (invertControls)
+			{
+				invertTimer -= deltaTime;
+				if (invertTimer <= 0)
+				{
+					invertControls = false;
+				}
+			}
+
 			if (hasShield)
 			{
 				shieldTimer -= deltaTime;
 				if (shieldTimer <= 0)
 				{
 					hasShield = false;
+					Destroy(shieldObject);
 				}
 			}
+
 			if (hasSizeUp)
 			{
 				sizeTimer -= deltaTime;
@@ -141,14 +146,14 @@ namespace RootRacer
 					transform.localScale = baseSizeScale;
 				}
 			}
-        }
+		}
 
 		private void OnDestroy()
 		{
 			CollisionSystemUtil.UnregisterPlayer(this);
-            gameManager.OnGamePause -= OnPause;
-            gameManager.OnGameUnPause -= OnUnPause;
-        }
+			gameManager.OnGamePause -= OnPause;
+			gameManager.OnGameUnPause -= OnUnPause;
+		}
 
 		private void HandleTouchedItems()
 		{
@@ -168,20 +173,33 @@ namespace RootRacer
 			{
 				lineRenderer.SetPosition(i, pos);
 			}
+
 			hasShield = false;
 			invertControls = false;
 			hasSizeUp = false;
 			transform.localScale = baseSizeScale;
+
+			if (shieldObject)
+			{
+				Destroy(shieldObject);
+			}
 		}
 
 		[ContextMenu("Stun Player")]
 		public void StunPlayer()
 		{
-			if (hasShield || hasGodMode)
+			if (hasGodMode)
 			{
-				hasShield = false;
 				return;
 			}
+			
+			if (hasShield)
+			{
+				hasShield = false;
+				Destroy(shieldObject);
+				return;
+			}
+
 			downSpeed = gameManager.GetTargetSpeed() * 100;
 		}
 
@@ -198,22 +216,25 @@ namespace RootRacer
 			{
 				return;
 			}
-			
+
 			invertTimer = invertTime;
 			invertControls = true;
 		}
+
 		public void Shield()
 		{
 			shieldTimer = shieldTime;
 			hasShield = true;
+			shieldObject = Instantiate(GameManager.ShieldPrefab, transform);
 		}
+
 		public void SizeUp()
 		{
 			if (hasGodMode)
 			{
 				return;
 			}
-			
+
 			transform.localScale = baseSizeScale * sizeMultiplier;
 			hasSizeUp = true;
 			sizeTimer = sizeTime;
@@ -227,7 +248,7 @@ namespace RootRacer
 			{
 				return;
 			}
-			
+
 			downSpeed = Mathf.MoveTowards(downSpeed, targetSpeed, boostReduceAmount * deltaTime);
 		}
 
@@ -285,10 +306,10 @@ namespace RootRacer
 		{
 			var position = transform.position;
 			position += new Vector3(horizontalMoveSpeed * movementDirectionDelta, 0, 0);
-			var minScreenBounds = camera.ScreenToWorldPoint(Vector3.zero); 
-			var maxScreenBounds = camera.ScreenToWorldPoint(new Vector3(Screen.width,Screen.height,0));
+			var minScreenBounds = camera.ScreenToWorldPoint(Vector3.zero);
+			var maxScreenBounds = camera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
 			var radius = CircleCollider2D.radius * transform.localScale.x;
-			position.x = Mathf.Clamp(position.x,minScreenBounds.x+radius,maxScreenBounds.x-radius);
+			position.x = Mathf.Clamp(position.x, minScreenBounds.x + radius, maxScreenBounds.x - radius);
 			//var screenPoint = camera.WorldToScreenPoint(position);		
 			//screenPoint.x = Mathf.Clamp(screenPoint.x, 0, Screen.width);
 			//transform.position = camera.ScreenToWorldPoint(screenPoint);

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731703, g: 0.13414727, b: 0.121078506, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -935,6 +935,8 @@ MonoBehaviour:
   isPaused: 0
   startSpeed: 0.05
   speedIncrease: 0.001
+  shieldPrefab: {fileID: 6325912711023530288, guid: ca79e6cf84e882e418c373f7aa41e2f8,
+    type: 3}
 --- !u!4 &1460642466
 Transform:
   m_ObjectHideFlags: 0

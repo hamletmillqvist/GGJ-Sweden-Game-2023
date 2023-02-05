@@ -15,6 +15,11 @@ namespace RootRacer
 		// Static fields
 		public static GameManager Instance;
 		public static Camera MainCamera;
+		
+		// Static Getters
+		public static IReadOnlyList<PlayerController> Players => Instance.players;
+		public static float Depth => Instance.depth;
+		public static GameObject ShieldPrefab => Instance.shieldPrefab;
 
 		// Public fields
 		public DepthMusicSO gameDepthMusic;
@@ -24,6 +29,7 @@ namespace RootRacer
 		// Private fields (Shown in editor)
 		[SerializeField] private float startSpeed = 0.05f;
 		[SerializeField] private float speedIncrease = 0.1f;
+		[SerializeField] private GameObject shieldPrefab;
 
 		// Private fields (hidden in editor)
 		private Material worldMaterial;
@@ -32,11 +38,7 @@ namespace RootRacer
 		private int shaderPropID;
 		private List<PlayerController> players;
 		private MenuManager menuManager;
-		private int currentlyPlayingDepthMusic = 0;
-		
-		// Getters
-		public static IReadOnlyList<PlayerController> Players => Instance.players;
-		public static float Depth => Instance.depth;
+		private int currentlyPlayingDepthMusic;
 
 		private void Awake()
 		{

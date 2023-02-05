@@ -4,7 +4,10 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - worldMaterial: {fileID: 2100000, guid: d5befd6d57e105348be1257076706496, type: 2}
+  - gameDepthMusic: {instanceID: 0}
+  - worldMeshRenderer: {instanceID: 0}
+  - shieldPrefab: {fileID: 6325912711023530288, guid: ca79e6cf84e882e418c373f7aa41e2f8,
+      type: 3}
   executionOrder: -20
   icon: {instanceID: 0}
   userData: 
