@@ -40,7 +40,7 @@ public class MenuManager : MonoBehaviour
     }
     public void RestartGame()
     {
-        GameManager.instance.StartGame();
+        GameManager.Instance.StartGame();
     }
     public void ShowCredits()
     {
