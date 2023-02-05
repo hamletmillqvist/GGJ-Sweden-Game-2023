@@ -59,16 +59,38 @@ namespace RootRacer
 
 		void Update()
 		{
-            if (isPaused)
-            {
-                return;
-            }
-            ScrollWorld(Time.deltaTime);
-			currentlyPlayingDepthMusic = gameDepthMusic.SetDepthMusic(currentlyPlayingDepthMusic,-yPosition);
+			if (isPaused)
+			{
+				return;
+			}
+
+			ScrollWorld(Time.deltaTime);
+			CheckDepthMusic(yPosition);
 			CollisionSystemUtil.UpdateCollisions();
 		}
 
-        
+		private void CheckDepthMusic(float depth)
+		{
+			//DepthMusic deepestSelectedMusic = gameDepthMusic[currentlyPlayingDepthMusic];
+			int selectedIndex = currentlyPlayingDepthMusic;
+
+			for (int i = currentlyPlayingDepthMusic; i < gameDepthMusic.Length; i++)
+			{
+				DepthMusic depthMusic = gameDepthMusic[i];
+				if (depth > depthMusic.depth)
+				{
+					//deepestSelectedMusic = depthMusic;
+					selectedIndex = i;
+				}
+			}
+
+			if (selectedIndex != currentlyPlayingDepthMusic)
+			{
+				gameDepthMusic[currentlyPlayingDepthMusic].music.Stop2D();
+				gameDepthMusic[selectedIndex].music.Play2D();
+				currentlyPlayingDepthMusic = selectedIndex;
+			}
+		}
 
 		public float GetTargetSpeed()
 		{
@@ -92,18 +114,19 @@ namespace RootRacer
 
 		void UnPauseGame()
 		{
-            Time.timeScale = 1;
-            isPaused = false;
-            onGameUnPause?.Invoke();
-			gameDepthMusic.gameDepthMusic[currentlyPlayingDepthMusic].music.Play2D();
-        }
+			Time.timeScale = 1;
+			isPaused = false;
+			onGameUnPause?.Invoke();
+			gameDepthMusic[currentlyPlayingDepthMusic].music.Play2D();
+		}
+
 		void PauseGame()
 		{
-            onGamePause?.Invoke();
-			gameDepthMusic.gameDepthMusic[currentlyPlayingDepthMusic].music.Stop2D();
+			onGamePause?.Invoke();
+			gameDepthMusic[currentlyPlayingDepthMusic].music.Stop2D();
 			isPaused = true;
-            Time.timeScale = 0;
-        }
+			Time.timeScale = 0;
+		}
 
 		public void ResetGame()
 		{
@@ -132,5 +155,11 @@ namespace RootRacer
 			menuManager.ShowGameOver(playerWin.gameObject.name);
 		}
 	}
-	
+
+	[Serializable]
+	public class DepthMusic
+	{
+		public SoundEvent music;
+		public float depth;
+	}
 }
