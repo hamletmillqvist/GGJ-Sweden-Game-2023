@@ -134,7 +134,7 @@ namespace RootRacer
 			OnGameUnPause?.Invoke();
 			gameDepthMusic.gameDepthMusic[currentlyPlayingDepthMusic].music.Play2D();
 
-			menuManager.ShowGameOver("",false);
+			menuManager.ShowGameOver();
 
 		}
 
@@ -170,7 +170,7 @@ namespace RootRacer
 		public void GameOver(PlayerController playerWin)
 		{
 			PauseGame();
-			menuManager.ShowGameOver(playerWin.gameObject.name,true);
+			menuManager.ShowGameOver();
 		}
 	}
 }
