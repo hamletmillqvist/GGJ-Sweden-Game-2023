@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 811eb8d63d5a9b14ba8f5cf0a9f8bb4d
+guid: 193820a496e8a214da84e37c2a09ea20
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -100,11 +100,23 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: sprPowerup_strip6_0
+      name: sprPowerup_strip6 1_0
       rect:
         serializedVersion: 2
         x: 0
@@ -118,14 +130,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c0ac606e8be94c040ab10958368de623
-      internalID: -135891577
+      spriteID: f96245df0771c8049a4152c71fa2b1be
+      internalID: 2113961511
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprPowerup_strip6_1
+      name: sprPowerup_strip6 1_1
       rect:
         serializedVersion: 2
         x: 32
@@ -139,14 +151,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6dc72f5f1fa935c4ab53744bf2bb0e1e
-      internalID: -1780988630
+      spriteID: 278a46e845068a54fb1d5ad1d18427e3
+      internalID: 2056905464
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprPowerup_strip6_2
+      name: sprPowerup_strip6 1_2
       rect:
         serializedVersion: 2
         x: 64
@@ -160,14 +172,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5c7e830b0faedef4389ae74004b57f16
-      internalID: 160084454
+      spriteID: 6aec1e7fd3478cf4bb8c90304097cef6
+      internalID: 465161368
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprPowerup_strip6_3
+      name: sprPowerup_strip6 1_3
       rect:
         serializedVersion: 2
         x: 96
@@ -181,14 +193,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9d84d6e40ac9b8e4c8d161c3d694da27
-      internalID: 1945712356
+      spriteID: d6394c97ee05a374498912fe33eae2d3
+      internalID: 279079760
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprPowerup_strip6_4
+      name: sprPowerup_strip6 1_4
       rect:
         serializedVersion: 2
         x: 128
@@ -202,14 +214,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3fe6d649d35045d41bb6ae57eed71aea
-      internalID: -83093671
+      spriteID: c5924fa348c93ef40927310ae8b1ae42
+      internalID: -1090549450
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprPowerup_strip6_5
+      name: sprPowerup_strip6 1_5
       rect:
         serializedVersion: 2
         x: 160
@@ -223,8 +235,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 582417f8ca4155b43acaec68d0629090
-      internalID: -1919448529
+      spriteID: ffbfafac8034e8a44b24983bf3b68121
+      internalID: 1754866992
       vertices: []
       indices: 
       edges: []
@@ -232,7 +244,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: cecc3a38d61aa3e4a83cd07456af0a57
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -240,12 +252,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      sprPowerup_strip6_1: -1780988630
-      sprPowerup_strip6_3: 1945712356
-      sprPowerup_strip6_2: 160084454
-      sprPowerup_strip6_4: -83093671
-      sprPowerup_strip6_5: -1919448529
-      sprPowerup_strip6_0: -135891577
+      sprPowerup_strip6 1_1: 2056905464
+      sprPowerup_strip6 1_5: 1754866992
+      sprPowerup_strip6 1_2: 465161368
+      sprPowerup_strip6 1_0: 2113961511
+      sprPowerup_strip6 1_4: -1090549450
+      sprPowerup_strip6 1_3: 279079760
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
