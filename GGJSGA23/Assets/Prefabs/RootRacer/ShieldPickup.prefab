@@ -131,3 +131,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprites:
   - {fileID: -1780988630, guid: 811eb8d63d5a9b14ba8f5cf0a9f8bb4d, type: 3}
+  triggerSound: {fileID: 11400000, guid: 45438958577fdfc4f95a19971993a968, type: 2}

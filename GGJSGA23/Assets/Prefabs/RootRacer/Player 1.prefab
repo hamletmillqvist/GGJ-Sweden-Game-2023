@@ -423,7 +423,7 @@ MonoBehaviour:
   sizeTime: 5
   footstepsSoundEvent: {fileID: 11400000, guid: dfb5e10947097ac488cd40933af88e27,
     type: 2}
-  deathSoundEvent: {fileID: 11400000, guid: 267fd424d8d629d4cb71e83b44b5ba07, type: 2}
+  deathSoundEvent: {fileID: 11400000, guid: 429118cb748dd6543a751eb68cf9a40a, type: 2}
 --- !u!58 &2237443831224695123
 CircleCollider2D:
   m_ObjectHideFlags: 0
