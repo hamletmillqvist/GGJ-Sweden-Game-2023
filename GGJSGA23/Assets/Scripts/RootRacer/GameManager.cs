@@ -37,14 +37,15 @@ namespace RootRacer
 		private float currentSpeed = 0.5f;
 		private int shaderPropID;
 		private List<PlayerController> players;
+		private Stack<PlayerDeathInfo> playerDeaths;
 		private MenuManager menuManager;
 		private int currentlyPlayingDepthMusic;
 
 		private void Awake()
 		{
 			MainCamera = FindObjectOfType<Camera>();
-			//players = FindObjectsOfType<PlayerController>().ToList();
-			players = new();
+			players = new List<PlayerController>();
+			playerDeaths = new Stack<PlayerDeathInfo>();
 			menuManager = FindObjectOfType<MenuManager>();
 			
 			if (menuManager == null)
@@ -160,7 +161,14 @@ namespace RootRacer
 		public static void RemovePlayer(PlayerController playerController)
 		{
 			Instance.players.Remove(playerController);
+			Instance.playerDeaths.Push(new PlayerDeathInfo
+			{
+				Depth = Instance.depth,
+				Player = playerController,
+			});
+			
 			CollisionSystemUtil.UnregisterPlayer(playerController);
+
 			if (Instance.players.Count == 1)
 			{
 				Instance.GameOver(Instance.players[0]);
