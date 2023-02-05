@@ -13,11 +13,5 @@ MonoBehaviour:
   m_Name: DepthMusicLVL1 1
   m_EditorClassIdentifier: 
   gameDepthMusic:
-  - music: {fileID: 11400000, guid: 84a4c154dcd2eed4a9987f389dcf1677, type: 2}
+  - music: {fileID: 11400000, guid: cdadd600744f8f545a52aa343bbd72a3, type: 2}
     depth: 0
-  - music: {fileID: 11400000, guid: ff874b06edb5ee8498ac4f9b5e735d5d, type: 2}
-    depth: 0.5
-  - music: {fileID: 11400000, guid: 2fe15ae31e629384b84367bc1fedb3c0, type: 2}
-    depth: 1
-  - music: {fileID: 11400000, guid: 0a698286d6d558247ad3ee1f3e530687, type: 2}
-    depth: 1.5

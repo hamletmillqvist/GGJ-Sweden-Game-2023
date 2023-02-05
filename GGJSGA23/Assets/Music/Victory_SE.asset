@@ -32,8 +32,8 @@ MonoBehaviour:
       muteEnable: 0
       soloEnable: 0
       soundEventModifier:
-        volumeDecibel: 0
-        volumeRatio: 1
+        volumeDecibel: -21
+        volumeRatio: 0.0891251
         pitchSemitone: 0
         pitchRatio: 1
         delay: 0
@@ -48,7 +48,7 @@ MonoBehaviour:
         distanceScale: 1
         distortionIncrease: 0
         fadeInLength: 0
-        fadeInShape: 2
+        fadeInShape: 7.4
         fadeOutLength: 0
         fadeOutShape: -2
         followPosition: 1
@@ -68,7 +68,7 @@ MonoBehaviour:
         distanceScaleUse: 0
         distortionIncreaseUse: 0
         fadeInLengthUse: 0
-        fadeInShapeUse: 0
+        fadeInShapeUse: 1
         fadeOutLengthUse: 0
         fadeOutShapeUse: 0
         followPositionUse: 0
