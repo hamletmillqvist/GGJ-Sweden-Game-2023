@@ -1,4 +1,3 @@
-using RootRacer.Behaviours;
 using Sonity;
 using UnityEngine;
 
@@ -57,7 +56,6 @@ namespace RootRacer
 			headAnimator = GetComponentInChildren<Animator>();
 			lineRenderer = GetComponentInChildren<LineRenderer>();
 			GameManager.Instance.AddPlayer(this);
-			//GetComponentInChildren<SpriteRenderer>().material.color = playerColor;
 
 			CircleCollider2D = GetComponent<CircleCollider2D>();
 			CollisionSystemUtil.RegisterPlayer(CircleCollider2D);
@@ -109,11 +107,16 @@ namespace RootRacer
 
 			if (GetIsOutsideOfScreen())
 			{
-				deathSoundEvent?.Play(gameManager.transform);
-				footstepsSoundEvent.Stop(transform);
-				GameManager.RemovePlayer(this);
-				Destroy(gameObject);
+				KillPlayer();
 			}
+		}
+
+		public void KillPlayer()
+		{
+			deathSoundEvent?.Play(gameManager.transform);
+			footstepsSoundEvent.Stop(transform);
+			GameManager.RemovePlayer(this);
+			Destroy(gameObject);
 		}
 
 		private void EffectTimers(float deltaTime)
@@ -192,7 +195,7 @@ namespace RootRacer
 			{
 				return;
 			}
-			
+
 			if (hasShield)
 			{
 				hasShield = false;
@@ -244,7 +247,7 @@ namespace RootRacer
 		{
 			var targetSpeed = gameManager.GetTargetSpeed();
 
-			if (downSpeed == targetSpeed)
+			if (downSpeed == targetSpeed) // floating point comparision
 			{
 				return;
 			}
@@ -256,8 +259,9 @@ namespace RootRacer
 		{
 			for (var i = 0; i < lineRenderer.positionCount; i++)
 			{
-				lineRenderer.SetPosition(i,
-					lineRenderer.GetPosition(i) + new Vector3(0, gameManager.GetTargetSpeed() * 100 * deltaTime, 0));
+				lineRenderer.SetPosition(
+					index: i,
+					position: lineRenderer.GetPosition(i) + new Vector3(0, gameManager.GetTargetSpeed() * 100 * deltaTime, 0));
 			}
 
 			var lastPoint = lineRenderer.GetPosition(lineRenderer.positionCount - 1);
@@ -286,16 +290,14 @@ namespace RootRacer
 			transform.position += new Vector3(0, deltaY * deltaTime, 0);
 			ClampVerticalPosition();
 		}
+
 		private void ClampVerticalPosition()
-        {
+		{
 			var position = transform.position;
 			var minScreenBounds = camera.ScreenToWorldPoint(Vector3.zero);
 			var maxScreenBounds = camera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
 			var radius = CircleCollider2D.radius * transform.localScale.y;
-			position.y = Mathf.Clamp(position.y, minScreenBounds.y + radius, maxScreenBounds.y + radius*2);
-			//var screenPoint = camera.WorldToScreenPoint(position);		
-			//screenPoint.x = Mathf.Clamp(screenPoint.x, 0, Screen.width);
-			//transform.position = camera.ScreenToWorldPoint(screenPoint);
+			position.y = Mathf.Clamp(position.y, minScreenBounds.y + radius, maxScreenBounds.y + radius * 2);
 			transform.position = position;
 		}
 
@@ -318,14 +320,14 @@ namespace RootRacer
 		private void UpdateHorizontalPosition(float movementDirectionDelta)
 		{
 			var position = transform.position;
+
 			position += new Vector3(horizontalMoveSpeed * movementDirectionDelta, 0, 0);
+
 			var minScreenBounds = camera.ScreenToWorldPoint(Vector3.zero);
 			var maxScreenBounds = camera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
 			var radius = CircleCollider2D.radius * transform.localScale.x;
 			position.x = Mathf.Clamp(position.x, minScreenBounds.x + radius, maxScreenBounds.x - radius);
-			//var screenPoint = camera.WorldToScreenPoint(position);		
-			//screenPoint.x = Mathf.Clamp(screenPoint.x, 0, Screen.width);
-			//transform.position = camera.ScreenToWorldPoint(screenPoint);
+
 			transform.position = position;
 		}
 

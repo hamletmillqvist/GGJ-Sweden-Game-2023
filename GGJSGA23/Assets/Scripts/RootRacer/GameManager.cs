@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace RootRacer
@@ -15,7 +14,7 @@ namespace RootRacer
 		// Static fields
 		public static GameManager Instance;
 		public static Camera MainCamera;
-		
+
 		// Static Getters
 		public static IReadOnlyList<PlayerController> Players => Instance.players;
 		public static float Depth => Instance.depth;
@@ -47,26 +46,27 @@ namespace RootRacer
 			players = new List<PlayerController>();
 			playerDeaths = new Stack<PlayerDeathInfo>();
 			menuManager = FindObjectOfType<MenuManager>();
-			
+
 			if (menuManager == null)
 			{
 				Debug.LogError("No menuManager in scene");
 			}
-			
+
 			Instance = this;
 			isPaused = true;
 			Time.timeScale = 0;
-			
+
 			worldMaterial = worldMeshRenderer.material;
 		}
+
 		public void AddPlayer(PlayerController playerController)
-        {
-            if (!players.Contains(playerController))
-            {
+		{
+			if (!players.Contains(playerController))
+			{
 				players.Add(playerController);
-            }            
-        }
-		
+			}
+		}
+
 		void Start()
 		{
 			shaderPropID = worldMaterial.shader.GetPropertyNameId(worldMaterial.shader.FindPropertyIndex("_Position"));
@@ -88,31 +88,28 @@ namespace RootRacer
 
 		private void CheckDepthMusic(float depth)
 		{
-			//DepthMusic deepestSelectedMusic = gameDepthMusic[currentlyPlayingDepthMusic];
-			int selectedIndex = currentlyPlayingDepthMusic;
+			var selectedIndex = currentlyPlayingDepthMusic;
 
-			for (int i = currentlyPlayingDepthMusic; i < gameDepthMusic.gameDepthMusic.Length; i++)
+			for (var i = currentlyPlayingDepthMusic; i < gameDepthMusic.gameDepthMusic.Length; i++)
 			{
-				DepthMusic depthMusic = gameDepthMusic.gameDepthMusic[i];
+				var depthMusic = gameDepthMusic.gameDepthMusic[i];
 				if (depth > depthMusic.depth)
 				{
-					//deepestSelectedMusic = depthMusic;
 					selectedIndex = i;
 				}
 			}
 
-			if (selectedIndex != currentlyPlayingDepthMusic)
+			if (selectedIndex == currentlyPlayingDepthMusic)
 			{
-				gameDepthMusic.gameDepthMusic[currentlyPlayingDepthMusic].music.Stop2D();
-				gameDepthMusic.gameDepthMusic[selectedIndex].music.Play2D();
-				currentlyPlayingDepthMusic = selectedIndex;
+				return;
 			}
+			
+			gameDepthMusic.gameDepthMusic[currentlyPlayingDepthMusic].music.Stop2D();
+			gameDepthMusic.gameDepthMusic[selectedIndex].music.Play2D();
+			currentlyPlayingDepthMusic = selectedIndex;
 		}
 
-		public float GetTargetSpeed()
-		{
-			return currentSpeed;
-		}
+		public float GetTargetSpeed() => currentSpeed;
 
 		private void ScrollWorld(float deltaTime)
 		{
@@ -136,7 +133,6 @@ namespace RootRacer
 			gameDepthMusic.gameDepthMusic[currentlyPlayingDepthMusic].music.Play2D();
 
 			menuManager.ShowGameOver();
-
 		}
 
 		void PauseGame()
@@ -166,7 +162,7 @@ namespace RootRacer
 				Depth = Instance.depth,
 				Player = playerController,
 			});
-			
+
 			CollisionSystemUtil.UnregisterPlayer(playerController);
 
 			if (Instance.players.Count == 1)

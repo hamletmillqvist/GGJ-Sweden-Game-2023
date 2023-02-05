@@ -25,7 +25,7 @@ namespace RootRacer
 		{
 			registeredItems.Remove(item);
 			IsDirty = true;
-			
+
 			Debug.Log($"Un-registered item {item.name}");
 		}
 
@@ -34,7 +34,7 @@ namespace RootRacer
 			registeredPlayers.Add(player);
 			collisions.Add(player, new List<BaseSpawnedItemBehaviour>());
 			IsDirty = true;
-			
+
 			Debug.Log($"Registered player: {player.name}");
 		}
 
@@ -44,7 +44,7 @@ namespace RootRacer
 			registeredPlayers.Remove(playerCollider);
 			collisions.Remove(playerCollider);
 			IsDirty = true;
-			
+
 			Debug.Log($"Un-registered player: {player.name}");
 		}
 

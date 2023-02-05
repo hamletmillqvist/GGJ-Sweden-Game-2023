@@ -2,15 +2,16 @@ using UnityEngine;
 
 namespace RootRacer.Behaviours
 {
-    public class SpeedPickupBehaviour : BaseSpawnedItemBehaviour
-    {
-        [SerializeField]private float speedUpAmount;
-        public override void TriggerEffect(PlayerController playerController)
-        {
-            base.TriggerEffect(playerController);
+	public class SpeedPickupBehaviour : BaseSpawnedItemBehaviour
+	{
+		[SerializeField] private float speedUpAmount;
 
-            playerController.SpeedUp(speedUpAmount);
-            Destroy(gameObject);
-        }
-    } 
+		public override void TriggerEffect(PlayerController playerController)
+		{
+			base.TriggerEffect(playerController);
+
+			playerController.SpeedUp(speedUpAmount);
+			Destroy(gameObject);
+		}
+	}
 }
