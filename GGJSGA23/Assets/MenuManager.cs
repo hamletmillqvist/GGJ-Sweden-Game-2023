@@ -58,7 +58,7 @@ public class MenuManager : MonoBehaviour
 				scene = fourPlayerScene;
 				break;
 		}
-		placingsCanvas.gameObject.SetActive(false);
+		//placingsCanvas.gameObject.SetActive(false);
 		MenuCanvas.gameObject.SetActive(false);
 		SceneManager.LoadScene(nextScene, LoadSceneMode.Single);
 		SceneManager.LoadScene(scene, LoadSceneMode.Additive);
@@ -83,7 +83,7 @@ public class MenuManager : MonoBehaviour
 
 	public void GoBack()
 	{
-		creditsCanvas.gameObject.SetActive(false);
+		placingsCanvas.gameObject.SetActive(false);
 		MenuCanvas.gameObject.SetActive(true);
 	}
 
