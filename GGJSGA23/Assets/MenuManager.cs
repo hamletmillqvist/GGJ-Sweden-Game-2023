@@ -1,16 +1,19 @@
 using System;
 using RootRacer;
 using UnityEngine;
+using UnityEngine.Rendering.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
+	public static MenuManager Instance;
 	[SerializeField] private Canvas MenuCanvas;
 	[SerializeField] private Canvas creditsCanvas;
 	[SerializeField] private Canvas placingsCanvas;
-	private int activeScene = 0;
-	[SerializeField] private string nextScene;
+	//private int activeScene = 0;
+	[SerializeField] private string gameScene;
+	[SerializeField] private string titleScene;
 	public Image logo;
 	public Sprite[] logos;
 	public int players = 2;
@@ -19,28 +22,29 @@ public class MenuManager : MonoBehaviour
 	[SerializeField] private string threePlayerScene;
 	[SerializeField] private string fourPlayerScene;
 
-	[SerializeField] private string gameOverScene;
+	//[SerializeField] private string gameOverScene;
 
 	//bool changingScene = false;
 
-	// Start is called before the first frame update
+
 	void Start()
 	{
+		if (Instance == null)
+		{
+            Instance = this;
+        }
+        if (Instance != this)
+		{
+			Destroy(gameObject);
+			return;
+		}
+		
 		DontDestroyOnLoad(this.gameObject);
 	}
 
-	// Update is called once per frame
 	void Update()
 	{ }
 
-	public void LoadNextScene()
-	{
-		//changingScene = true;
-		//activeScene++;
-		//SceneManager.LoadScene(activeScene, LoadSceneMode.Single);
-
-		SceneManager.LoadScene(nextScene, LoadSceneMode.Single);
-	}
 
 	public void StartGame()
 	{
@@ -60,11 +64,16 @@ public class MenuManager : MonoBehaviour
 		}
 		placingsCanvas.gameObject.SetActive(false);
 		MenuCanvas.gameObject.SetActive(false);
-		SceneManager.LoadScene(nextScene, LoadSceneMode.Single);
+		SceneManager.LoadScene(gameScene, LoadSceneMode.Single);
 		SceneManager.LoadScene(scene, LoadSceneMode.Additive);
 	}
+	public void BackToTitle()
+	{
+        SceneManager.LoadScene(titleScene, LoadSceneMode.Single);
+        ShowRootMenu();
+    }
 
-	public void QuitGame()
+    public void QuitGame()
 	{
 		Application.Quit();
 	}
@@ -77,19 +86,25 @@ public class MenuManager : MonoBehaviour
 
 	public void ShowCredits()
 	{
+		HidePanels();
 		creditsCanvas.gameObject.SetActive(true);
-		MenuCanvas.gameObject.SetActive(false);
 	}
 
-	public void GoBack()
+	public void ShowRootMenu()
 	{
-		creditsCanvas.gameObject.SetActive(false);
+		HidePanels();
 		MenuCanvas.gameObject.SetActive(true);
 	}
+	private void HidePanels()
+	{
+        placingsCanvas.gameObject.SetActive(false);
+        creditsCanvas.gameObject.SetActive(false);
+        MenuCanvas.gameObject.SetActive(false);
+    }
 
 	public void ShowGameOver(PlayerController playerController)
 	{
-		//SceneManager.LoadScene(gameOverScene, LoadSceneMode.Single);
+		HidePanels();
 		SetPlace(0, playerController);
 		Debug.Log(GameManager.Instance.playerDeaths.Count);
 		int i = 1;
@@ -102,10 +117,6 @@ public class MenuManager : MonoBehaviour
 			SetPlace(i);
 			i++;
 		}
-  //      for (int i = 0; i <= GameManager.Instance.playerDeaths.Count; i++)
-  //      {
-		//	SetPlace(i+1);
-		//}
 		placingsCanvas.gameObject.SetActive(true);
 	}
 	private void SetPlace(int i, PlayerController player)
@@ -121,7 +132,7 @@ public class MenuManager : MonoBehaviour
 		Color c = placingsImages[i].color;
 		c.a = 1f;
 		placingsImages[i].color = c;
-	}
+	}	
 
 	public void SelectPlayers(int players)
 	{
