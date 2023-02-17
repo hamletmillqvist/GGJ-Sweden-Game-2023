@@ -61,14 +61,14 @@ namespace RootRacer
 			}
 		}
 
-		void Start()
+		private void Start()
 		{
 			shaderPropID = worldMaterial.shader.GetPropertyNameId(worldMaterial.shader.FindPropertyIndex("_Position"));
 
 			StartGame();
 		}
 
-		void Update()
+		private void Update()
 		{
 			if (isPaused)
 			{
@@ -97,7 +97,7 @@ namespace RootRacer
 			{
 				return;
 			}
-			
+
 			gameDepthMusic.gameDepthMusic[currentlyPlayingDepthMusic].music.Stop2D();
 			gameDepthMusic.gameDepthMusic[selectedIndex].music.Play2D();
 			currentlyPlayingDepthMusic = selectedIndex;
@@ -119,7 +119,7 @@ namespace RootRacer
 			UnPauseGame();
 		}
 
-		void UnPauseGame()
+		private void UnPauseGame()
 		{
 			Time.timeScale = 1;
 			isPaused = false;
@@ -127,7 +127,7 @@ namespace RootRacer
 			gameDepthMusic.gameDepthMusic[currentlyPlayingDepthMusic].music.Play2D();
 		}
 
-		void PauseGame()
+		private void PauseGame()
 		{
 			OnGamePause?.Invoke();
 			gameDepthMusic.gameDepthMusic[currentlyPlayingDepthMusic].music.Stop2D();

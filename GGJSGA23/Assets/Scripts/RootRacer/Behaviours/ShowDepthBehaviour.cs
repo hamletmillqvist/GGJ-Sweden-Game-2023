@@ -39,7 +39,7 @@ public class ShowDepthBehaviour : MonoBehaviour
 		tmpText.text = GetDepth();
 	}
 
-	string GetDepth()
+	private string GetDepth()
 	{
 		return (-GameManager.Depth).ToString("0.#m");
 	}
