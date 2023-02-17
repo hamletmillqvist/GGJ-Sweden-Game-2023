@@ -7,8 +7,7 @@ public class ShowDepthBehaviour : MonoBehaviour
 {
 	private Text legacyText;
 	private TextMeshProUGUI tmpText;
-	bool useLegacyText = false;
-
+	private bool useLegacyText;
 
 	private void Awake()
 	{

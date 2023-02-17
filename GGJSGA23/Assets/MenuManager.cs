@@ -9,36 +9,24 @@ public class MenuManager : MonoBehaviour
 	[SerializeField] private Canvas MenuCanvas;
 	[SerializeField] private Canvas creditsCanvas;
 	[SerializeField] private Canvas placingsCanvas;
-	private int activeScene = 0;
-	[SerializeField] private string nextScene;
+
 	public Image logo;
 	public Sprite[] logos;
 	public int players = 2;
 	public Image[] placingsImages;
+
+	[SerializeField] private string nextScene;
 	[SerializeField] private string twoPlayerScene;
 	[SerializeField] private string threePlayerScene;
 	[SerializeField] private string fourPlayerScene;
 
-	[SerializeField] private string gameOverScene;
-
-	//bool changingScene = false;
-
-	// Start is called before the first frame update
-	void Start()
+	private void Start()
 	{
 		DontDestroyOnLoad(this.gameObject);
 	}
 
-	// Update is called once per frame
-	void Update()
-	{ }
-
 	public void LoadNextScene()
 	{
-		//changingScene = true;
-		//activeScene++;
-		//SceneManager.LoadScene(activeScene, LoadSceneMode.Single);
-
 		SceneManager.LoadScene(nextScene, LoadSceneMode.Single);
 	}
 
@@ -92,7 +80,6 @@ public class MenuManager : MonoBehaviour
 
 	public void ShowGameOver(PlayerController playerController)
 	{
-		//SceneManager.LoadScene(gameOverScene, LoadSceneMode.Single);
 		SetPlace(0, playerController);
 		Debug.Log(GameManager.Instance.playerDeaths.Count);
 		int i = 1;
@@ -105,10 +92,7 @@ public class MenuManager : MonoBehaviour
 			SetPlace(i);
 			i++;
 		}
-  //      for (int i = 0; i <= GameManager.Instance.playerDeaths.Count; i++)
-  //      {
-		//	SetPlace(i+1);
-		//}
+
 		placingsCanvas.gameObject.SetActive(true);
 	}
 	private void SetPlace(int i, PlayerController player)

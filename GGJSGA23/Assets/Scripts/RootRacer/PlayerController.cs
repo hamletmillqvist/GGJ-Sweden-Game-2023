@@ -198,7 +198,6 @@ namespace RootRacer
 
 			if (hasShield)
 			{
-				
 				DestroyShield();
 				return;
 			}
