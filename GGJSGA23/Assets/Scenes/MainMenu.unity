@@ -1270,15 +1270,25 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4569696773873232849, guid: 4e9132a4d67980b4aac7b104a1b5f222,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: GoBack
+      objectReference: {fileID: 0}
     - target: {fileID: 4981224796080467228, guid: 4e9132a4d67980b4aac7b104a1b5f222,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6359176999463132254, guid: 4e9132a4d67980b4aac7b104a1b5f222,
         type: 3}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7774367739525144429, guid: 4e9132a4d67980b4aac7b104a1b5f222,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7890084479536877985, guid: 4e9132a4d67980b4aac7b104a1b5f222,
         type: 3}

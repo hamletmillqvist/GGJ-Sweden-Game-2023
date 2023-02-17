@@ -44,7 +44,9 @@ public class MenuManager : MonoBehaviour
 
 	public void StartGame()
 	{
-		string scene;
+        placingsCanvas.gameObject.SetActive(false);
+        MenuCanvas.gameObject.SetActive(false);
+        string scene;
 		switch (players)
 		{
 			default:
@@ -58,11 +60,11 @@ public class MenuManager : MonoBehaviour
 				scene = fourPlayerScene;
 				break;
 		}
-		placingsCanvas.gameObject.SetActive(false);
-		MenuCanvas.gameObject.SetActive(false);
-		SceneManager.LoadScene(nextScene, LoadSceneMode.Single);
+		SceneManager.LoadScene(nextScene);
 		SceneManager.LoadScene(scene, LoadSceneMode.Additive);
-	}
+        placingsCanvas.gameObject.SetActive(false);
+        MenuCanvas.gameObject.SetActive(false);
+    }
 
 	public void QuitGame()
 	{
@@ -83,8 +85,9 @@ public class MenuManager : MonoBehaviour
 
 	public void GoBack()
 	{
-		creditsCanvas.gameObject.SetActive(false);
-		MenuCanvas.gameObject.SetActive(true);
+		SceneManager.LoadScene("MainMenu");
+		placingsCanvas.gameObject.SetActive(false);
+		Destroy(gameObject);
 	}
 
 	public void ShowGameOver(PlayerController playerController)
